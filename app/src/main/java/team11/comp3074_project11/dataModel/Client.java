@@ -8,18 +8,16 @@ import java.util.List;
 
 public class Client {
     private String clientId, firstName, lastName, email, password;
-    private int creditCardNo;
-    private List<Itinerary> itineraryList;
+    private String creditCardNo;
 
     public Client(String clientId, String firstName, String lastName,
-                  String email, String password, int creditCardNo, List<Itinerary> itineraryList) {
+                  String email, String password, String creditCardNo) {
         this.clientId = clientId;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
         this.creditCardNo = creditCardNo;
-        this.itineraryList = itineraryList;
     }
 
     public String getClientId() {
@@ -62,21 +60,14 @@ public class Client {
         this.password = password;
     }
 
-    public int getCreditCardNo() {
+    public String getCreditCardNo() {
         return creditCardNo;
     }
 
-    public void setCreditCardNo(int creditCardNo) {
+    public void setCreditCardNo(String creditCardNo) {
         this.creditCardNo = creditCardNo;
     }
 
-    public List<Itinerary> getItineraryList() {
-        return itineraryList;
-    }
-
-    public void setItineraryList(List<Itinerary> itineraryList) {
-        this.itineraryList = itineraryList;
-    }
 
     @Override
     public String toString() {
@@ -87,7 +78,6 @@ public class Client {
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", creditCardNo=" + creditCardNo +
-                ", itineraryList=" + itineraryList +
                 '}';
     }
 }

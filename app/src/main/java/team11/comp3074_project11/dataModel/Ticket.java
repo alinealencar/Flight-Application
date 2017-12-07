@@ -5,13 +5,12 @@ package team11.comp3074_project11.dataModel;
  */
 
 public class Ticket {
-    private String ticketId, ticketNo;
-    private Flight flight;
+    private String ticketId, flightId_FK, itinerary_FK;
 
-    public Ticket(String ticketId, String ticketNo, Flight flight) {
+    public Ticket(String ticketId, String flightId_FK, String itinerary_FK) {
         this.ticketId = ticketId;
-        this.ticketNo = ticketNo;
-        this.flight = flight;
+        this.flightId_FK = flightId_FK;
+        this.itinerary_FK = itinerary_FK;
     }
 
     public String getTicketId() {
@@ -22,28 +21,28 @@ public class Ticket {
         this.ticketId = ticketId;
     }
 
-    public String getTicketNo() {
-        return ticketNo;
+    public String getFlightId_FK() {
+        return flightId_FK;
     }
 
-    public void setTicketNo(String ticketNo) {
-        this.ticketNo = ticketNo;
+    public void setFlightId_FK(String flightId_FK) {
+        this.flightId_FK = flightId_FK;
     }
 
-    public Flight getFlight() {
-        return flight;
+    public String getItinerary_FK() {
+        return itinerary_FK;
     }
 
-    public void setFlight(Flight flight) {
-        this.flight = flight;
+    public void setItinerary_FK(String itinerary_FK) {
+        this.itinerary_FK = itinerary_FK;
     }
 
     @Override
     public String toString() {
         return "Ticket{" +
                 "ticketId='" + ticketId + '\'' +
-                ", ticketNo='" + ticketNo + '\'' +
-                ", flight=" + flight +
+                ", flightId_FK='" + flightId_FK + '\'' +
+                ", itinerary_FK='" + itinerary_FK + '\'' +
                 '}';
     }
 }

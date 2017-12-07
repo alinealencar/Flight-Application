@@ -7,13 +7,12 @@ import java.util.List;
  */
 
 public class Itinerary {
-    private String itineraryId, itineraryTitle;
-    private List<Ticket> ticketList;
+    private String itineraryId, itineraryName, clientId_FK;
 
-    public Itinerary(String itineraryId, String itineraryTitle, List<Ticket> ticketList) {
+    public Itinerary(String itineraryId, String itineraryName, String clientId_FK) {
         this.itineraryId = itineraryId;
-        this.itineraryTitle = itineraryTitle;
-        this.ticketList = ticketList;
+        this.itineraryName = itineraryName;
+        this.clientId_FK = clientId_FK;
     }
 
     public String getItineraryId() {
@@ -24,28 +23,28 @@ public class Itinerary {
         this.itineraryId = itineraryId;
     }
 
-    public String getItineraryTitle() {
-        return itineraryTitle;
+    public String getItineraryName() {
+        return itineraryName;
     }
 
-    public void setItineraryTitle(String itineraryTitle) {
-        this.itineraryTitle = itineraryTitle;
+    public void setItineraryName(String itineraryName) {
+        this.itineraryName = itineraryName;
     }
 
-    public List<Ticket> getTicketList() {
-        return ticketList;
+    public String getClientId_FK() {
+        return clientId_FK;
     }
 
-    public void setTicketList(List<Ticket> ticketList) {
-        this.ticketList = ticketList;
+    public void setClientId_FK(String clientId_FK) {
+        this.clientId_FK = clientId_FK;
     }
 
     @Override
     public String toString() {
         return "Itinerary{" +
                 "itineraryId='" + itineraryId + '\'' +
-                ", itineraryTitle='" + itineraryTitle + '\'' +
-                ", ticketList=" + ticketList +
+                ", itineraryName='" + itineraryName + '\'' +
+                ", clientId_FK='" + clientId_FK + '\'' +
                 '}';
     }
 }

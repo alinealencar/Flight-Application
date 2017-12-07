@@ -7,24 +7,22 @@ import java.util.Date;
  */
 
 public class Flight {
-    private String flightId, flightNumber;
+    private String flightId, flightNumber, originAirportId_FK, destAirportId_FK, airlineId_FK;
     private Date departureDateTime, arrivalDateTime;
     private double cost, travelTime;
-    private Airport origin, destination;
-    private Airline airline;
 
-    public Flight(String flightId, String flightNumber, Date departureDateTime,
-                  Date arrivalDateTime, double cost, double travelTime, Airport origin,
-                  Airport destination, Airline airline) {
+    public Flight(String flightId, String flightNumber, String originAirportId_FK,
+                  String destAirportId_FK, String airlineId_FK, Date departureDateTime,
+                  Date arrivalDateTime, double cost, double travelTime) {
         this.flightId = flightId;
         this.flightNumber = flightNumber;
+        this.originAirportId_FK = originAirportId_FK;
+        this.destAirportId_FK = destAirportId_FK;
+        this.airlineId_FK = airlineId_FK;
         this.departureDateTime = departureDateTime;
         this.arrivalDateTime = arrivalDateTime;
         this.cost = cost;
         this.travelTime = travelTime;
-        this.origin = origin;
-        this.destination = destination;
-        this.airline = airline;
     }
 
     public String getFlightId() {
@@ -41,6 +39,30 @@ public class Flight {
 
     public void setFlightNumber(String flightNumber) {
         this.flightNumber = flightNumber;
+    }
+
+    public String getOriginAirportId_FK() {
+        return originAirportId_FK;
+    }
+
+    public void setOriginAirportId_FK(String originAirportId_FK) {
+        this.originAirportId_FK = originAirportId_FK;
+    }
+
+    public String getDestAirportId_FK() {
+        return destAirportId_FK;
+    }
+
+    public void setDestAirportId_FK(String destAirportId_FK) {
+        this.destAirportId_FK = destAirportId_FK;
+    }
+
+    public String getAirlineId_FK() {
+        return airlineId_FK;
+    }
+
+    public void setAirlineId_FK(String airlineId_FK) {
+        this.airlineId_FK = airlineId_FK;
     }
 
     public Date getDepartureDateTime() {
@@ -75,42 +97,18 @@ public class Flight {
         this.travelTime = travelTime;
     }
 
-    public Airport getOrigin() {
-        return origin;
-    }
-
-    public void setOrigin(Airport origin) {
-        this.origin = origin;
-    }
-
-    public Airport getDestination() {
-        return destination;
-    }
-
-    public void setDestination(Airport destination) {
-        this.destination = destination;
-    }
-
-    public Airline getAirline() {
-        return airline;
-    }
-
-    public void setAirline(Airline airline) {
-        this.airline = airline;
-    }
-
     @Override
     public String toString() {
         return "Flight{" +
                 "flightId='" + flightId + '\'' +
                 ", flightNumber='" + flightNumber + '\'' +
+                ", originAirportId_FK='" + originAirportId_FK + '\'' +
+                ", destAirportId_FK='" + destAirportId_FK + '\'' +
+                ", airlineId_FK='" + airlineId_FK + '\'' +
                 ", departureDateTime=" + departureDateTime +
                 ", arrivalDateTime=" + arrivalDateTime +
                 ", cost=" + cost +
                 ", travelTime=" + travelTime +
-                ", origin=" + origin +
-                ", destination=" + destination +
-                ", airline=" + airline +
                 '}';
     }
 }
