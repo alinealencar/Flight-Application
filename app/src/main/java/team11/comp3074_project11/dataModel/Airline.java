@@ -5,18 +5,19 @@ package team11.comp3074_project11.dataModel;
  */
 
 public class Airline {
-    private String airlineId, airlineName;
+    private int airlineId;
+    private String airlineName;
 
-    public Airline(String airlineId, String airlineName) {
+    public Airline(int airlineId, String airlineName) {
         this.airlineId = airlineId;
         this.airlineName = airlineName;
     }
 
-    public String getAirlineId() {
+    public int getAirlineId() {
         return airlineId;
     }
 
-    public void setAirlineId(String airlineId) {
+    public void setAirlineId(int airlineId) {
         this.airlineId = airlineId;
     }
 

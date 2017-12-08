@@ -7,10 +7,11 @@ import java.util.List;
  */
 
 public class Client {
-    private String clientId, firstName, lastName, email, password;
+    private int clientId;
+    private String firstName, lastName, email, password;
     private String creditCardNo;
 
-    public Client(String clientId, String firstName, String lastName,
+    public Client(int clientId, String firstName, String lastName,
                   String email, String password, String creditCardNo) {
         this.clientId = clientId;
         this.firstName = firstName;
@@ -20,11 +21,11 @@ public class Client {
         this.creditCardNo = creditCardNo;
     }
 
-    public String getClientId() {
+    public int getClientId() {
         return clientId;
     }
 
-    public void setClientId(String clientId) {
+    public void setClientId(int clientId) {
         this.clientId = clientId;
     }
 

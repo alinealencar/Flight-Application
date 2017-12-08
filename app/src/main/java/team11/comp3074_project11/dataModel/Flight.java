@@ -7,12 +7,13 @@ import java.util.Date;
  */
 
 public class Flight {
-    private String flightId, flightNumber, originAirportId_FK, destAirportId_FK, airlineId_FK;
+    private int flightId, originAirportId_FK, destAirportId_FK, airlineId_FK;
+    private String flightNumber;
     private Date departureDateTime, arrivalDateTime;
     private double cost, travelTime;
 
-    public Flight(String flightId, String flightNumber, String originAirportId_FK,
-                  String destAirportId_FK, String airlineId_FK, Date departureDateTime,
+    public Flight(int flightId, String flightNumber, int originAirportId_FK,
+                  int destAirportId_FK, int airlineId_FK, Date departureDateTime,
                   Date arrivalDateTime, double cost, double travelTime) {
         this.flightId = flightId;
         this.flightNumber = flightNumber;
@@ -25,11 +26,11 @@ public class Flight {
         this.travelTime = travelTime;
     }
 
-    public String getFlightId() {
+    public int getFlightId() {
         return flightId;
     }
 
-    public void setFlightId(String flightId) {
+    public void setFlightId(int flightId) {
         this.flightId = flightId;
     }
 
@@ -41,27 +42,27 @@ public class Flight {
         this.flightNumber = flightNumber;
     }
 
-    public String getOriginAirportId_FK() {
+    public int getOriginAirportId_FK() {
         return originAirportId_FK;
     }
 
-    public void setOriginAirportId_FK(String originAirportId_FK) {
+    public void setOriginAirportId_FK(int originAirportId_FK) {
         this.originAirportId_FK = originAirportId_FK;
     }
 
-    public String getDestAirportId_FK() {
+    public int getDestAirportId_FK() {
         return destAirportId_FK;
     }
 
-    public void setDestAirportId_FK(String destAirportId_FK) {
+    public void setDestAirportId_FK(int destAirportId_FK) {
         this.destAirportId_FK = destAirportId_FK;
     }
 
-    public String getAirlineId_FK() {
+    public int getAirlineId_FK() {
         return airlineId_FK;
     }
 
-    public void setAirlineId_FK(String airlineId_FK) {
+    public void setAirlineId_FK(int airlineId_FK) {
         this.airlineId_FK = airlineId_FK;
     }
 

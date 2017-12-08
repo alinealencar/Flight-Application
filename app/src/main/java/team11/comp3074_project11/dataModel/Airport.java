@@ -5,18 +5,19 @@ package team11.comp3074_project11.dataModel;
  */
 
 public class Airport {
-    private String airportId, airportName;
+    private int airportId;
+    private String airportName;
 
-    public Airport(String airportId, String airportName) {
+    public Airport(int airportId, String airportName) {
         this.airportId = airportId;
         this.airportName = airportName;
     }
 
-    public String getAirportId() {
+    public int getAirportId() {
         return airportId;
     }
 
-    public void setAirportId(String airportId) {
+    public void setAirportId(int airportId) {
         this.airportId = airportId;
     }
 

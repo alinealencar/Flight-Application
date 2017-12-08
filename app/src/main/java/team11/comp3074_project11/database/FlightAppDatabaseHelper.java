@@ -2,6 +2,7 @@ package team11.comp3074_project11.database;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -154,6 +155,30 @@ public class FlightAppDatabaseHelper extends SQLiteOpenHelper {
     //Overloaded method
     public void insertClient(Client client){
         insertClient(this.getWritableDatabase(), client);
+    }
+
+    /**
+     * Authenticate client based on email and password.
+     *
+     * @param email     String that represents the client's email stored in the database.
+     * @param password  String that represents the client's password stored in the database.
+     * @return  Client  If a record that matches the email/password combination criteria is not found,
+     *                  the object returned is null.
+     */
+    public Client authenticateClient(String email, String password){
+        Client client = null;
+        //Select query
+        String selectClient = "SELECT * FROM tbl_client WHERE email IS '" + email + "' AND " +
+                "password IS '" + password + "'";
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectClient, null);
+
+        //Returns true if a record is found, false otherwise.
+        if (cursor.moveToFirst())
+            client = new Client(cursor.getInt(0), cursor.getString(1), cursor.getString(2),
+                    cursor.getString(3), cursor.getString(4), cursor.getString(5));
+
+        return client;
     }
 
 }

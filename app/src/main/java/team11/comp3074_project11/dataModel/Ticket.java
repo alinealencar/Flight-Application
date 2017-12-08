@@ -5,35 +5,35 @@ package team11.comp3074_project11.dataModel;
  */
 
 public class Ticket {
-    private String ticketId, flightId_FK, itinerary_FK;
+    private int ticketId, flightId_FK, itinerary_FK;
 
-    public Ticket(String ticketId, String flightId_FK, String itinerary_FK) {
+    public Ticket(int ticketId, int flightId_FK, int itinerary_FK) {
         this.ticketId = ticketId;
         this.flightId_FK = flightId_FK;
         this.itinerary_FK = itinerary_FK;
     }
 
-    public String getTicketId() {
+    public int getTicketId() {
         return ticketId;
     }
 
-    public void setTicketId(String ticketId) {
+    public void setTicketId(int ticketId) {
         this.ticketId = ticketId;
     }
 
-    public String getFlightId_FK() {
+    public int getFlightId_FK() {
         return flightId_FK;
     }
 
-    public void setFlightId_FK(String flightId_FK) {
+    public void setFlightId_FK(int flightId_FK) {
         this.flightId_FK = flightId_FK;
     }
 
-    public String getItinerary_FK() {
+    public int getItinerary_FK() {
         return itinerary_FK;
     }
 
-    public void setItinerary_FK(String itinerary_FK) {
+    public void setItinerary_FK(int itinerary_FK) {
         this.itinerary_FK = itinerary_FK;
     }
 

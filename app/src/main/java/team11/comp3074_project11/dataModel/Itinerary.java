@@ -7,19 +7,20 @@ import java.util.List;
  */
 
 public class Itinerary {
-    private String itineraryId, itineraryName, clientId_FK;
+    private int itineraryId, clientId_FK;
+    private String itineraryName;
 
-    public Itinerary(String itineraryId, String itineraryName, String clientId_FK) {
+    public Itinerary(int itineraryId, String itineraryName, int clientId_FK) {
         this.itineraryId = itineraryId;
         this.itineraryName = itineraryName;
         this.clientId_FK = clientId_FK;
     }
 
-    public String getItineraryId() {
+    public int getItineraryId() {
         return itineraryId;
     }
 
-    public void setItineraryId(String itineraryId) {
+    public void setItineraryId(int itineraryId) {
         this.itineraryId = itineraryId;
     }
 
@@ -31,11 +32,11 @@ public class Itinerary {
         this.itineraryName = itineraryName;
     }
 
-    public String getClientId_FK() {
+    public int getClientId_FK() {
         return clientId_FK;
     }
 
-    public void setClientId_FK(String clientId_FK) {
+    public void setClientId_FK(int clientId_FK) {
         this.clientId_FK = clientId_FK;
     }
 
