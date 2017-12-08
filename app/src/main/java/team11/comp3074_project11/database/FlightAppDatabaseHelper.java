@@ -93,7 +93,6 @@ public class FlightAppDatabaseHelper extends SQLiteOpenHelper {
         Date date = new Date();
 
         ContentValues flightValues = new ContentValues();
-        flightValues.put("flightId_PK", flight.getFlightId());
         flightValues.put("flightNumber", flight.getFlightNumber());
         flightValues.put("departureDateTime", dateFormat.format(flight.getDepartureDateTime()));
         flightValues.put("arrivalDateTime", dateFormat.format(flight.getArrivalDateTime()));
@@ -108,7 +107,6 @@ public class FlightAppDatabaseHelper extends SQLiteOpenHelper {
     //Insert Ticket into the database
     public static void insertTicket(SQLiteDatabase db, Ticket ticket){
         ContentValues ticketValues = new ContentValues();
-        ticketValues.put("ticketId_PK", ticket.getTicketId());
         ticketValues.put("flightId_FK", ticket.getFlightId_FK());
         ticketValues.put("clientId_FK", ticket.getClientId_FK());
         db.insert("tbl_ticket", null, ticketValues);
@@ -122,7 +120,6 @@ public class FlightAppDatabaseHelper extends SQLiteOpenHelper {
     //Insert Client into the database
     public static void insertClient(SQLiteDatabase db, Client client){
         ContentValues clientValues = new ContentValues();
-        clientValues.put("clientId_PK", client.getClientId());
         clientValues.put("firstName", client.getFirstName());
         clientValues.put("lastName", client.getLastName());
         clientValues.put("email", client.getEmail());

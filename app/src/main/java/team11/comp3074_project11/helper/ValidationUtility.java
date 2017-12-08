@@ -6,6 +6,7 @@ package team11.comp3074_project11.helper;
 
 public class ValidationUtility {
     /** Validates whether a credit card is a 16-character long numeric string.
+     *
      * @param   ccNumber  a String that represents a credit card number
      * @return            a boolean meaning whether the credit card satisfies all the conditions
      */
@@ -13,5 +14,16 @@ public class ValidationUtility {
         //Remove any special characters that are in between the numbers
         ccNumber = ccNumber.trim().replace(" ","").replace("-", "").replace("/","").replace(".","");
         return ccNumber != null && ccNumber.matches("[-+]?\\d*\\.?\\d+") && ccNumber.length() == 16;
+    }
+
+    /**
+     * Validates whether the user selected the same origin and destination in the form.
+     *
+     * @param origin        a string that represents the origin of the flight in the search
+     * @param destination   a string that represents the destination of the flight in the search
+     * @return              a boolean meaning whether the user select an origin different from the destination
+     */
+    public static boolean isValidOriginDestination(String origin, String destination){
+        return !origin.equals(destination);
     }
 }

@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import team11.comp3074_project11.dataModel.Airline;
 import team11.comp3074_project11.dataModel.Airport;
 import team11.comp3074_project11.dataModel.Client;
 import team11.comp3074_project11.dataModel.Flight;
@@ -51,11 +52,11 @@ public class SearchUtility {
     /**
      * Get all tickets that belong to a certain client.
      *
-     * @param   flightDb            A FlightAppDatabaseHelper object.
-     * @param   client              A Client object.
+     * @param   flightDb         A FlightAppDatabaseHelper object.
+     * @param   client           A Client object.
      * @return  List<Ticket>     A list of Ticket objects.
      */
-    public static List<Ticket> getItineraries(FlightAppDatabaseHelper flightDb, Client client){
+    public static List<Ticket> getTickets(FlightAppDatabaseHelper flightDb, Client client){
         List<Ticket> tickets = new ArrayList<Ticket>();
 
         //Select query
@@ -77,6 +78,7 @@ public class SearchUtility {
 
     /**
      * Get all flights based on origin,  destination and departure date.
+     *
      * @param flightDb          A FlightAppDatabaseHelper object.
      * @param origin            Airport object that represents the flight origin.
      * @param destination       Airport object that represents the flight destination.
@@ -109,5 +111,20 @@ public class SearchUtility {
         }
 
         return flights;
+    }
+
+    public static Airline getAirline(FlightAppDatabaseHelper flightDb, Flight flight){
+        Airline airline = null;
+
+        //Select query
+        String selectAirline = "SELECT * FROM tbl_airline WHERE airlineId_PK IS '" +
+                flight.getAirlineId_FK() + "'";
+        SQLiteDatabase db = flightDb.getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectAirline, null);
+
+        if(cursor.moveToFirst())
+            airline = new Airline(cursor.getInt(0), cursor.getString(1));
+
+        return airline;
     }
 }
