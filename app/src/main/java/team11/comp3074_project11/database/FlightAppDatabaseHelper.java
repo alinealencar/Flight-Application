@@ -13,7 +13,7 @@ import team11.comp3074_project11.dataModel.Airline;
 import team11.comp3074_project11.dataModel.Airport;
 import team11.comp3074_project11.dataModel.Client;
 import team11.comp3074_project11.dataModel.Flight;
-import team11.comp3074_project11.dataModel.Ticket;
+import team11.comp3074_project11.dataModel.Itinerary;
 
 /**
  * Created by aline on 2017-12-07.
@@ -32,7 +32,7 @@ public class FlightAppDatabaseHelper extends SQLiteOpenHelper {
             "cost REAL," +
             "travelTime REAL," +
             "airlineId_FK INTEGER," +
-            "originAiportId_FK INTEGER," +
+            "originAirportId_FK INTEGER," +
             "destAirportId_FK INTEGER);";
 
     private static final String CREATE_AIRLINE_TABLE = "CREATE TABLE tbl_airline (" +
@@ -43,8 +43,8 @@ public class FlightAppDatabaseHelper extends SQLiteOpenHelper {
             "airportId_PK INTEGER PRIMARY KEY AUTOINCREMENT," +
             "airportName TEXT);";
 
-    private static final String CREATE_TICKET_TABLE = "CREATE TABLE tbl_ticket (" +
-            "ticketId_PK INTEGER PRIMARY KEY AUTOINCREMENT," +
+    private static final String CREATE_ITINERARY_TABLE = "CREATE TABLE tbl_itinerary (" +
+            "itineraryId_PK INTEGER PRIMARY KEY AUTOINCREMENT," +
             "flightId_FK INTEGER," +
             "clientId_FK INTEGER);";
 
@@ -63,7 +63,7 @@ public class FlightAppDatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(CREATE_FLIGHT_TABLE);
         db.execSQL(CREATE_AIRLINE_TABLE);
         db.execSQL(CREATE_AIRPORT_TABLE);
-        db.execSQL(CREATE_TICKET_TABLE);
+        db.execSQL(CREATE_ITINERARY_TABLE);
         db.execSQL(CREATE_CLIENT_TABLE);
 
     }
@@ -104,17 +104,17 @@ public class FlightAppDatabaseHelper extends SQLiteOpenHelper {
         db.insert("tbl_flight", null, flightValues);
     }
 
-    //Insert Ticket into the database
-    public static void insertTicket(SQLiteDatabase db, Ticket ticket){
-        ContentValues ticketValues = new ContentValues();
-        ticketValues.put("flightId_FK", ticket.getFlightId_FK());
-        ticketValues.put("clientId_FK", ticket.getClientId_FK());
-        db.insert("tbl_ticket", null, ticketValues);
+    //Insert Itinerary into the database
+    public static void insertItinerary(SQLiteDatabase db, Itinerary itinerary){
+        ContentValues itineraryValues = new ContentValues();
+        itineraryValues.put("flightId_FK", itinerary.getFlightId_FK());
+        itineraryValues.put("clientId_FK", itinerary.getClientId_FK());
+        db.insert("tbl_itinerary", null, itineraryValues);
     }
 
     //Overloaded method
-    public void insertTicket(Ticket ticket){
-        insertTicket(this.getWritableDatabase(), ticket);
+    public void insertItinerary(Itinerary itinerary){
+        insertItinerary(this.getWritableDatabase(), itinerary);
     }
 
     //Insert Client into the database
@@ -155,6 +155,24 @@ public class FlightAppDatabaseHelper extends SQLiteOpenHelper {
                     cursor.getString(3), cursor.getString(4), cursor.getString(5));
 
         return client;
+    }
+
+    /**
+     * Update client information.
+     *
+     * @param db            SQLiteDatabase object
+     * @param client        Client object with the updated information
+     * @param clientId      Integer that represents the client ID of the client whose
+     *                      information will be updated.
+     */
+    public void updateClient(SQLiteDatabase db, Client client, int clientId){
+        ContentValues clientValues = new ContentValues();
+        clientValues.put("firstName", client.getFirstName());
+        clientValues.put("lastName", client.getLastName());
+        clientValues.put("email", client.getEmail());
+        clientValues.put("password", client.getPassword());
+        clientValues.put("creditCardNo", client.getCreditCardNo());
+        db.update("tbl_client", clientValues, "clientId_PK = " + clientId, null);
     }
 
 }

@@ -14,7 +14,7 @@ import team11.comp3074_project11.dataModel.Airline;
 import team11.comp3074_project11.dataModel.Airport;
 import team11.comp3074_project11.dataModel.Client;
 import team11.comp3074_project11.dataModel.Flight;
-import team11.comp3074_project11.dataModel.Ticket;
+import team11.comp3074_project11.dataModel.Itinerary;
 import team11.comp3074_project11.database.FlightAppDatabaseHelper;
 
 /**
@@ -50,30 +50,30 @@ public class SearchUtility {
     }
 
     /**
-     * Get all tickets that belong to a certain client.
+     * Get all itineraries that belong to a certain client.
      *
      * @param   flightDb         A FlightAppDatabaseHelper object.
      * @param   client           A Client object.
-     * @return  List<Ticket>     A list of Ticket objects.
+     * @return  List<Itinerary>     A list of Itinerary objects.
      */
-    public static List<Ticket> getTickets(FlightAppDatabaseHelper flightDb, Client client){
-        List<Ticket> tickets = new ArrayList<Ticket>();
+    public static List<Itinerary> getItineraries(FlightAppDatabaseHelper flightDb, Client client){
+        List<Itinerary> itineraries = new ArrayList<Itinerary>();
 
         //Select query
-        String selectTickets = "SELECT * FROM tbl_ticket WHERE clientId_FK IS '" + client.getClientId() + "'";
+        String selectItineraries = "SELECT * FROM tbl_itinerary WHERE clientId_FK IS '" + client.getClientId() + "'";
         SQLiteDatabase db = flightDb.getReadableDatabase();
-        Cursor cursor = db.rawQuery(selectTickets, null);
+        Cursor cursor = db.rawQuery(selectItineraries, null);
 
         if(cursor.moveToFirst()){
             do {
-                Ticket ticket = new Ticket(cursor.getInt(0), cursor.getInt(1), cursor.getInt(2));
+                Itinerary itinerary = new Itinerary(cursor.getInt(0), cursor.getInt(1), cursor.getInt(2));
             } while (cursor.moveToNext());
         }
 
         cursor.close();
         db.close();
 
-        return tickets;
+        return itineraries;
     }
 
     /**

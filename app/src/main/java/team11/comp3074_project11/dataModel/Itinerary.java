@@ -4,10 +4,10 @@ package team11.comp3074_project11.dataModel;
  * Created by aline on 2017-12-07.
  */
 
-public class Ticket {
+public class Itinerary {
     private int ticketId, flightId_FK, clientId_FK;
 
-    public Ticket(int ticketId, int flightId_FK, int clientId_FK) {
+    public Itinerary(int ticketId, int flightId_FK, int clientId_FK) {
         this.ticketId = ticketId;
         this.flightId_FK = flightId_FK;
         this.clientId_FK = clientId_FK;
@@ -39,7 +39,7 @@ public class Ticket {
 
     @Override
     public String toString() {
-        return "Ticket{" +
+        return "Itinerary{" +
                 "ticketId=" + ticketId +
                 ", flightId_FK=" + flightId_FK +
                 ", clientId_FK=" + clientId_FK +
