@@ -13,7 +13,6 @@ import java.util.List;
 import team11.comp3074_project11.dataModel.Airport;
 import team11.comp3074_project11.dataModel.Client;
 import team11.comp3074_project11.dataModel.Flight;
-import team11.comp3074_project11.dataModel.Itinerary;
 import team11.comp3074_project11.dataModel.Ticket;
 import team11.comp3074_project11.database.FlightAppDatabaseHelper;
 
@@ -50,31 +49,30 @@ public class SearchUtility {
     }
 
     /**
-     * Get all itineraries for a certain client.
+     * Get all tickets that belong to a certain client.
      *
      * @param   flightDb            A FlightAppDatabaseHelper object.
      * @param   client              A Client object.
-     * @return  List<Itinerary>     A list of Itinerary objects.
+     * @return  List<Ticket>     A list of Ticket objects.
      */
-    public static List<Itinerary> getItineraries(FlightAppDatabaseHelper flightDb, Client client){
-        List<Itinerary> itineraries = new ArrayList<Itinerary>();
+    public static List<Ticket> getItineraries(FlightAppDatabaseHelper flightDb, Client client){
+        List<Ticket> tickets = new ArrayList<Ticket>();
 
         //Select query
-        String selectItineraries = "SELECT * FROM tbl_itinerary WHERE clientId_FK IS '" + client.getClientId() + "'";
+        String selectTickets = "SELECT * FROM tbl_ticket WHERE clientId_FK IS '" + client.getClientId() + "'";
         SQLiteDatabase db = flightDb.getReadableDatabase();
-        Cursor cursor = db.rawQuery(selectItineraries, null);
+        Cursor cursor = db.rawQuery(selectTickets, null);
 
         if(cursor.moveToFirst()){
             do {
-                Itinerary itinerary = new Itinerary(cursor.getInt(0), cursor.getString(1), cursor.getInt(2));
-                itineraries.add(itinerary);
+                Ticket ticket = new Ticket(cursor.getInt(0), cursor.getInt(1), cursor.getInt(2));
             } while (cursor.moveToNext());
         }
 
         cursor.close();
         db.close();
 
-        return itineraries;
+        return tickets;
     }
 
     /**
@@ -111,30 +109,5 @@ public class SearchUtility {
         }
 
         return flights;
-    }
-
-    /**
-     * Get all tickets that belong in a certain itinerary.
-     *
-     * @param flightDb          A FlightAppDatabaseHelper object.
-     * @param itinerary         An Itinerary object.
-     * @return List<Ticket>     List of Ticket objects that match the search criteria.
-     */
-    public static List<Ticket> getTickets(FlightAppDatabaseHelper flightDb, Itinerary itinerary){
-        List<Ticket> tickets = new ArrayList<Ticket>();
-
-        //Select query
-        String selectTickets = "SELECT * FROM tbl_ticket WHERE itineraryId_FK IS '" + itinerary.getItineraryId() + "'";
-        SQLiteDatabase db = flightDb.getReadableDatabase();
-        Cursor cursor = db.rawQuery(selectTickets, null);
-
-        if(cursor.moveToFirst()){
-            do {
-                Ticket ticket = new Ticket(cursor.getInt(0), cursor.getInt(1), cursor.getInt(2));
-                tickets.add(ticket);
-            } while (cursor.moveToNext());
-        }
-
-        return tickets;
     }
 }

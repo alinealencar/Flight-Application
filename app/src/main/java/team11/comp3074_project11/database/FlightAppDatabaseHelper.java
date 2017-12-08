@@ -13,7 +13,6 @@ import team11.comp3074_project11.dataModel.Airline;
 import team11.comp3074_project11.dataModel.Airport;
 import team11.comp3074_project11.dataModel.Client;
 import team11.comp3074_project11.dataModel.Flight;
-import team11.comp3074_project11.dataModel.Itinerary;
 import team11.comp3074_project11.dataModel.Ticket;
 
 /**
@@ -47,11 +46,6 @@ public class FlightAppDatabaseHelper extends SQLiteOpenHelper {
     private static final String CREATE_TICKET_TABLE = "CREATE TABLE tbl_ticket (" +
             "ticketId_PK INTEGER PRIMARY KEY AUTOINCREMENT," +
             "flightId_FK INTEGER," +
-            "itineraryId_FK INTEGER);";
-
-    private static final String CREATE_ITINERARY_TABLE = "CREATE TABLE tbl_itinerary (" +
-            "itineraryId_PK INTEGER PRIMARY KEY AUTOINCREMENT," +
-            "itineraryName TEXT," +
             "clientId_FK INTEGER);";
 
     private static final String CREATE_CLIENT_TABLE = "CREATE TABLE tbl_client (" +
@@ -70,7 +64,6 @@ public class FlightAppDatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(CREATE_AIRLINE_TABLE);
         db.execSQL(CREATE_AIRPORT_TABLE);
         db.execSQL(CREATE_TICKET_TABLE);
-        db.execSQL(CREATE_ITINERARY_TABLE);
         db.execSQL(CREATE_CLIENT_TABLE);
 
     }
@@ -112,26 +105,12 @@ public class FlightAppDatabaseHelper extends SQLiteOpenHelper {
         db.insert("tbl_flight", null, flightValues);
     }
 
-    //Insert Itinerary into the database
-    public static void insertItinerary(SQLiteDatabase db, Itinerary itinerary){
-        ContentValues itineraryValues = new ContentValues();
-        itineraryValues.put("itineraryId_PK", itinerary.getItineraryId());
-        itineraryValues.put("itineraryName", itinerary.getItineraryName());
-        itineraryValues.put("clientId_FK", itinerary.getClientId_FK());
-        db.insert("tbl_itinerary", null, itineraryValues);
-    }
-
-    //Overloaded method
-    public void insertItinerary(Itinerary itinerary){
-        insertItinerary(this.getWritableDatabase(), itinerary);
-    }
-
     //Insert Ticket into the database
     public static void insertTicket(SQLiteDatabase db, Ticket ticket){
         ContentValues ticketValues = new ContentValues();
         ticketValues.put("ticketId_PK", ticket.getTicketId());
         ticketValues.put("flightId_FK", ticket.getFlightId_FK());
-        ticketValues.put("itineraryId_FK", ticket.getItinerary_FK());
+        ticketValues.put("clientId_FK", ticket.getClientId_FK());
         db.insert("tbl_ticket", null, ticketValues);
     }
 
