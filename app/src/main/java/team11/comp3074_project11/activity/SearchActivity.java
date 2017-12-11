@@ -31,9 +31,7 @@ public class SearchActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
-        //Hide error messages
-        findViewById(R.id.originErrorTextView).setVisibility(View.INVISIBLE);
-        findViewById(R.id.destErrorTextView).setVisibility(View.INVISIBLE);
+        //Hide error message
         findViewById(R.id.dateErrorTextView).setVisibility(View.INVISIBLE);
 
         final FlightAppDatabaseHelper db = new FlightAppDatabaseHelper(getApplicationContext());
@@ -56,8 +54,8 @@ public class SearchActivity extends Activity {
 
 
         //Load months in the spinnerMonth object
-        Spinner spinnerMonth = (Spinner) findViewById(R.id.spinnerMonth);
-        List<String> months = new ArrayList<String>();
+        final Spinner spinnerMonth = (Spinner) findViewById(R.id.spinnerMonth);
+        final List<String> months = new ArrayList<String>();
         months.add("January");
         months.add("February");
         months.add("March");
@@ -132,6 +130,11 @@ public class SearchActivity extends Activity {
                     public void onClick(View view) {
                         boolean validEntries = true;
 
+                        //Get departure date selected in the spinners
+                        String day = spinnerDay.getSelectedItem().toString();
+                        String month = Integer.toString(spinnerMonth.getSelectedItemPosition() + 1);
+                        String year = spinnerYear.getSelectedItem().toString();
+
                         //Validate data entered by the user by reading the UI objects' values
                         if(!ValidationUtility.isValidAirport(db, originTextView.getText().toString())) {
                             originTextView.setError("Please enter a valid airport");
@@ -142,14 +145,18 @@ public class SearchActivity extends Activity {
                             destTextView.setError("Please enter a valid airport");
                             validEntries = false;
                         }
+                        if(!ValidationUtility.isValidDate(day, month, year)){
+                            findViewById(R.id.dateErrorTextView).setVisibility(View.VISIBLE);
+                            validEntries = false;
+                        }
 
-
-
-                        //If all validations succeed, procceed to the next activity
+                        //If all validations succeed, proceed to the next activity
                         if(validEntries){
                             Intent intent = new Intent(getApplicationContext(), SearchResultsActivity.class);
                             //Pass the data entered by the user to the next activity
-
+                            intent.putExtra("origin", originTextView.getText());
+                            intent.putExtra("destination", destTextView.getText());
+                            intent.putExtra("departureDate", month + "/" + day + "/" + year);
                             startActivity(intent);
                         }
                     }

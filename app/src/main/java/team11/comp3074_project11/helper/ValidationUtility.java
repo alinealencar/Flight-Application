@@ -1,6 +1,12 @@
 package team11.comp3074_project11.helper;
 
+import android.widget.Spinner;
+
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import team11.comp3074_project11.dataModel.Airport;
@@ -55,5 +61,30 @@ public class ValidationUtility {
         }
 
         return false;
+    }
+
+    public static boolean isValidDate(String dayStr, String monthStr, String yearStr){
+        //No selected day, month and/or year
+        if(dayStr.trim().equals("") || monthStr.trim().equals("") || yearStr.trim().equals(""))
+            return false;
+
+        //Selected date
+        String dateStr = monthStr + "/" + dayStr + "/" + yearStr;
+        DateFormat df = new SimpleDateFormat("mm/dd/yyyy");
+        try {
+            Date date = df.parse(dateStr);
+            //Current date
+            Date curDate = new Date();
+
+            //Compare of the selected date is later than the current date
+            if(date.before(curDate))
+                return false;
+        } catch (ParseException e) {
+            return false;
+        }
+
+        return true;
+
+
     }
 }

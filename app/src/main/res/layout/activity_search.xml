@@ -19,13 +19,6 @@
         android:layout_height="wrap_content" />
 
     <TextView
-        android:id="@+id/originErrorTextView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Please enter a valid airport."
-        android:textColor="@android:color/holo_red_dark" />
-
-    <TextView
         android:id="@+id/textView4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -35,13 +28,6 @@
         android:id="@+id/destAutoCompleteTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
-
-    <TextView
-        android:id="@+id/destErrorTextView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Please enter a valid airport."
-        android:textColor="@android:color/holo_red_dark" />
 
     <TextView
         android:id="@+id/textView5"
