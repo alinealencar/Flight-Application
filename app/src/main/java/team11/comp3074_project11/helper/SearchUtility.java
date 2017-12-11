@@ -28,12 +28,12 @@ public class SearchUtility {
      * @param   flightDb        A FlightAppDatabaseHelper object.
      * @return  List<Airport>   A list with Airport objects.
      */
-    public static List<Airport>  getAirports(FlightAppDatabaseHelper flightDb, SQLiteDatabase db){
+    public static List<Airport>  getAirports(FlightAppDatabaseHelper flightDb){
         List<Airport> airports = new ArrayList<Airport>();
 
         //Select query
         String selectAirports = "SELECT * FROM tbl_airport";
-        //SQLiteDatabase db = flightDb.getReadableDatabase();
+        SQLiteDatabase db = flightDb.getReadableDatabase();
         Cursor cursor = db.rawQuery(selectAirports, null);
 
         if(cursor.moveToFirst()){
@@ -98,13 +98,9 @@ public class SearchUtility {
         Cursor cursor = db.rawQuery(selectFlights, null);
 
         if(cursor.moveToFirst()){
-            //The data from the database can only be read as a string.
-            // Convert it to Date format so it can be stored in the Flight object.
-            DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
-
             do {
                 Flight flight = new Flight(cursor.getInt(0), cursor.getString(1), cursor.getInt(2),
-                        cursor.getInt(3), cursor.getInt(4), df.parse(cursor.getString(5)), df.parse(cursor.getString(6)),
+                        cursor.getInt(3), cursor.getInt(4), cursor.getString(5), cursor.getString(6),
                         cursor.getDouble(7), cursor.getDouble(8));
                 flights.add(flight);
             } while (cursor.moveToNext());
@@ -113,6 +109,12 @@ public class SearchUtility {
         return flights;
     }
 
+    /**
+     * Get all airlines stored in the database.
+     *
+     * @param flightDb
+     * @return
+     */
     public static List<Airline> getAirlines(FlightAppDatabaseHelper flightDb){
         List<Airline> airlines = new ArrayList<Airline>();
 
@@ -134,10 +136,16 @@ public class SearchUtility {
         return airlines;
     }
 
+    /**
+     * Get all flights stored in the database.
+     *
+     * @param flightDb
+     * @return
+     * @throws ParseException
+     */
     public static List<Flight> getAllFlights(FlightAppDatabaseHelper flightDb) throws ParseException {
         List<Flight> flights = new ArrayList<Flight>();
 
-        DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
         //Select query
         String selectAirlines = "SELECT * FROM tbl_flight";
         SQLiteDatabase db = flightDb.getReadableDatabase();
@@ -146,7 +154,7 @@ public class SearchUtility {
         if(cursor.moveToFirst()){
             do {
                 Flight flight = new Flight(cursor.getInt(0), cursor.getString(1), cursor.getInt(2),
-                        cursor.getInt(3), cursor.getInt(4), df.parse(cursor.getString(5)), df.parse(cursor.getString(6)),
+                        cursor.getInt(3), cursor.getInt(4), cursor.getString(5), cursor.getString(6),
                         cursor.getDouble(7), cursor.getDouble(8));
                 flights.add(flight);
             } while (cursor.moveToNext());
@@ -158,6 +166,13 @@ public class SearchUtility {
         return flights;
     }
 
+    /**
+     * Get the airline of a specific flight.
+     *
+     * @param flightDb
+     * @param flight
+     * @return
+     */
     public static Airline getAirlineByFlight(FlightAppDatabaseHelper flightDb, Flight flight){
         Airline airline = null;
 
@@ -171,5 +186,20 @@ public class SearchUtility {
             airline = new Airline(cursor.getInt(0), cursor.getString(1), cursor.getString(2));
 
         return airline;
+    }
+
+    public static Airport getAirportPKByName(FlightAppDatabaseHelper flightDb, String airportName){
+        Airport airport = null;
+
+        //Select query
+        String selectAirline = "SELECT * FROM tbl_airport WHERE airportName IS '" +
+                airportName + "'";
+        SQLiteDatabase db = flightDb.getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectAirline, null);
+
+        if(cursor.moveToFirst())
+            airport = new Airport(cursor.getInt(0), cursor.getString(1));
+
+        return airport;
     }
 }

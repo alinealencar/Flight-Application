@@ -13,6 +13,7 @@ import android.widget.MultiAutoCompleteTextView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -37,7 +38,7 @@ public class SearchActivity extends Activity {
         final FlightAppDatabaseHelper db = new FlightAppDatabaseHelper(getApplicationContext());
 
         //Get airports
-        airports = SearchUtility.getAirports(db, db.getReadableDatabase());
+        airports = SearchUtility.getAirports(db);
         List<String> airportNames = new ArrayList<String>();
         for(Airport ap: airports)
             airportNames.add(ap.getAirportName());
@@ -77,7 +78,7 @@ public class SearchActivity extends Activity {
         //Days in a month list
         final List<String> days = new ArrayList<String>();
         for (int i = 1; i <= 31; i++)
-            days.add(Integer.toString(i));
+            days.add(String.format("%02d", i));
 
         //Get spinnerDay object
         final Spinner spinnerDay = (Spinner) findViewById(R.id.spinnerDay);
@@ -132,7 +133,7 @@ public class SearchActivity extends Activity {
 
                         //Get departure date selected in the spinners
                         String day = spinnerDay.getSelectedItem().toString();
-                        String month = Integer.toString(spinnerMonth.getSelectedItemPosition() + 1);
+                        String month = String.format("%02d", spinnerMonth.getSelectedItemPosition() + 1);
                         String year = spinnerYear.getSelectedItem().toString();
 
                         //Validate data entered by the user by reading the UI objects' values
@@ -154,9 +155,9 @@ public class SearchActivity extends Activity {
                         if(validEntries){
                             Intent intent = new Intent(getApplicationContext(), SearchResultsActivity.class);
                             //Pass the data entered by the user to the next activity
-                            intent.putExtra("origin", originTextView.getText());
-                            intent.putExtra("destination", destTextView.getText());
-                            intent.putExtra("departureDate", month + "/" + day + "/" + year);
+                            intent.putExtra("origin", originTextView.getText().toString());
+                            intent.putExtra("destination", destTextView.getText().toString());
+                            intent.putExtra("departureDate", month + "-" + day + "-" + year);
                             startActivity(intent);
                         }
                     }

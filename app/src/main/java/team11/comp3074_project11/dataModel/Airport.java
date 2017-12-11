@@ -1,5 +1,9 @@
 package team11.comp3074_project11.dataModel;
 
+
+import team11.comp3074_project11.activity.SearchActivity;
+import team11.comp3074_project11.helper.SearchUtility;
+
 /**
  * Created by aline on 2017-12-07.
  */
@@ -7,6 +11,7 @@ package team11.comp3074_project11.dataModel;
 public class Airport {
     private int airportId;
     private String airportName;
+
 
     public Airport(String airportName) {
         this.airportName = airportName;
@@ -40,4 +45,5 @@ public class Airport {
                 ", airportName='" + airportName + '\'' +
                 '}';
     }
+
 }

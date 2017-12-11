@@ -33,8 +33,8 @@ public class FlightAppDatabaseHelper extends SQLiteOpenHelper {
     private static final String CREATE_FLIGHT_TABLE = "CREATE TABLE tbl_flight (" +
             "flightId_PK INTEGER PRIMARY KEY AUTOINCREMENT," +
             "flightNumber TEXT," +
-            "departureDateTime DATETIME," +
-            "arrivalDateTime DATETIME," +
+            "departureDateTime TEXT," +
+            "arrivalDateTime TEXT," +
             "cost REAL," +
             "travelTime REAL," +
             "airlineId_FK INTEGER," +
@@ -213,7 +213,7 @@ public class FlightAppDatabaseHelper extends SQLiteOpenHelper {
         List<Flight> randomFlights = new ArrayList<Flight>();
 
         //Get all airports
-        List<Airport> airports = SearchUtility.getAirports(this, db);
+        List<Airport> airports = SearchUtility.getAirports(this);
         List<Airline> airlines = SearchUtility.getAirlines(this);
 
         int numOfAirlines = airlines.size();

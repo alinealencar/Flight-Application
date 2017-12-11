@@ -50,7 +50,7 @@ public class ValidationUtility {
         if(airport.trim().equals(""))
             return false;
 
-        List<Airport> airports = SearchUtility.getAirports(db, db.getReadableDatabase());
+        List<Airport> airports = SearchUtility.getAirports(db);
         List<String> airportNames = new ArrayList<>();
         for(Airport a: airports)
             airportNames.add(a.getAirportName().toLowerCase());

@@ -8,12 +8,11 @@ import java.util.Date;
 
 public class Flight {
     private int flightId, originAirportId_FK, destAirportId_FK, airlineId_FK;
-    private String flightNumber;
-    private Date departureDateTime, arrivalDateTime;
+    private String flightNumber, departureDateTime, arrivalDateTime;
     private double cost, travelTime;
 
     public Flight(int originAirportId_FK, int destAirportId_FK, int airlineId_FK, String flightNumber,
-                  Date departureDateTime, Date arrivalDateTime, double cost, double travelTime) {
+                  String departureDateTime, String arrivalDateTime, double cost, double travelTime) {
         this.originAirportId_FK = originAirportId_FK;
         this.destAirportId_FK = destAirportId_FK;
         this.airlineId_FK = airlineId_FK;
@@ -25,8 +24,8 @@ public class Flight {
     }
 
     public Flight(int flightId, String flightNumber, int originAirportId_FK,
-                  int destAirportId_FK, int airlineId_FK, Date departureDateTime,
-                  Date arrivalDateTime, double cost, double travelTime) {
+                  int destAirportId_FK, int airlineId_FK, String departureDateTime,
+                  String arrivalDateTime, double cost, double travelTime) {
         this.flightId = flightId;
         this.flightNumber = flightNumber;
         this.originAirportId_FK = originAirportId_FK;
@@ -78,19 +77,19 @@ public class Flight {
         this.airlineId_FK = airlineId_FK;
     }
 
-    public Date getDepartureDateTime() {
+    public String getDepartureDateTime() {
         return departureDateTime;
     }
 
-    public void setDepartureDateTime(Date departureDateTime) {
+    public void setDepartureDateTime(String departureDateTime) {
         this.departureDateTime = departureDateTime;
     }
 
-    public Date getArrivalDateTime() {
+    public String getArrivalDateTime() {
         return arrivalDateTime;
     }
 
-    public void setArrivalDateTime(Date arrivalDateTime) {
+    public void setArrivalDateTime(String arrivalDateTime) {
         this.arrivalDateTime = arrivalDateTime;
     }
 
