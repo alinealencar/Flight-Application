@@ -1,5 +1,7 @@
 package team11.comp3074_project11.dataModel;
 
+import android.database.sqlite.SQLiteDatabase;
+
 import java.util.List;
 
 /**
@@ -14,6 +16,15 @@ public class Client {
     public Client(int clientId, String firstName, String lastName,
                   String email, String password, String creditCardNo) {
         this.clientId = clientId;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
+        this.creditCardNo = creditCardNo;
+    }
+
+    public Client(String firstName, String lastName,
+                  String email, String password, String creditCardNo) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;

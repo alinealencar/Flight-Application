@@ -15,12 +15,19 @@ import team11.comp3074_project11.dataModel.Client;
 import team11.comp3074_project11.dataModel.Flight;
 import team11.comp3074_project11.dataModel.Itinerary;
 
+import static team11.comp3074_project11.database.FlightAppContract.ClientEntry.COLUMN_CLIENT_CREDITCARDNO;
+import static team11.comp3074_project11.database.FlightAppContract.ClientEntry.COLUMN_CLIENT_EMAIL;
+import static team11.comp3074_project11.database.FlightAppContract.ClientEntry.COLUMN_CLIENT_FIRSTNAME;
+import static team11.comp3074_project11.database.FlightAppContract.ClientEntry.COLUMN_CLIENT_LASTNAME;
+import static team11.comp3074_project11.database.FlightAppContract.ClientEntry.COLUMN_CLIENT_PASSWORD;
+import static team11.comp3074_project11.database.FlightAppContract.ClientEntry.TABLE_NAME;
+
 /**
  * Created by aline on 2017-12-07.
  */
 
 public class FlightAppDatabaseHelper extends SQLiteOpenHelper {
-    private static final String DB_NAME = "flightAppDB";
+    private static final String DB_NAME = "flightAppDB.db";
     private static final int DB_VERSION = 1;
 
     //Tables
@@ -53,7 +60,7 @@ public class FlightAppDatabaseHelper extends SQLiteOpenHelper {
             "firstName TEXT," +
             "lastName TEXT," +
             "email TEXT UNIQUE," +
-            "password TEXT" +
+            "password TEXT," +
             "creditCardNo TEXT);";
 
     public FlightAppDatabaseHelper(Context context){super(context, DB_NAME, null, DB_VERSION);}
@@ -118,15 +125,22 @@ public class FlightAppDatabaseHelper extends SQLiteOpenHelper {
     }
 
     //Insert Client into the database
-    public static void insertClient(SQLiteDatabase db, Client client){
+
+    public static long insertClient(SQLiteDatabase db, Client client){
+        //create a ContentValue object column
         ContentValues clientValues = new ContentValues();
         clientValues.put("firstName", client.getFirstName());
         clientValues.put("lastName", client.getLastName());
         clientValues.put("email", client.getEmail());
         clientValues.put("password", client.getPassword());
         clientValues.put("creditCardNo", client.getCreditCardNo());
-        db.insert("tbl_client", null, clientValues);
+        //insert a new row for client in the database
+        //returning the ID for that new row
+        long newRowId = db.insert("tbl_client", null, clientValues);
+        return newRowId;
     }
+
+
 
     //Overloaded method
     public void insertClient(Client client){
