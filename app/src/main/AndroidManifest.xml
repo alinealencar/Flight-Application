@@ -20,6 +20,10 @@
             android:name=".activity.DashboardActivity" />
         <activity
             android:name=".activity.SignUpActivity" />
+        <activity
+            android:name=".activity.ItinerariesActivity" />
+        <activity
+            android:name=".activity.ConfirmationActivity" />
 
     </application>
 

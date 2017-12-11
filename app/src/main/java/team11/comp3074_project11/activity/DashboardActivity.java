@@ -26,7 +26,7 @@ public class DashboardActivity extends AppCompatActivity{
     public void onClickSearch(View v){
         Intent intent = new Intent(DashboardActivity.this, SearchActivity.class);
         startActivity(intent);
-    }
+    } */
 
     //when click Itineraries button, the page change to ItinerariesActivity
     public void onClickItineraries(View v){
@@ -34,15 +34,15 @@ public class DashboardActivity extends AppCompatActivity{
         startActivity(intent);
     }
 
-    //when click My Profile button, the page change to ProfileActivity
+/*    //when click My Profile button, the page change to ProfileActivity
     public void onClickProfile(View v){
         Intent intent = new Intent(DashboardActivity.this, ProfileActivity.class);
         startActivity(intent);
     }
-*/
+
     //when click Log Out button, the page change to LoginActivity
     public void onClickLogOut(View v){
         Intent intent = new Intent(DashboardActivity.this, LoginActivity.class);
         startActivity(intent);
-    }
+    } */
 }
