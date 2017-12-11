@@ -38,7 +38,6 @@ public class ValidationUtility {
     public static boolean isValidOriginDestination(String origin, String destination){
         return !origin.equals(destination);
     }
-<<<<<<< HEAD
 
     /**Validates if the inputted value exists or not
      *
@@ -68,8 +67,6 @@ public class ValidationUtility {
         }
         return true;
     }
-||||||| merged common ancestors
-=======
 
     /**
      * Validates whether the string passed as airport is a valid airport in the database.
@@ -119,5 +116,4 @@ public class ValidationUtility {
 
 
     }
->>>>>>> 65f1a82d4662989fcdb19d854af8d481de24c6c9
 }

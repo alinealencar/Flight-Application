@@ -240,7 +240,7 @@ public class FlightAppDatabaseHelper extends SQLiteOpenHelper {
         List<Date> randomDates = new ArrayList<Date>();
         randomDates.add(dateFormat.parse("12-30-2017 13:15:00"));
         randomDates.add(dateFormat.parse("03-01-2018 14:24:00"));
-        randomDates.add(dateFormat.parse("02-26-2018 21:45:00"));
+        randomDates.add(dateFormat.parse("02-26-2018"));
 
         int numOfDates = randomDates.size();
 
@@ -265,7 +265,7 @@ public class FlightAppDatabaseHelper extends SQLiteOpenHelper {
                 double cost = travelTime * 100;
 
                 Flight aFlight = new Flight(airports.get(i).getAirportId(), airports.get(j).getAirportId(),
-                       anAirline.getAirlineId(), randomFlightNumber, departureDate, arrivalDate, cost, travelTime);
+                       anAirline.getAirlineId(), randomFlightNumber, dateFormat.format(departureDate), dateFormat.format(arrivalDate), cost, travelTime);
 
                 randomFlights.add(aFlight);
 
