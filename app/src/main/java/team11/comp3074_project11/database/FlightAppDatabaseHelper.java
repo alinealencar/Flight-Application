@@ -66,6 +66,8 @@ public class FlightAppDatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(CREATE_ITINERARY_TABLE);
         db.execSQL(CREATE_CLIENT_TABLE);
 
+        
+
     }
 
     @Override
