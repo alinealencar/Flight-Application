@@ -19,8 +19,8 @@ public class ConfirmationActivity extends Activity {
         btnItineraries.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
-                Intent nextActivity = new Intent(ConfirmationActivity.this, ItinerariesActivity.class);
-                startActivity(nextActivity);
+                Intent intent = new Intent(ConfirmationActivity.this, ItinerariesActivity.class);
+                startActivity(intent);
             }
         });
     }

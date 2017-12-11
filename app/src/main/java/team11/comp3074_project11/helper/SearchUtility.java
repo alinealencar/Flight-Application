@@ -172,4 +172,29 @@ public class SearchUtility {
 
         return airline;
     }
+
+    public static List<Flight> getFlightByClient(FlightAppDatabaseHelper flightDb, Client client) throws ParseException {
+        List<Flight> flights = new ArrayList<Flight>();
+
+        DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+        //Select query
+        String selectAirlines = "SELECT * FROM tbl_flight INNER JOIN tbl_itinerary WHERE clientId_FK IS '" + client.getClientId() + "'";
+        SQLiteDatabase db = flightDb.getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectAirlines, null);
+
+        if(cursor.moveToFirst()){
+            do {
+                Flight flight = new Flight(cursor.getInt(0), cursor.getString(1), cursor.getInt(2),
+                        cursor.getInt(3), cursor.getInt(4), df.parse(cursor.getString(5)), df.parse(cursor.getString(6)),
+                        cursor.getDouble(7), cursor.getDouble(8));
+                flights.add(flight);
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        db.close();
+
+        return flights;
+    }
+
 }
