@@ -1,3 +1,22 @@
 <resources>
     <string name="app_name">COMP3074_Project11</string>
+    <string name="lblPassword">Password:</string>
+    <string name="btnLogIn">LOG IN</string>
+    <string name="btnSignUp">SIGN UP</string>
+
+    <string name="titleDashboard">Dashboard</string>
+    <string name="btnSearch">Search</string>
+    <string name="btnItineraries">Itineraries</string>
+    <string name="btnProfile">My Profile</string>
+    <string name="btnLogOut">Log Out</string>
+
+    <string name="titleSignUp">Create Profile</string>
+    <string name="lblFirstName">First Name:</string>
+    <string name="lblLastName">Last Name:</string>
+    <string name="lblEmail">Email:</string>
+    <string name="lblCreditCardNo">Credit Card Number:</string>
+    <string name="btnCreateAccount">Create Account</string>
+    <string name="btnCancel">Cancel</string>
+
+
 </resources>
