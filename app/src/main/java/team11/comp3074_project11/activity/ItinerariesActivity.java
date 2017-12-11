@@ -1,11 +1,14 @@
 package team11.comp3074_project11.activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -39,6 +42,15 @@ public class ItinerariesActivity extends Activity {
         } catch (SQLException e) {
             Toast.makeText(getApplicationContext(), "Database error. " + e + "Please try again.", Toast.LENGTH_SHORT).show();
         }
+
+        Button btnBackToHome = (Button) findViewById(R.id.btnBackToHome);
+        btnBackToHome.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View v) {
+                Intent intent = new Intent(ItinerariesActivity.this, DashboardActivity.class);
+                startActivity(intent);
+            }
+        });
 
     }
 }
