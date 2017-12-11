@@ -7,6 +7,11 @@ package team11.comp3074_project11.dataModel;
 public class Itinerary {
     private int ticketId, flightId_FK, clientId_FK;
 
+    public Itinerary(int flightId_FK, int clientId_FK) {
+        this.flightId_FK = flightId_FK;
+        this.clientId_FK = clientId_FK;
+    }
+
     public Itinerary(int ticketId, int flightId_FK, int clientId_FK) {
         this.ticketId = ticketId;
         this.flightId_FK = flightId_FK;

@@ -8,6 +8,10 @@ public class Airline {
     private int airlineId;
     private String airlineName;
 
+    public Airline(String airlineName) {
+        this.airlineName = airlineName;
+    }
+
     public Airline(int airlineId, String airlineName) {
         this.airlineId = airlineId;
         this.airlineName = airlineName;
