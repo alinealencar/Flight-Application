@@ -8,6 +8,10 @@ public class Airport {
     private int airportId;
     private String airportName;
 
+    public Airport(String airportName) {
+        this.airportName = airportName;
+    }
+
     public Airport(int airportId, String airportName) {
         this.airportId = airportId;
         this.airportName = airportName;

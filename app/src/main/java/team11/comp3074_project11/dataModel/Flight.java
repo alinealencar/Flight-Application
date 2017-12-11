@@ -12,6 +12,18 @@ public class Flight {
     private Date departureDateTime, arrivalDateTime;
     private double cost, travelTime;
 
+    public Flight(int originAirportId_FK, int destAirportId_FK, int airlineId_FK, String flightNumber,
+                  Date departureDateTime, Date arrivalDateTime, double cost, double travelTime) {
+        this.originAirportId_FK = originAirportId_FK;
+        this.destAirportId_FK = destAirportId_FK;
+        this.airlineId_FK = airlineId_FK;
+        this.flightNumber = flightNumber;
+        this.departureDateTime = departureDateTime;
+        this.arrivalDateTime = arrivalDateTime;
+        this.cost = cost;
+        this.travelTime = travelTime;
+    }
+
     public Flight(int flightId, String flightNumber, int originAirportId_FK,
                   int destAirportId_FK, int airlineId_FK, Date departureDateTime,
                   Date arrivalDateTime, double cost, double travelTime) {

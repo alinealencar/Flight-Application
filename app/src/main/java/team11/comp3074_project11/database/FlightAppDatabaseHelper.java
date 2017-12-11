@@ -6,14 +6,20 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.text.SimpleDateFormat;
+import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 import team11.comp3074_project11.dataModel.Airline;
 import team11.comp3074_project11.dataModel.Airport;
 import team11.comp3074_project11.dataModel.Client;
 import team11.comp3074_project11.dataModel.Flight;
 import team11.comp3074_project11.dataModel.Itinerary;
+import team11.comp3074_project11.helper.SearchUtility;
 
 import static team11.comp3074_project11.database.FlightAppContract.ClientEntry.COLUMN_CLIENT_CREDITCARDNO;
 import static team11.comp3074_project11.database.FlightAppContract.ClientEntry.COLUMN_CLIENT_EMAIL;
@@ -44,7 +50,8 @@ public class FlightAppDatabaseHelper extends SQLiteOpenHelper {
 
     private static final String CREATE_AIRLINE_TABLE = "CREATE TABLE tbl_airline (" +
             "airlineId_PK INTEGER PRIMARY KEY AUTOINCREMENT," +
-            "airlineName TEXT);";
+            "airlineName TEXT," +
+            "airlineInitials TEXT);";
 
     private static final String CREATE_AIRPORT_TABLE = "CREATE TABLE tbl_airport (" +
             "airportId_PK INTEGER PRIMARY KEY AUTOINCREMENT," +
@@ -73,8 +80,35 @@ public class FlightAppDatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(CREATE_ITINERARY_TABLE);
         db.execSQL(CREATE_CLIENT_TABLE);
 
-    }
+        //Insert airports
+        insertAirport(db, new Airport("Toronto - YYZ"));
+        insertAirport(db, new Airport("Calgary - YYC"));
+        insertAirport(db, new Airport("Vancouver - YVR"));
+        insertAirport(db, new Airport("Montreal - YUL"));
+        insertAirport(db, new Airport("Edmonton - YEG"));
+        insertAirport(db, new Airport("Halifax - YHZ"));
+        insertAirport(db, new Airport("Québec City - YQB"));
+        insertAirport(db, new Airport("Regina - YQR"));
 
+        //Insert airlines
+        insertAirline(db, new Airline("Air Canada", "AC"));
+        insertAirline(db, new Airline("WestJet", "WJ"));
+        insertAirline(db, new Airline("Delta", "DT"));
+        insertAirline(db, new Airline("American Airlines", "AA"));
+
+        //Insert flights
+        try {
+            List<Flight> flights = generateFlights(db);
+            for (Flight flight : flights){
+                insertFlight(db, flight);
+                System.out.println(flight.toString());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+    }
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
@@ -96,8 +130,8 @@ public class FlightAppDatabaseHelper extends SQLiteOpenHelper {
 
     //Insert Flight into the database
     public static void insertFlight(SQLiteDatabase db, Flight flight){
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        Date date = new Date();
+        //Convert to format suitable to store in the database
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy HH:mm:ss");
 
         ContentValues flightValues = new ContentValues();
         flightValues.put("flightNumber", flight.getFlightNumber());
@@ -187,6 +221,58 @@ public class FlightAppDatabaseHelper extends SQLiteOpenHelper {
         clientValues.put("password", client.getPassword());
         clientValues.put("creditCardNo", client.getCreditCardNo());
         db.update("tbl_client", clientValues, "clientId_PK = " + clientId, null);
+    }
+
+    public List<Flight> generateFlights(SQLiteDatabase db) throws ParseException {
+        List<Flight> randomFlights = new ArrayList<Flight>();
+
+        //Get all airports
+        List<Airport> airports = SearchUtility.getAirports(this, db);
+        List<Airline> airlines = SearchUtility.getAirlines(this);
+
+        int numOfAirlines = airlines.size();
+
+        //Tools
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy HH:mm:ss");
+        Date curDate = new Date();
+
+
+        List<Date> randomDates = new ArrayList<Date>();
+        randomDates.add(dateFormat.parse("12-30-2017 13:15:00"));
+        randomDates.add(dateFormat.parse("03-01-2018 14:24:00"));
+        randomDates.add(dateFormat.parse("02-26-2018 21:45:00"));
+
+        int numOfDates = randomDates.size();
+
+        //Randomly generate flights
+        for(int i = 0; i < airports.size(); i++){ //Origin
+            for(int j = 0; j < airports.size(); j++){ //Destination
+                //If the origin equals the destination, continue
+                if(airports.get(i).getAirportId() == airports.get(j).getAirportId())
+                    continue;
+                //Get random airline
+                Airline anAirline = airlines.get((int) Math.random()*(numOfAirlines-1));
+                String randomFlightNumber = anAirline.getAirlineInitials() + Integer.toString((int) Math.random()*(999-100) + 100);
+
+                //Get random departure and arrival dates, and travel time
+                int travelTime = (int) Math.random()*(10-1) + 1;
+                Calendar cal = Calendar.getInstance();
+                Date departureDate = randomDates.get(2);
+                cal.add(Calendar.HOUR, travelTime);
+                Date arrivalDate = cal.getTime(); //5 hours long flight
+
+                //Get random cost
+                double cost = travelTime * 100;
+
+                Flight aFlight = new Flight(airports.get(i).getAirportId(), airports.get(j).getAirportId(),
+                       anAirline.getAirlineId(), randomFlightNumber, departureDate, arrivalDate, cost, travelTime);
+
+                randomFlights.add(aFlight);
+
+            }
+        }
+
+        return randomFlights;
     }
 
 }

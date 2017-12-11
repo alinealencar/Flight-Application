@@ -1,11 +1,14 @@
 package team11.comp3074_project11.activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -24,18 +27,30 @@ public class ItinerariesActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_itineraries);
 
-        List<Itinerary> itinerariesList = new ArrayList<Itinerary>();
-
+        ArrayList<Itinerary> itinerariesList = new ArrayList<Itinerary>();
         try {
             SQLiteOpenHelper dbHelper = new FlightAppDatabaseHelper(getApplicationContext());
             SQLiteDatabase db = dbHelper.getReadableDatabase();
-            //itinerariesList = SearchUtility.getItineraries(db,client);
+
+            //store selected flights by clientId to list
+            //itinerariesList = SearchUtility.getFlightByClient(db,client);
+
+            //populate listview
             //ArrayAdapter<Itinerary> adapter = new ArrayAdapter<Itinerary>(this,android.R.layout.simple_list_item_1,itinerariesList);
-            ListView lv = (ListView) findViewById(R.id.listItineraries);
+            //ListView lv = (ListView) findViewById(R.id.listItineraries);
             //lv.setAdapter(adapter);
         } catch (SQLException e) {
             Toast.makeText(getApplicationContext(), "Database error. " + e + "Please try again.", Toast.LENGTH_SHORT).show();
         }
+
+        Button btnBackToHome = (Button) findViewById(R.id.btnBackToHome);
+        btnBackToHome.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View v) {
+                Intent intent = new Intent(ItinerariesActivity.this, DashboardActivity.class);
+                startActivity(intent);
+            }
+        });
 
     }
 }

@@ -1,5 +1,17 @@
 package team11.comp3074_project11.helper;
 
+import android.widget.Spinner;
+
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import team11.comp3074_project11.dataModel.Airport;
+import team11.comp3074_project11.database.FlightAppDatabaseHelper;
+
 /**
  * Created by aline on 2017-12-07.
  */
@@ -26,6 +38,7 @@ public class ValidationUtility {
     public static boolean isValidOriginDestination(String origin, String destination){
         return !origin.equals(destination);
     }
+<<<<<<< HEAD
 
     /**Validates if the inputted value exists or not
      *
@@ -55,4 +68,56 @@ public class ValidationUtility {
         }
         return true;
     }
+||||||| merged common ancestors
+=======
+
+    /**
+     * Validates whether the string passed as airport is a valid airport in the database.
+     *
+     * @param db            a FlightAppDatabaseHelper object. The database where all airports' names are stored
+     * @param airport       the string passed as airport name
+     * @return              a boolean meaning whether the passed airport name is a valid airport
+     */
+    public static boolean isValidAirport(FlightAppDatabaseHelper db, String airport){
+        if(airport.trim().equals(""))
+            return false;
+
+        List<Airport> airports = SearchUtility.getAirports(db, db.getReadableDatabase());
+        List<String> airportNames = new ArrayList<>();
+        for(Airport a: airports)
+            airportNames.add(a.getAirportName().toLowerCase());
+
+        for(String str: airportNames){
+            if(str.trim().toLowerCase().contains(airport.toLowerCase()))
+                return true;
+        }
+
+        return false;
+    }
+
+    public static boolean isValidDate(String dayStr, String monthStr, String yearStr){
+        //No selected day, month and/or year
+        if(dayStr.trim().equals("") || monthStr.trim().equals("") || yearStr.trim().equals(""))
+            return false;
+
+        //Selected date
+        String dateStr = monthStr + "/" + dayStr + "/" + yearStr;
+        DateFormat df = new SimpleDateFormat("mm/dd/yyyy");
+        try {
+            Date date = df.parse(dateStr);
+            //Current date
+            Date curDate = new Date();
+
+            //Compare of the selected date is later than the current date
+            if(date.before(curDate))
+                return false;
+        } catch (ParseException e) {
+            return false;
+        }
+
+        return true;
+
+
+    }
+>>>>>>> 65f1a82d4662989fcdb19d854af8d481de24c6c9
 }

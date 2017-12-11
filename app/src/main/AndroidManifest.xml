@@ -16,15 +16,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".activity.DashboardActivity" />
-        <activity
-            android:name=".activity.SignUpActivity" />
-        <activity
-            android:name=".activity.ItinerariesActivity" />
-        <activity
-            android:name=".activity.ConfirmationActivity" />
-
+        <activity android:name=".activity.DashboardActivity" />
+        <activity android:name=".activity.SignUpActivity" />
+        <activity android:name=".activity.ItinerariesActivity" />
+        <activity android:name=".activity.ConfirmationActivity" />
+        <activity android:name=".activity.SearchActivity" />
+        <activity android:name=".activity.SearchResultsActivity"></activity>
     </application>
 
 </manifest>

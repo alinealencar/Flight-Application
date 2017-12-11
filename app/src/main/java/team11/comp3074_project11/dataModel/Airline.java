@@ -7,10 +7,17 @@ package team11.comp3074_project11.dataModel;
 public class Airline {
     private int airlineId;
     private String airlineName;
+    private String airlineInitials;
 
-    public Airline(int airlineId, String airlineName) {
+    public Airline(String airlineName, String airlineInitials) {
+        this.airlineName = airlineName;
+        this.airlineInitials = airlineInitials;
+    }
+
+    public Airline(int airlineId, String airlineName, String airlineInitials) {
         this.airlineId = airlineId;
         this.airlineName = airlineName;
+        this.airlineInitials = airlineInitials;
     }
 
     public int getAirlineId() {
@@ -29,11 +36,20 @@ public class Airline {
         this.airlineName = airlineName;
     }
 
+    public String getAirlineInitials() {
+        return airlineInitials;
+    }
+
+    public void setAirlineInitials(String airlineInitials) {
+        this.airlineInitials = airlineInitials;
+    }
+
     @Override
     public String toString() {
         return "Airline{" +
-                "airlineId='" + airlineId + '\'' +
+                "airlineId=" + airlineId +
                 ", airlineName='" + airlineName + '\'' +
+                ", airlineInitials='" + airlineInitials + '\'' +
                 '}';
     }
 }

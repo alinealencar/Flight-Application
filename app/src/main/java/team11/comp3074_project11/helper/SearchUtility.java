@@ -28,12 +28,12 @@ public class SearchUtility {
      * @param   flightDb        A FlightAppDatabaseHelper object.
      * @return  List<Airport>   A list with Airport objects.
      */
-    public static List<Airport>  getAirports(FlightAppDatabaseHelper flightDb){
+    public static List<Airport>  getAirports(FlightAppDatabaseHelper flightDb, SQLiteDatabase db){
         List<Airport> airports = new ArrayList<Airport>();
 
         //Select query
         String selectAirports = "SELECT * FROM tbl_airport";
-        SQLiteDatabase db = flightDb.getReadableDatabase();
+        //SQLiteDatabase db = flightDb.getReadableDatabase();
         Cursor cursor = db.rawQuery(selectAirports, null);
 
         if(cursor.moveToFirst()){
@@ -113,7 +113,52 @@ public class SearchUtility {
         return flights;
     }
 
-    public static Airline getAirline(FlightAppDatabaseHelper flightDb, Flight flight){
+    public static List<Airline> getAirlines(FlightAppDatabaseHelper flightDb){
+        List<Airline> airlines = new ArrayList<Airline>();
+
+        //Select query
+        String selectAirlines = "SELECT * FROM tbl_airline";
+        SQLiteDatabase db = flightDb.getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectAirlines, null);
+
+        if(cursor.moveToFirst()){
+            do {
+                Airline airline = new Airline(cursor.getInt(0), cursor.getString(1), cursor.getString(2));
+                airlines.add(airline);
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        db.close();
+
+        return airlines;
+    }
+
+    public static List<Flight> getAllFlights(FlightAppDatabaseHelper flightDb) throws ParseException {
+        List<Flight> flights = new ArrayList<Flight>();
+
+        DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+        //Select query
+        String selectAirlines = "SELECT * FROM tbl_flight";
+        SQLiteDatabase db = flightDb.getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectAirlines, null);
+
+        if(cursor.moveToFirst()){
+            do {
+                Flight flight = new Flight(cursor.getInt(0), cursor.getString(1), cursor.getInt(2),
+                        cursor.getInt(3), cursor.getInt(4), df.parse(cursor.getString(5)), df.parse(cursor.getString(6)),
+                        cursor.getDouble(7), cursor.getDouble(8));
+                flights.add(flight);
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        db.close();
+
+        return flights;
+    }
+
+    public static Airline getAirlineByFlight(FlightAppDatabaseHelper flightDb, Flight flight){
         Airline airline = null;
 
         //Select query
@@ -123,8 +168,33 @@ public class SearchUtility {
         Cursor cursor = db.rawQuery(selectAirline, null);
 
         if(cursor.moveToFirst())
-            airline = new Airline(cursor.getInt(0), cursor.getString(1));
+            airline = new Airline(cursor.getInt(0), cursor.getString(1), cursor.getString(2));
 
         return airline;
     }
+
+    public static List<Flight> getFlightByClient(FlightAppDatabaseHelper flightDb, Client client) throws ParseException {
+        List<Flight> flights = new ArrayList<Flight>();
+
+        DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+        //Select query
+        String selectAirlines = "SELECT * FROM tbl_flight INNER JOIN tbl_itinerary WHERE clientId_FK IS '" + client.getClientId() + "'";
+        SQLiteDatabase db = flightDb.getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectAirlines, null);
+
+        if(cursor.moveToFirst()){
+            do {
+                Flight flight = new Flight(cursor.getInt(0), cursor.getString(1), cursor.getInt(2),
+                        cursor.getInt(3), cursor.getInt(4), df.parse(cursor.getString(5)), df.parse(cursor.getString(6)),
+                        cursor.getDouble(7), cursor.getDouble(8));
+                flights.add(flight);
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        db.close();
+
+        return flights;
+    }
+
 }

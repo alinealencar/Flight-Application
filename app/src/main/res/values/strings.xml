@@ -23,7 +23,7 @@
     <string name="btnGoToItineraries">GO TO MY ITINERARIES</string>
 
     <string name="titleItineraries">Itineraries</string>
-    <string name="btnBack">BACK</string>
+    <string name="btnBackToHome">BACK TO HOME</string>
 
 
 </resources>
