@@ -37,7 +37,7 @@ public class SearchActivity extends Activity {
         final FlightAppDatabaseHelper db = new FlightAppDatabaseHelper(getApplicationContext());
 
         //Get airports
-        airports = SearchUtility.getAirports(db);
+        airports = SearchUtility.getAirports(db, db.getReadableDatabase());
         List<String> airportNames = new ArrayList<String>();
         for(Airport ap: airports)
             airportNames.add(ap.getAirportName());
