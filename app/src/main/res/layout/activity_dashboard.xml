@@ -22,45 +22,45 @@
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/colorPrimary"
-            android:textSize="20dp"
             android:layout_gravity="center_horizontal"
-            android:text="@string/titleDashboard" />
+            android:text="@string/titleDashboard"
+            android:textColor="@color/colorPrimary"
+            android:textSize="20dp" />
 
         <Button
             android:id="@+id/btnSearch"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="@string/btnSearch"
-            android:onClick="onClickSearch"/>
+            android:onClick="onClickSearch"
+            android:text="@string/btnSearch" />
 
         <Button
             android:id="@+id/btnItinerary"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:text="@string/btnItineraries"
-            android:onClick="onClickItineraries"/>
+            android:onClick="onClickItineraries"
+            android:text="@string/btnItineraries" />
 
         <Button
             android:id="@+id/btnProfile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:text="@string/btnProfile"
-            android:onClick="onClickProfile"/>
+            android:onClick="onClickProfile"
+            android:text="@string/btnProfile" />
 
         <Button
             android:id="@+id/logOut"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
             android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp"
             android:background="@color/colorPrimary"
-            android:textColor="@color/colorLogin"
+            android:onClick="onClickLogOut"
             android:text="@string/btnLogOut"
-            android:onClick="onClickLogOut"/>
+            android:textColor="@color/colorLogin" />
 
     </LinearLayout>
 

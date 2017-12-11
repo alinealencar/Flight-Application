@@ -18,5 +18,12 @@
     <string name="btnCreateAccount">Create Account</string>
     <string name="btnCancel">Cancel</string>
 
+    <string name="titleConfirmation">Success!</string>
+    <string name="confirmationMessage">You have successfully booked this flight.</string>
+    <string name="btnGoToItineraries">GO TO MY ITINERARIES</string>
+
+    <string name="titleItineraries">Itineraries</string>
+    <string name="btnBack">BACK</string>
+
 
 </resources>

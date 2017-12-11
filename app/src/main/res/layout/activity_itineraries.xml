@@ -6,13 +6,29 @@
     android:layout_height="match_parent"
     tools:context="team11.comp3074_project11.activity.ItinerariesActivity">
 
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:textColor="@color/colorPrimary"
+        android:textSize="20dp"
+        android:layout_marginTop="36dp"
+        android:text="@string/titleItineraries"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
     <ListView
         android:id="@+id/listItineraries"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
         android:divider="#b3b3cc"
-        android:dividerHeight="2px" >
+        android:dividerHeight="2px"
+        android:layout_below="@+id/textView2"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="30dp">
     </ListView>
+
 
 </RelativeLayout>

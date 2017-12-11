@@ -10,20 +10,18 @@
         android:id="@+id/imageView3"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:layout_marginTop="19dp"
+        android:layout_marginTop="31dp"
         android:src="@drawable/success"
-        android:layout_marginLeft="27dp"
-        android:layout_marginStart="27dp"
         android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_toLeftOf="@+id/textView18"
+        android:layout_toStartOf="@+id/textView18" />
 
     <TextView
         android:id="@+id/textView18"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="29dp"
-        android:text="@string/success"
+        android:text="@string/titleConfirmation"
         android:textAppearance="@style/TextAppearance.AppCompat.Headline"
         android:layout_alignBottom="@+id/imageView3"
         android:layout_centerHorizontal="true" />
@@ -33,7 +31,7 @@
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="48dp"
-        android:text="@string/success_msg"
+        android:text="@string/confirmationMessage"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:layout_below="@+id/imageView3"
         android:layout_centerHorizontal="true" />
@@ -42,7 +40,7 @@
         android:id="@+id/btnItineraries"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:text="@string/show_itineraries"
+        android:text="@string/btnGoToItineraries"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="105dp" />
