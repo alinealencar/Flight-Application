@@ -7,9 +7,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.MultiAutoCompleteTextView;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -19,6 +21,7 @@ import team11.comp3074_project11.R;
 import team11.comp3074_project11.dataModel.Airport;
 import team11.comp3074_project11.database.FlightAppDatabaseHelper;
 import team11.comp3074_project11.helper.SearchUtility;
+import team11.comp3074_project11.helper.ValidationUtility;
 
 public class SearchActivity extends Activity {
     List<Airport> airports;
@@ -28,7 +31,12 @@ public class SearchActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
-        FlightAppDatabaseHelper db = new FlightAppDatabaseHelper(getApplicationContext());
+        //Hide error messages
+        findViewById(R.id.originErrorTextView).setVisibility(View.INVISIBLE);
+        findViewById(R.id.destErrorTextView).setVisibility(View.INVISIBLE);
+        findViewById(R.id.dateErrorTextView).setVisibility(View.INVISIBLE);
+
+        final FlightAppDatabaseHelper db = new FlightAppDatabaseHelper(getApplicationContext());
 
         //Get airports
         airports = SearchUtility.getAirports(db);
@@ -40,14 +48,11 @@ public class SearchActivity extends Activity {
         ArrayAdapter<String> airportsAdapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_dropdown_item_1line, airportNames);
 
-        MultiAutoCompleteTextView originTextView = (MultiAutoCompleteTextView) findViewById(R.id.OriginAutoCompleteTxtView);
-        MultiAutoCompleteTextView destTextView = (MultiAutoCompleteTextView) findViewById(R.id.DestAutoCompleteTxtView);
+        final AutoCompleteTextView originTextView = (AutoCompleteTextView) findViewById(R.id.originAutoCompleteTextView);
+        final AutoCompleteTextView destTextView = (AutoCompleteTextView) findViewById(R.id.destAutoCompleteTextView);
 
         originTextView.setAdapter(airportsAdapter);
         destTextView.setAdapter(airportsAdapter);
-
-        originTextView.setTokenizer(new MultiAutoCompleteTextView.CommaTokenizer());
-        destTextView.setTokenizer(new MultiAutoCompleteTextView.CommaTokenizer());
 
 
         //Load months in the spinnerMonth object
@@ -125,11 +130,28 @@ public class SearchActivity extends Activity {
 
                     @Override
                     public void onClick(View view) {
-                        //Validate data entered by the user
+                        boolean validEntries = true;
 
-                        Intent intent = new Intent(getApplicationContext(), SearchResultsActivity.class);
-                        //Pass the data entered by the user to the next activity
-                        startActivity(intent);
+                        //Validate data entered by the user by reading the UI objects' values
+                        if(!ValidationUtility.isValidAirport(db, originTextView.getText().toString())) {
+                            originTextView.setError("Please enter a valid airport");
+                            validEntries = false;
+                        }
+
+                        if(!ValidationUtility.isValidAirport(db, destTextView.getText().toString())) {
+                            destTextView.setError("Please enter a valid airport");
+                            validEntries = false;
+                        }
+
+
+
+                        //If all validations succeed, procceed to the next activity
+                        if(validEntries){
+                            Intent intent = new Intent(getApplicationContext(), SearchResultsActivity.class);
+                            //Pass the data entered by the user to the next activity
+
+                            startActivity(intent);
+                        }
                     }
                 };
 

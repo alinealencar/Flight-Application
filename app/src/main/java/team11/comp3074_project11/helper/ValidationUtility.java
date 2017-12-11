@@ -41,6 +41,9 @@ public class ValidationUtility {
      * @return              a boolean meaning whether the passed airport name is a valid airport
      */
     public static boolean isValidAirport(FlightAppDatabaseHelper db, String airport){
+        if(airport.trim().equals(""))
+            return false;
+
         List<Airport> airports = SearchUtility.getAirports(db);
         List<String> airportNames = new ArrayList<>();
         for(Airport a: airports)
