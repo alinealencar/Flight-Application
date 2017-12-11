@@ -24,6 +24,8 @@
             android:name=".activity.ItinerariesActivity" />
         <activity
             android:name=".activity.ConfirmationActivity" />
+        <activity
+            android:name=".activity.SearchActivity" />
 
     </application>
 

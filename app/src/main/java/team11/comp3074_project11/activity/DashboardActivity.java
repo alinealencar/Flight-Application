@@ -21,12 +21,12 @@ public class DashboardActivity extends AppCompatActivity{
         //Get User id and name from the intent
         Intent intent = getIntent();
     }
-/*
+
     //when click Search button, the page change to SearchActivity
     public void onClickSearch(View v){
         Intent intent = new Intent(DashboardActivity.this, SearchActivity.class);
         startActivity(intent);
-    } */
+    }
 
     //when click Itineraries button, the page change to ItinerariesActivity
     public void onClickItineraries(View v){
@@ -39,7 +39,6 @@ public class DashboardActivity extends AppCompatActivity{
         Intent intent = new Intent(DashboardActivity.this, ProfileActivity.class);
         startActivity(intent);
     }
-
     //when click Log Out button, the page change to LoginActivity
     public void onClickLogOut(View v){
         Intent intent = new Intent(DashboardActivity.this, LoginActivity.class);
