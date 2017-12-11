@@ -1,5 +1,11 @@
 package team11.comp3074_project11.helper;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import team11.comp3074_project11.dataModel.Airport;
+import team11.comp3074_project11.database.FlightAppDatabaseHelper;
+
 /**
  * Created by aline on 2017-12-07.
  */
@@ -25,5 +31,26 @@ public class ValidationUtility {
      */
     public static boolean isValidOriginDestination(String origin, String destination){
         return !origin.equals(destination);
+    }
+
+    /**
+     * Validates whether the string passed as airport is a valid airport in the database.
+     *
+     * @param db            a FlightAppDatabaseHelper object. The database where all airports' names are stored
+     * @param airport       the string passed as airport name
+     * @return              a boolean meaning whether the passed airport name is a valid airport
+     */
+    public static boolean isValidAirport(FlightAppDatabaseHelper db, String airport){
+        List<Airport> airports = SearchUtility.getAirports(db);
+        List<String> airportNames = new ArrayList<>();
+        for(Airport a: airports)
+            airportNames.add(a.getAirportName().toLowerCase());
+
+        for(String str: airportNames){
+            if(str.trim().toLowerCase().contains(airport.toLowerCase()))
+                return true;
+        }
+
+        return false;
     }
 }

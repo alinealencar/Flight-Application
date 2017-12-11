@@ -66,7 +66,15 @@ public class FlightAppDatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(CREATE_ITINERARY_TABLE);
         db.execSQL(CREATE_CLIENT_TABLE);
 
-        
+        insertAirport(db, new Airport("Toronto - YYZ"));
+        insertAirport(db, new Airport("Toronto - YTZ"));
+        insertAirport(db, new Airport("Calgary - YYC"));
+        insertAirport(db, new Airport("Vancouver - YVR"));
+        insertAirport(db, new Airport("Montreal - YUL"));
+        insertAirport(db, new Airport("Edmonton - YEG"));
+        insertAirport(db, new Airport("Halifax - YHZ"));
+        insertAirport(db, new Airport("Québec City - YQB"));
+        insertAirport(db, new Airport("Regina - YQR"));
 
     }
 

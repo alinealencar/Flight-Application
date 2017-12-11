@@ -2,14 +2,17 @@ package team11.comp3074_project11.activity;
 
 import android.app.Activity;
 import android.app.IntentService;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.MultiAutoCompleteTextView;
 import android.widget.Spinner;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import team11.comp3074_project11.R;
@@ -45,7 +48,6 @@ public class SearchActivity extends Activity {
 
         originTextView.setTokenizer(new MultiAutoCompleteTextView.CommaTokenizer());
         destTextView.setTokenizer(new MultiAutoCompleteTextView.CommaTokenizer());
-
 
 
         //Load months in the spinnerMonth object
@@ -108,7 +110,8 @@ public class SearchActivity extends Activity {
 
         //Load years in the spinnerYear
         final List<String> years = new ArrayList<String>();
-        for(int i = 2017; i <= 2019; i ++)
+        int curYear = Calendar.getInstance().get(Calendar.YEAR); //Current year
+        for(int i = curYear; i <= curYear + 2; i ++)
             years.add(Integer.toString(i));
 
         final ArrayAdapter<String> yearAdapter = new ArrayAdapter<String>(this,
@@ -116,6 +119,23 @@ public class SearchActivity extends Activity {
 
         spinnerYear.setAdapter(yearAdapter);
 
+        //Adapter for search button
+        final AdapterView.OnClickListener searchFlights =
+                new AdapterView.OnClickListener(){
+
+                    @Override
+                    public void onClick(View view) {
+                        //Validate data entered by the user
+
+                        Intent intent = new Intent(getApplicationContext(), SearchResultsActivity.class);
+                        //Pass the data entered by the user to the next activity
+                        startActivity(intent);
+                    }
+                };
+
+        //Get search button
+        Button btnSearchFlights = (Button) findViewById(R.id.btnSearchFlights);
+        btnSearchFlights.setOnClickListener(searchFlights);
 
     }
 }
