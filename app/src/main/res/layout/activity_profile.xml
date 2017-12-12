@@ -1,23 +1,35 @@
-<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp">
+    android:padding="16dp"
+    android:weightSum="1">
 
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:textColor="@color/colorPrimary"
-        android:textSize="20dp"
         android:layout_marginTop="20dp"
-        android:text="@string/titleSignUp" />
+        android:text="@string/lblMyProfile"
+        android:textColor="@color/colorPrimary"
+        android:textSize="20dp" />
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="108dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.02"
+        android:text="Button"
+        tools:text="@string/btnEdit"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="250dp"/>
 
     <TableLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp">
 
         <TableRow
             android:layout_width="match_parent"
@@ -116,19 +128,4 @@
         </TableRow>
     </TableLayout>
 
-    <Button
-        android:id="@+id/btnCreateAccount"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="@string/btnCreateAccount"
-        android:onClick="onClickCreateAccount"/>
-
-    <Button
-        android:id="@+id/btnCancel"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="@string/btnCancel"
-        android:onClick="onClickCancel"/>
 </LinearLayout>
