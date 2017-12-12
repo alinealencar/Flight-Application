@@ -72,7 +72,7 @@ public class SearchResultsActivity extends Activity {
                         android.R.layout.simple_list_item_1, flightListStr);
             }
 
-            sortSpinner.setAdapter(resultsAdapter);
+            resultsList.setAdapter(resultsAdapter);
         } catch (ParseException e) {
             e.printStackTrace();
         }

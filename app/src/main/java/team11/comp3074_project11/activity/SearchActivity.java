@@ -42,6 +42,7 @@ public class SearchActivity extends Activity {
 
         final FlightAppDatabaseHelper db = new FlightAppDatabaseHelper(getApplicationContext());
 
+
         List<Flight> allFlights = SearchUtility.getAllFlights(db, db.getReadableDatabase());
         List<Airport> allAiports = SearchUtility.getAirports(db, db.getReadableDatabase());
         System.out.println("FLIGHTS SIZE: " + allFlights.size());

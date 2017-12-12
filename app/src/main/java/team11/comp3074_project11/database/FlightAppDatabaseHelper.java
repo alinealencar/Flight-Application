@@ -13,6 +13,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 import team11.comp3074_project11.dataModel.Airline;
@@ -223,6 +224,7 @@ public class FlightAppDatabaseHelper extends SQLiteOpenHelper {
         List<Airline> airlines = SearchUtility.getAirlines(this, db);
 
         int numOfAirlines = airlines.size();
+        int numOfAirports = airports.size();
 
         //Tools
 
@@ -234,30 +236,35 @@ public class FlightAppDatabaseHelper extends SQLiteOpenHelper {
         int numOfDates = randomDates.size();
 
         //Randomly generate flights
-        for(int i = 0; i < airports.size(); i++){ //Origin
-            for(int j = 0; j < airports.size(); j++){ //Destination
-                //If the origin equals the destination, continue
-                if(i == j)
-                    continue;
+        for(int i = 0; i < numOfAirports; i++){ //Origin
+            for(int j = 0; j < numOfAirports; j++){ //Destination
+                //Origin airport must be different from destination airport
+                if(i != j) {
+                    //Loop twice for each origin/destination pair
+                    for (int k = 0; k < 2; k++) {
+                        //Get random airline
+                        Airline anAirline = airlines.get(new Random().nextInt(numOfAirlines));
+                        String randomFlightNumber = anAirline.getAirlineInitials() + (new Random().nextInt(999 - 100) + 100);
 
-                //Loop twice for each origin/destination pair
-                for(int k = 0; k < 2; k++) {
-                    //Get random airline
-                    Airline anAirline = airlines.get((int) Math.random() * (numOfAirlines - 1));
-                    String randomFlightNumber = anAirline.getAirlineInitials() + Integer.toString((int) Math.random() * (999 - 100) + 100);
+                        //Get random travel time
+                        double travelTime = 2.0 + ((15.0 - 2.0) * new Random().nextDouble());
 
-                    //Get random departure and arrival dates, and travel time
-                    int travelTime = (int) Math.random() * (10 - 1) + 1;
+                        //Get random cost
+                        double cost = 200 + ((900 - 200) * new Random().nextDouble());
 
-                    //Get random cost
-                    double cost = travelTime * 100;
+                        Flight aFlight = new Flight();
+                        aFlight.setOriginAirportId_FK(airports.get(i).getAirportId());
+                        aFlight.setDestAirportId_FK(airports.get(j).getAirportId());
+                        aFlight.setAirlineId_FK(anAirline.getAirlineId());
+                        aFlight.setFlightNumber(randomFlightNumber);
+                        aFlight.setDepartureDateTime(randomDates.get(0));
+                        aFlight.setArrivalDateTime(randomDates.get(0));
+                        aFlight.setCost(cost);
+                        aFlight.setTravelTime(travelTime);
 
-                    Flight aFlight = new Flight(airports.get(i).getAirportId(), airports.get(j).getAirportId(),
-                            anAirline.getAirlineId(), randomFlightNumber, randomDates.get(0), randomDates.get(0), cost, travelTime);
-
-                    randomFlights.add(aFlight);
+                        randomFlights.add(aFlight);
+                    }
                 }
-
             }
         }
 

@@ -97,9 +97,16 @@ public class SearchUtility {
 
         if(cursor.moveToFirst()){
             do {
-                Flight flight = new Flight(cursor.getInt(0), cursor.getString(1), cursor.getInt(2),
-                        cursor.getInt(3), cursor.getInt(4), cursor.getString(5), cursor.getString(6),
-                        cursor.getDouble(7), cursor.getDouble(8));
+                Flight flight = new Flight();
+                flight.setFlightId(cursor.getInt(0));
+                flight.setFlightNumber(cursor.getString(1));
+                flight.setDepartureDateTime(cursor.getString(2));
+                flight.setArrivalDateTime(cursor.getString(3));
+                flight.setCost(cursor.getDouble(4));
+                flight.setTravelTime(cursor.getDouble(5));
+                flight.setAirlineId_FK(cursor.getInt(6));
+                flight.setOriginAirportId_FK(cursor.getInt(7));
+                flight.setDestAirportId_FK(cursor.getInt(8));
                 flights.add(flight);
             } while (cursor.moveToNext());
         }

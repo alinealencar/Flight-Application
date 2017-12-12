@@ -11,30 +11,7 @@ public class Flight {
     private String flightNumber, departureDateTime, arrivalDateTime;
     private double cost, travelTime;
 
-    public Flight(int originAirportId_FK, int destAirportId_FK, int airlineId_FK, String flightNumber,
-                  String departureDateTime, String arrivalDateTime, double cost, double travelTime) {
-        this.originAirportId_FK = originAirportId_FK;
-        this.destAirportId_FK = destAirportId_FK;
-        this.airlineId_FK = airlineId_FK;
-        this.flightNumber = flightNumber;
-        this.departureDateTime = departureDateTime;
-        this.arrivalDateTime = arrivalDateTime;
-        this.cost = cost;
-        this.travelTime = travelTime;
-    }
-
-    public Flight(int flightId, String flightNumber, int originAirportId_FK,
-                  int destAirportId_FK, int airlineId_FK, String departureDateTime,
-                  String arrivalDateTime, double cost, double travelTime) {
-        this.flightId = flightId;
-        this.flightNumber = flightNumber;
-        this.originAirportId_FK = originAirportId_FK;
-        this.destAirportId_FK = destAirportId_FK;
-        this.airlineId_FK = airlineId_FK;
-        this.departureDateTime = departureDateTime;
-        this.arrivalDateTime = arrivalDateTime;
-        this.cost = cost;
-        this.travelTime = travelTime;
+    public Flight() {
     }
 
     public int getFlightId() {
@@ -43,14 +20,6 @@ public class Flight {
 
     public void setFlightId(int flightId) {
         this.flightId = flightId;
-    }
-
-    public String getFlightNumber() {
-        return flightNumber;
-    }
-
-    public void setFlightNumber(String flightNumber) {
-        this.flightNumber = flightNumber;
     }
 
     public int getOriginAirportId_FK() {
@@ -75,6 +44,14 @@ public class Flight {
 
     public void setAirlineId_FK(int airlineId_FK) {
         this.airlineId_FK = airlineId_FK;
+    }
+
+    public String getFlightNumber() {
+        return flightNumber;
+    }
+
+    public void setFlightNumber(String flightNumber) {
+        this.flightNumber = flightNumber;
     }
 
     public String getDepartureDateTime() {
@@ -112,13 +89,13 @@ public class Flight {
     @Override
     public String toString() {
         return "Flight{" +
-                "flightId='" + flightId + '\'' +
+                "flightId=" + flightId +
+                ", originAirportId_FK=" + originAirportId_FK +
+                ", destAirportId_FK=" + destAirportId_FK +
+                ", airlineId_FK=" + airlineId_FK +
                 ", flightNumber='" + flightNumber + '\'' +
-                ", originAirportId_FK='" + originAirportId_FK + '\'' +
-                ", destAirportId_FK='" + destAirportId_FK + '\'' +
-                ", airlineId_FK='" + airlineId_FK + '\'' +
-                ", departureDateTime=" + departureDateTime +
-                ", arrivalDateTime=" + arrivalDateTime +
+                ", departureDateTime='" + departureDateTime + '\'' +
+                ", arrivalDateTime='" + arrivalDateTime + '\'' +
                 ", cost=" + cost +
                 ", travelTime=" + travelTime +
                 '}';
