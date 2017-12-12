@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.IntentService;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.style.SubscriptSpan;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -12,14 +13,17 @@ import android.widget.Button;
 import android.widget.MultiAutoCompleteTextView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.DecimalFormat;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
 import team11.comp3074_project11.R;
 import team11.comp3074_project11.dataModel.Airport;
+import team11.comp3074_project11.dataModel.Flight;
 import team11.comp3074_project11.database.FlightAppDatabaseHelper;
 import team11.comp3074_project11.helper.SearchUtility;
 import team11.comp3074_project11.helper.ValidationUtility;
@@ -32,13 +36,20 @@ public class SearchActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
+
         //Hide error message
         findViewById(R.id.dateErrorTextView).setVisibility(View.INVISIBLE);
 
         final FlightAppDatabaseHelper db = new FlightAppDatabaseHelper(getApplicationContext());
 
+        List<Flight> allFlights = SearchUtility.getAllFlights(db, db.getReadableDatabase());
+        List<Airport> allAiports = SearchUtility.getAirports(db, db.getReadableDatabase());
+        System.out.println("FLIGHTS SIZE: " + allFlights.size());
+        System.out.println("AIRPORTS SIZE: " + allAiports.size());
+
+
         //Get airports
-        airports = SearchUtility.getAirports(db);
+        airports = SearchUtility.getAirports(db, db.getReadableDatabase());
         List<String> airportNames = new ArrayList<String>();
         for(Airport ap: airports)
             airportNames.add(ap.getAirportName());

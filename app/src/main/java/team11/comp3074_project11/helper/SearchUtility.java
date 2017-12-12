@@ -28,12 +28,12 @@ public class SearchUtility {
      * @param   flightDb        A FlightAppDatabaseHelper object.
      * @return  List<Airport>   A list with Airport objects.
      */
-    public static List<Airport>  getAirports(FlightAppDatabaseHelper flightDb){
+    public static List<Airport>  getAirports(FlightAppDatabaseHelper flightDb, SQLiteDatabase db){
         List<Airport> airports = new ArrayList<Airport>();
 
         //Select query
         String selectAirports = "SELECT * FROM tbl_airport";
-        SQLiteDatabase db = flightDb.getReadableDatabase();
+        //SQLiteDatabase db = flightDb.getReadableDatabase();
         Cursor cursor = db.rawQuery(selectAirports, null);
 
         if(cursor.moveToFirst()){
@@ -44,7 +44,6 @@ public class SearchUtility {
         }
 
         cursor.close();
-        db.close();
 
         return airports;
     }
@@ -71,7 +70,6 @@ public class SearchUtility {
         }
 
         cursor.close();
-        db.close();
 
         return itineraries;
     }
@@ -87,7 +85,7 @@ public class SearchUtility {
      * @throws ParseException   Can be thrown during the conversion from the database (it's going to be read as a String)
      *                          to the Date object format. Exception is escalated to the next level.
      */
-    public static List<Flight> getFlights(FlightAppDatabaseHelper flightDb, Airport origin, Airport destination, Date departureDate)
+    public static List<Flight> getFlights(FlightAppDatabaseHelper flightDb, Airport origin, Airport destination, String departureDate)
             throws ParseException {
         List<Flight> flights = new ArrayList<Flight>();
 
@@ -115,12 +113,12 @@ public class SearchUtility {
      * @param flightDb
      * @return
      */
-    public static List<Airline> getAirlines(FlightAppDatabaseHelper flightDb){
+    public static List<Airline> getAirlines(FlightAppDatabaseHelper flightDb, SQLiteDatabase db){
         List<Airline> airlines = new ArrayList<Airline>();
 
         //Select query
         String selectAirlines = "SELECT * FROM tbl_airline";
-        SQLiteDatabase db = flightDb.getReadableDatabase();
+        //SQLiteDatabase db = flightDb.getReadableDatabase();
         Cursor cursor = db.rawQuery(selectAirlines, null);
 
         if(cursor.moveToFirst()){
@@ -131,7 +129,6 @@ public class SearchUtility {
         }
 
         cursor.close();
-        db.close();
 
         return airlines;
     }
@@ -143,12 +140,12 @@ public class SearchUtility {
      * @return
      * @throws ParseException
      */
-    public static List<Flight> getAllFlights(FlightAppDatabaseHelper flightDb) throws ParseException {
+    public static List<Flight> getAllFlights(FlightAppDatabaseHelper flightDb, SQLiteDatabase db) {
         List<Flight> flights = new ArrayList<Flight>();
 
         //Select query
         String selectAirlines = "SELECT * FROM tbl_flight";
-        SQLiteDatabase db = flightDb.getReadableDatabase();
+        //SQLiteDatabase db = flightDb.getReadableDatabase();
         Cursor cursor = db.rawQuery(selectAirlines, null);
 
         if(cursor.moveToFirst()){
@@ -161,7 +158,6 @@ public class SearchUtility {
         }
 
         cursor.close();
-        db.close();
 
         return flights;
     }
@@ -222,7 +218,6 @@ public class SearchUtility {
         }
 
         cursor.close();
-        db.close();
 
         return flights;
     }
