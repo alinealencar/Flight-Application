@@ -12,6 +12,12 @@
         android:layout_width="match_parent"
         android:layout_height="94dp" />
 
+    <TextView
+        android:id="@+id/noFlightsTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="There are no flights that match your search criteria." />
+
     <ListView
         android:id="@+id/resultsListView"
         android:layout_width="match_parent"

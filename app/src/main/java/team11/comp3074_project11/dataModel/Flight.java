@@ -1,12 +1,15 @@
 package team11.comp3074_project11.dataModel;
 
+import android.support.annotation.IntDef;
+import android.support.annotation.NonNull;
+
 import java.util.Date;
 
 /**
  * Created by aline on 2017-12-07.
  */
 
-public class Flight {
+public class Flight implements Comparable<Flight> {
     private int flightId, originAirportId_FK, destAirportId_FK, airlineId_FK;
     private String flightNumber, departureDateTime, arrivalDateTime;
     private double cost, travelTime;
@@ -99,5 +102,10 @@ public class Flight {
                 ", cost=" + cost +
                 ", travelTime=" + travelTime +
                 '}';
+    }
+
+    @Override
+    public int compareTo(@NonNull Flight flight) {
+        return Double.compare(this.getCost(), flight.getCost());
     }
 }

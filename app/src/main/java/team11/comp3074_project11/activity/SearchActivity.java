@@ -44,10 +44,9 @@ public class SearchActivity extends Activity {
 
 
         List<Flight> allFlights = SearchUtility.getAllFlights(db, db.getReadableDatabase());
-        List<Airport> allAiports = SearchUtility.getAirports(db, db.getReadableDatabase());
+        List<Airport> allAirports = SearchUtility.getAirports(db, db.getReadableDatabase());
         System.out.println("FLIGHTS SIZE: " + allFlights.size());
-        System.out.println("AIRPORTS SIZE: " + allAiports.size());
-
+        System.out.println("AIRPORTS SIZE: " + allAirports.size());
 
         //Get airports
         airports = SearchUtility.getAirports(db, db.getReadableDatabase());

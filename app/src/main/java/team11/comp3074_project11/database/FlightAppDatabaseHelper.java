@@ -98,6 +98,14 @@ public class FlightAppDatabaseHelper extends SQLiteOpenHelper {
         insertAirline(db, new Airline("Delta", "DT"));
         insertAirline(db, new Airline("American Airlines", "AA"));
 
+//        Flight example = new Flight();
+//        example.setCost(1.0);
+//        example.setTravelTime(300);
+//        example.setOriginAirportId_FK(1);
+//        example.setDestAirportId_FK(2);
+//        example.setDepartureDateTime("02-26-2018");
+//        insertFlight(db, new Flight());
+
         List<Flight> flights = generateFlights(db);
         for (Flight flight : flights){
             insertFlight(db, flight);
@@ -232,6 +240,7 @@ public class FlightAppDatabaseHelper extends SQLiteOpenHelper {
         randomDates.add("02-26-2018");
         randomDates.add("12-19-2018");
         randomDates.add("05-23-2019");
+        randomDates.add("03-08-2019");
 
         int numOfDates = randomDates.size();
 
@@ -251,6 +260,9 @@ public class FlightAppDatabaseHelper extends SQLiteOpenHelper {
 
                         //Get random cost
                         double cost = 200 + ((900 - 200) * new Random().nextDouble());
+
+                        //Get random date
+                        int d = new Random().nextInt(numOfDates);
 
                         Flight aFlight = new Flight();
                         aFlight.setOriginAirportId_FK(airports.get(i).getAirportId());
