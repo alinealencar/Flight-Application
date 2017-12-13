@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.widget.Toast;
 
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -12,6 +13,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 import team11.comp3074_project11.dataModel.Airline;
@@ -96,17 +98,12 @@ public class FlightAppDatabaseHelper extends SQLiteOpenHelper {
         insertAirline(db, new Airline("Delta", "DT"));
         insertAirline(db, new Airline("American Airlines", "AA"));
 
-        //Insert flights
-        try {
-            List<Flight> flights = generateFlights(db);
-            for (Flight flight : flights){
-                insertFlight(db, flight);
-                System.out.println(flight.toString());
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+        List<Flight> flights = generateFlights(db);
+        for (Flight flight : flights){
+            insertFlight(db, flight);
         }
 
+<<<<<<< HEAD
         //Insert clients
         insertClient(db, new Client("Jon", "Snow", "jonsnow@gmail.com", "1234", "5191000000000000"));
 
@@ -115,6 +112,8 @@ public class FlightAppDatabaseHelper extends SQLiteOpenHelper {
         insertItinerary(db, new Itinerary(2,1));
 
 
+=======
+>>>>>>> 23b408abb7101537b6595158f29175296a68233f
     }
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
@@ -132,18 +131,16 @@ public class FlightAppDatabaseHelper extends SQLiteOpenHelper {
     public static void insertAirline(SQLiteDatabase db, Airline airline){
         ContentValues airlineValues = new ContentValues();
         airlineValues.put("airlineName", airline.getAirlineName());
+        airlineValues.put("airlineInitials", airline.getAirlineInitials());
         db.insert("tbl_airline", null, airlineValues);
     }
 
     //Insert Flight into the database
     public static void insertFlight(SQLiteDatabase db, Flight flight){
-        //Convert to format suitable to store in the database
-        SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy HH:mm:ss");
-
         ContentValues flightValues = new ContentValues();
         flightValues.put("flightNumber", flight.getFlightNumber());
-        flightValues.put("departureDateTime", dateFormat.format(flight.getDepartureDateTime()));
-        flightValues.put("arrivalDateTime", dateFormat.format(flight.getArrivalDateTime()));
+        flightValues.put("departureDateTime", flight.getDepartureDateTime());
+        flightValues.put("arrivalDateTime", flight.getArrivalDateTime());
         flightValues.put("cost", flight.getCost());
         flightValues.put("travelTime", flight.getTravelTime());
         flightValues.put("airlineId_FK", flight.getAirlineId_FK());
@@ -230,52 +227,55 @@ public class FlightAppDatabaseHelper extends SQLiteOpenHelper {
         db.update("tbl_client", clientValues, "clientId_PK = " + clientId, null);
     }
 
-    public List<Flight> generateFlights(SQLiteDatabase db) throws ParseException {
+    public List<Flight> generateFlights(SQLiteDatabase db) {
         List<Flight> randomFlights = new ArrayList<Flight>();
 
         //Get all airports
-        List<Airport> airports = SearchUtility.getAirports(this);
-        List<Airline> airlines = SearchUtility.getAirlines(this);
+        List<Airport> airports = SearchUtility.getAirports(this, db);
+        List<Airline> airlines = SearchUtility.getAirlines(this, db);
 
         int numOfAirlines = airlines.size();
+        int numOfAirports = airports.size();
 
         //Tools
-        SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy HH:mm:ss");
-        Date curDate = new Date();
 
-
-        List<Date> randomDates = new ArrayList<Date>();
-        randomDates.add(dateFormat.parse("12-30-2017 13:15:00"));
-        randomDates.add(dateFormat.parse("03-01-2018 14:24:00"));
-        randomDates.add(dateFormat.parse("02-26-2018"));
+        List<String> randomDates = new ArrayList<>();
+        randomDates.add("02-26-2018");
+        randomDates.add("12-19-2018");
+        randomDates.add("05-23-2019");
 
         int numOfDates = randomDates.size();
 
         //Randomly generate flights
-        for(int i = 0; i < airports.size(); i++){ //Origin
-            for(int j = 0; j < airports.size(); j++){ //Destination
-                //If the origin equals the destination, continue
-                if(airports.get(i).getAirportId() == airports.get(j).getAirportId())
-                    continue;
-                //Get random airline
-                Airline anAirline = airlines.get((int) Math.random()*(numOfAirlines-1));
-                String randomFlightNumber = anAirline.getAirlineInitials() + Integer.toString((int) Math.random()*(999-100) + 100);
+        for(int i = 0; i < numOfAirports; i++){ //Origin
+            for(int j = 0; j < numOfAirports; j++){ //Destination
+                //Origin airport must be different from destination airport
+                if(i != j) {
+                    //Loop twice for each origin/destination pair
+                    for (int k = 0; k < 2; k++) {
+                        //Get random airline
+                        Airline anAirline = airlines.get(new Random().nextInt(numOfAirlines));
+                        String randomFlightNumber = anAirline.getAirlineInitials() + (new Random().nextInt(999 - 100) + 100);
 
-                //Get random departure and arrival dates, and travel time
-                int travelTime = (int) Math.random()*(10-1) + 1;
-                Calendar cal = Calendar.getInstance();
-                Date departureDate = randomDates.get(2);
-                cal.add(Calendar.HOUR, travelTime);
-                Date arrivalDate = cal.getTime(); //5 hours long flight
+                        //Get random travel time
+                        double travelTime = 2.0 + ((15.0 - 2.0) * new Random().nextDouble());
 
-                //Get random cost
-                double cost = travelTime * 100;
+                        //Get random cost
+                        double cost = 200 + ((900 - 200) * new Random().nextDouble());
 
-                Flight aFlight = new Flight(airports.get(i).getAirportId(), airports.get(j).getAirportId(),
-                       anAirline.getAirlineId(), randomFlightNumber, dateFormat.format(departureDate), dateFormat.format(arrivalDate), cost, travelTime);
+                        Flight aFlight = new Flight();
+                        aFlight.setOriginAirportId_FK(airports.get(i).getAirportId());
+                        aFlight.setDestAirportId_FK(airports.get(j).getAirportId());
+                        aFlight.setAirlineId_FK(anAirline.getAirlineId());
+                        aFlight.setFlightNumber(randomFlightNumber);
+                        aFlight.setDepartureDateTime(randomDates.get(0));
+                        aFlight.setArrivalDateTime(randomDates.get(0));
+                        aFlight.setCost(cost);
+                        aFlight.setTravelTime(travelTime);
 
-                randomFlights.add(aFlight);
-
+                        randomFlights.add(aFlight);
+                    }
+                }
             }
         }
 

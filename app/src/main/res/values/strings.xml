@@ -10,6 +10,9 @@
     <string name="btnProfile">My Profile</string>
     <string name="btnLogOut">Log Out</string>
 
+    <string name="lblMyProfile">My Profile</string>
+    <string name="btnEdit">Edit</string>
+    
     <string name="titleSignUp">Create Profile</string>
     <string name="lblFirstName">First Name:</string>
     <string name="lblLastName">Last Name:</string>

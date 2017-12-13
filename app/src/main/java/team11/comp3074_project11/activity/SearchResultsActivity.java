@@ -12,6 +12,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.ServiceConfigurationError;
 
 import team11.comp3074_project11.R;
 import team11.comp3074_project11.dataModel.Airport;
@@ -44,9 +45,11 @@ public class SearchResultsActivity extends Activity {
 
         //Get all flights that match the search criteria
         try {
-            SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy");
-            Date departureDate = dateFormat.parse(departureDateStr);
-            List<Flight> flightList = SearchUtility.getFlights(db, SearchUtility.getAirportPKByName(db, origin), SearchUtility.getAirportPKByName(db, destination), departureDate);
+            List<Flight> allFlights = SearchUtility.getAllFlights(db, db.getReadableDatabase());
+            for(Flight f : allFlights)
+                System.out.println(f.toString());
+
+            List<Flight> flightList = SearchUtility.getFlights(db, SearchUtility.getAirportPKByName(db, origin), SearchUtility.getAirportPKByName(db, destination), departureDateStr);
 
             ListView resultsList = (ListView) findViewById(R.id.resultsListView);
 
@@ -55,7 +58,7 @@ public class SearchResultsActivity extends Activity {
             if(flightList.size() == 0){
                 List<String> noResults = new ArrayList<>();
                 noResults.add("There are no flights from " + origin + " to " +
-                                destination + " on " + departureDate + ".");
+                                destination + " on " + departureDateStr + ".");
                  resultsAdapter = new ArrayAdapter<String>(this,
                         android.R.layout.simple_list_item_1, noResults);
             }
@@ -69,7 +72,7 @@ public class SearchResultsActivity extends Activity {
                         android.R.layout.simple_list_item_1, flightListStr);
             }
 
-            sortSpinner.setAdapter(resultsAdapter);
+            resultsList.setAdapter(resultsAdapter);
         } catch (ParseException e) {
             e.printStackTrace();
         }
