@@ -213,14 +213,13 @@ public class SearchUtility {
         return airport;
     }
 
-    public static List<Flight> getFlightByClient(FlightAppDatabaseHelper flightDb, Client client) throws ParseException {
+    public static List<Flight> getFlightByClient(FlightAppDatabaseHelper flightDb, int clientId) {
         List<Flight> flights = new ArrayList<Flight>();
 
-        DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
         //Select query
-        String selectAirlines = "SELECT * FROM tbl_flight INNER JOIN tbl_itinerary WHERE clientId_FK IS '" + client.getClientId() + "'";
         SQLiteDatabase db = flightDb.getReadableDatabase();
-        Cursor cursor = db.rawQuery(selectAirlines, null);
+        Cursor cursor = db.rawQuery("SELECT * FROM tbl_flight INNER JOIN tbl_itinerary " +
+                "ON tbl_flight.flightId_PK = tbl_itinerary.flightId_FK WHERE tbl_itinerary.clientId_FK = " + clientId, null);
 
         if(cursor.moveToFirst()){
             do {
@@ -237,10 +236,9 @@ public class SearchUtility {
                 flights.add(flight);
             } while (cursor.moveToNext());
         }
-
         cursor.close();
+        db.close();
 
         return flights;
+        }
     }
-
-}
