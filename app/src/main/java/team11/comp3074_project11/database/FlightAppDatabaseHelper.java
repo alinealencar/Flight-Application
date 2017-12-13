@@ -107,6 +107,13 @@ public class FlightAppDatabaseHelper extends SQLiteOpenHelper {
             e.printStackTrace();
         }
 
+        //Insert clients
+        insertClient(db, new Client("Jon", "Snow", "jonsnow@gmail.com", "1234", "5191000000000000"));
+
+        //Insert itineraries
+        insertItinerary(db, new Itinerary(1,1));
+        insertItinerary(db, new Itinerary(2,1));
+
 
     }
     @Override

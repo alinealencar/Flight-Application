@@ -203,28 +203,37 @@ public class SearchUtility {
         return airport;
     }
 
-    public static List<Flight> getFlightByClient(FlightAppDatabaseHelper flightDb, Client client) throws ParseException {
-        List<Flight> flights = new ArrayList<Flight>();
+    public static ArrayList<Flight> getFlightByClient(FlightAppDatabaseHelper flightDb, SQLiteDatabase db, int clientId) {
+        ArrayList<Flight> flights = new ArrayList<Flight>();
 
-        DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
         //Select query
-        String selectAirlines = "SELECT * FROM tbl_flight INNER JOIN tbl_itinerary WHERE clientId_FK IS '" + client.getClientId() + "'";
-        SQLiteDatabase db = flightDb.getReadableDatabase();
-        Cursor cursor = db.rawQuery(selectAirlines, null);
+       // SQLiteDatabase db = flightDb.getReadableDatabase();
+        //Cursor cursor = db.rawQuery("SELECT * FROM tbl_flight INNER JOIN tbl_itinerary ON tbl_flight.flightId_PK = tbl_itinerary.flightId_FK WHERE tbl_itinerary.clientId_FK = " + clientId, null);
+        Cursor cursor = db.rawQuery("SELECT * FROM tbl_flight", null);
+        //SQLiteDatabase db = flightDb.getReadableDatabase();
+        //Cursor cursor = db.rawQuery(selectFlights);
 
-        if(cursor.moveToFirst()){
+       /* if(cursor.moveToFirst()){
             do {
                 Flight flight = new Flight(cursor.getInt(0), cursor.getString(1), cursor.getInt(2),
                         cursor.getInt(3), cursor.getInt(4), cursor.getString(5), cursor.getString(6),
                         cursor.getDouble(7), cursor.getDouble(8));
                 flights.add(flight);
             } while (cursor.moveToNext());
+        }*/
+
+        if (cursor.getCount() > 0) {
+            while (cursor.moveToNext()) {
+                Flight flight = new Flight(cursor.getInt(0), cursor.getString(1), cursor.getInt(2),
+                        cursor.getInt(3), cursor.getInt(4), cursor.getString(5), cursor.getString(6),
+                        cursor.getDouble(7), cursor.getDouble(8));
+                flights.add(flight);
+            }
         }
 
-        cursor.close();
-        db.close();
+            cursor.close();
+            db.close();
 
-        return flights;
+            return flights;
+        }
     }
-
-}

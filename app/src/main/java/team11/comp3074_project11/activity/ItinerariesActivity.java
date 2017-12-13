@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import team11.comp3074_project11.R;
+import team11.comp3074_project11.dataModel.Flight;
 import team11.comp3074_project11.dataModel.Itinerary;
 import team11.comp3074_project11.database.FlightAppDatabaseHelper;
 import team11.comp3074_project11.helper.SearchUtility;
@@ -27,18 +28,19 @@ public class ItinerariesActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_itineraries);
 
-        ArrayList<Itinerary> itinerariesList = new ArrayList<Itinerary>();
+        ArrayList<Flight> itinerariesList;
+        final FlightAppDatabaseHelper db = new FlightAppDatabaseHelper(getApplicationContext());
         try {
-            SQLiteOpenHelper dbHelper = new FlightAppDatabaseHelper(getApplicationContext());
-            SQLiteDatabase db = dbHelper.getReadableDatabase();
+            //SQLiteOpenHelper dbHelper = new FlightAppDatabaseHelper(getApplicationContext());
+            //SQLiteDatabase db = dbHelper.getReadableDatabase();
 
             //store selected flights by clientId to list
-            //itinerariesList = SearchUtility.getFlightByClient(db,client);
+            itinerariesList = SearchUtility.getFlightByClient(db, db.getReadableDatabase(), 1);
 
             //populate listview
-            //ArrayAdapter<Itinerary> adapter = new ArrayAdapter<Itinerary>(this,android.R.layout.simple_list_item_1,itinerariesList);
-            //ListView lv = (ListView) findViewById(R.id.listItineraries);
-            //lv.setAdapter(adapter);
+            ArrayAdapter<Flight> adapter = new ArrayAdapter<>(this,android.R.layout.simple_list_item_1,itinerariesList);
+            ListView lv = findViewById(R.id.listItineraries);
+            lv.setAdapter(adapter);
         } catch (SQLException e) {
             Toast.makeText(getApplicationContext(), "Database error. " + e + "Please try again.", Toast.LENGTH_SHORT).show();
         }
