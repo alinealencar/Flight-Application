@@ -28,19 +28,33 @@ public class ItinerariesActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_itineraries);
 
-        ArrayList<Flight> itinerariesList;
+        List<Flight> itinerariesList = new ArrayList<>();
         final FlightAppDatabaseHelper db = new FlightAppDatabaseHelper(getApplicationContext());
-        try {
-            //SQLiteOpenHelper dbHelper = new FlightAppDatabaseHelper(getApplicationContext());
-            //SQLiteDatabase db = dbHelper.getReadableDatabase();
 
+        try {
             //store selected flights by clientId to list
-            itinerariesList = SearchUtility.getFlightByClient(db, db.getReadableDatabase(), 1);
+            //itinerariesList = SearchUtility.getFlightByClient(db, aClient.getClientId());
+
+            ArrayAdapter<String> adapter;
+            List<String> itinerariesListStr = new ArrayList<>();
+
+            //check if there are booked itineraries
+            if (itinerariesList.size() == 0) {
+                List<String> noItineraries = new ArrayList<>();
+                noItineraries.add("No itineraries booked.");
+                adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, noItineraries);
+            }
+            else {
+                for (Flight anI : itinerariesList)
+                    itinerariesListStr.add(anI.toString());
+
+                adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, itinerariesListStr);
+            }
 
             //populate listview
-            ArrayAdapter<Flight> adapter = new ArrayAdapter<>(this,android.R.layout.simple_list_item_1,itinerariesList);
-            ListView lv = findViewById(R.id.listItineraries);
+            ListView lv = (ListView) findViewById(R.id.listItineraries);
             lv.setAdapter(adapter);
+
         } catch (SQLException e) {
             Toast.makeText(getApplicationContext(), "Database error. " + e + "Please try again.", Toast.LENGTH_SHORT).show();
         }
@@ -49,6 +63,7 @@ public class ItinerariesActivity extends Activity {
         btnBackToHome.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
+
                 Intent intent = new Intent(ItinerariesActivity.this, DashboardActivity.class);
                 startActivity(intent);
             }

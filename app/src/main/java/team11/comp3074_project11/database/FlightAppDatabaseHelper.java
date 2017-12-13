@@ -103,7 +103,6 @@ public class FlightAppDatabaseHelper extends SQLiteOpenHelper {
             insertFlight(db, flight);
         }
 
-<<<<<<< HEAD
         //Insert clients
         insertClient(db, new Client("Jon", "Snow", "jonsnow@gmail.com", "1234", "5191000000000000"));
 
@@ -111,9 +110,6 @@ public class FlightAppDatabaseHelper extends SQLiteOpenHelper {
         insertItinerary(db, new Itinerary(1,1));
         insertItinerary(db, new Itinerary(2,1));
 
-
-=======
->>>>>>> 23b408abb7101537b6595158f29175296a68233f
     }
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {

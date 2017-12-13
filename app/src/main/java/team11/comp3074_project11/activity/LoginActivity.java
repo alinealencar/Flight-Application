@@ -48,15 +48,9 @@ public class LoginActivity extends AppCompatActivity {
         //get value from DB
         //check if there is matching
 
-<<<<<<< HEAD
-            Intent intent = new Intent(LoginActivity.this, DashboardActivity.class);
-            startActivity(intent);
-        }
-=======
         Intent intent = new Intent(LoginActivity.this, DashboardActivity.class);
         startActivity(intent);
     }
->>>>>>> 23b408abb7101537b6595158f29175296a68233f
 
     //when click SignUp button, the page change to SignUpActivity
     public void onClickSignUp(View v){
