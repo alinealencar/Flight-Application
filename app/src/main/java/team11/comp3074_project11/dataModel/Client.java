@@ -2,13 +2,14 @@ package team11.comp3074_project11.dataModel;
 
 import android.database.sqlite.SQLiteDatabase;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by aline on 2017-12-07.
  */
 
-public class Client {
+public class Client{
     private int clientId;
     private String firstName, lastName, email, password;
     private String creditCardNo;

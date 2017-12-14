@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.TextView;
 
 import team11.comp3074_project11.R;
 
@@ -13,13 +14,25 @@ import team11.comp3074_project11.R;
  */
 
 public class DashboardActivity extends AppCompatActivity{
+    String intentClientId;
+    String intentClientFirstName;
+    String intentClientLastName;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
 
-        //Get User id and name from the intent
         Intent intent = getIntent();
+        //Get Client id and name from the intent
+        intentClientId = intent.getStringExtra("clientId");//client id
+        intentClientFirstName = intent.getStringExtra("firstName");//client first name
+        intentClientLastName = intent.getStringExtra("lastName");//client last name
+
+        String clientFullName = " " + intentClientFirstName + " " + intentClientLastName;
+
+        //display signed in user
+        TextView clientView = (TextView)findViewById(R.id.txtClientName);
+        clientView.setText(clientFullName);
     }
 
     //when click Search button, the page change to SearchActivity

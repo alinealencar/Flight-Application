@@ -8,7 +8,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import java.io.Serializable;
 
 import team11.comp3074_project11.R;
 import team11.comp3074_project11.dataModel.Client;
@@ -17,11 +20,11 @@ import team11.comp3074_project11.database.FlightAppDatabaseHelper;
 
 import static team11.comp3074_project11.database.FlightAppContract.*;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity{
 
+    //value from EditText view
     EditText emailEditText;
     EditText passwordEditText;
-
 
     /** Database helper that will provide us access to the database*/
     private FlightAppDatabaseHelper dbHelper;
@@ -42,13 +45,29 @@ public class LoginActivity extends AppCompatActivity {
 
     //when click Login button, the page change to DashboardActivity
     public void onClickLogIn(View v){
+        /************************************************************
+         * comment out for Developing purpose
+         *
+        //read from input field
+        String inputtedEmail = emailEditText.getText().toString().trim();
+        String inputtedPassword = passwordEditText.getText().toString().trim();
 
-        //check if valid user
-        //Create and/or open a database to read from it
-        //get value from DB
-        //check if there is matching
+        //validate if it is valid client.
+        //get client information from database
+        Client existClient = dbHelper.authenticateClient(inputtedEmail, inputtedPassword);
 
-        Intent intent = new Intent(LoginActivity.this, DashboardActivity.class);
+        if(existClient !=  null){
+            Intent intent = new Intent(LoginActivity.this, DashboardActivity.class);
+            intent.putExtra("clientId", existClient.getClientId());
+            intent.putExtra("firstName", existClient.getFirstName());
+            intent.putExtra("lastName", existClient.getLastName());
+            startActivity(intent);
+        }else{
+            Toast.makeText(this, "Invalid email and/or password.", Toast.LENGTH_LONG).show();
+        }
+        /*******************************************************************/
+        // following should be deleted after work has done
+       Intent intent = new Intent(LoginActivity.this, DashboardActivity.class);
         startActivity(intent);
     }
 
@@ -58,4 +77,6 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(intent);
 
     }
+
+
 }
