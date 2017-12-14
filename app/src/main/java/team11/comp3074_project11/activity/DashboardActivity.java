@@ -39,12 +39,7 @@ public class DashboardActivity extends AppCompatActivity{
         Intent intent = new Intent(DashboardActivity.this, ProfileActivity.class);
         startActivity(intent);
     }
-<<<<<<< HEAD
 */
-||||||| merged common ancestors
-
-=======
->>>>>>> 65f1a82d4662989fcdb19d854af8d481de24c6c9
     //when click Log Out button, the page change to LoginActivity
     public void onClickLogOut(View v){
         Intent intent = new Intent(DashboardActivity.this, LoginActivity.class);

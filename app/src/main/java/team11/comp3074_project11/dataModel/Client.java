@@ -2,13 +2,14 @@ package team11.comp3074_project11.dataModel;
 
 import android.database.sqlite.SQLiteDatabase;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by aline on 2017-12-07.
  */
 
-public class Client {
+public class Client{
     private int clientId;
     private String firstName, lastName, email, password;
     private String creditCardNo;
@@ -24,15 +25,6 @@ public class Client {
     public Client(int clientId, String firstName, String lastName,
                   String email, String password, String creditCardNo) {
         this.clientId = clientId;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.password = password;
-        this.creditCardNo = creditCardNo;
-    }
-
-    public Client(String firstName, String lastName,
-                  String email, String password, String creditCardNo) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;

@@ -4,7 +4,9 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.widget.Toast;
 
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -36,7 +38,7 @@ public class FlightAppDatabaseHelper extends SQLiteOpenHelper {
     private static final String DB_NAME = "flightAppDB.db";
     private static final int DB_VERSION = 1;
 
-    //Tables
+     //Tables
     private static final String CREATE_FLIGHT_TABLE = "CREATE TABLE tbl_flight (" +
             "flightId_PK INTEGER PRIMARY KEY AUTOINCREMENT," +
             "flightNumber TEXT," +
@@ -190,18 +192,27 @@ public class FlightAppDatabaseHelper extends SQLiteOpenHelper {
      *                  the object returned is null.
      */
     public Client authenticateClient(String email, String password){
+
         Client client = null;
-        //Select query
-        String selectClient = "SELECT * FROM tbl_client WHERE email IS '" + email + "' AND " +
-                "password IS '" + password + "'";
         SQLiteDatabase db = this.getReadableDatabase();
+        //Select query
+        String selectClient = "SELECT * FROM tbl_client WHERE email =  '" + email + "' AND " +
+                "password = '" + password + "'";
+
         Cursor cursor = db.rawQuery(selectClient, null);
 
         //Returns true if a record is found, false otherwise.
-        if (cursor.moveToFirst())
-            client = new Client(cursor.getInt(0), cursor.getString(1), cursor.getString(2),
-                    cursor.getString(3), cursor.getString(4), cursor.getString(5));
-
+        try {
+            if (cursor.moveToFirst()) {
+                client = new Client(cursor.getInt(0), cursor.getString(1), cursor.getString(2),
+                        cursor.getString(3), cursor.getString(4), cursor.getString(5));
+            }
+        }
+        catch(SQLiteException e){
+                client = null;
+        }finally{
+            cursor.close();
+        }
         return client;
     }
 
