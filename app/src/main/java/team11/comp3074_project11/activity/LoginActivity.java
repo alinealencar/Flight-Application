@@ -68,9 +68,6 @@ public class LoginActivity extends AppCompatActivity{
         // following should be deleted after work has done
         Intent intent = new Intent(LoginActivity.this, DashboardActivity.class);
         startActivity(intent);
-
-        Intent intent = new Intent(LoginActivity.this, DashboardActivity.class);
-        startActivity(intent);
     }
 
     //when click SignUp button, the page change to SignUpActivity
