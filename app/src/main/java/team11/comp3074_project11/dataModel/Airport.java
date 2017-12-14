@@ -12,6 +12,8 @@ public class Airport {
     private int airportId;
     private String airportName;
 
+    public Airport() {
+    }
 
     public Airport(String airportName) {
         this.airportName = airportName;

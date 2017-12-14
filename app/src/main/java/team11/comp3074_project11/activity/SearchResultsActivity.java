@@ -1,14 +1,22 @@
 package team11.comp3074_project11.activity;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.GridView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.ScrollView;
+import android.widget.Space;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -23,6 +31,7 @@ import team11.comp3074_project11.R;
 import team11.comp3074_project11.dataModel.Airport;
 import team11.comp3074_project11.dataModel.Flight;
 import team11.comp3074_project11.database.FlightAppDatabaseHelper;
+import team11.comp3074_project11.helper.HelperUtility;
 import team11.comp3074_project11.helper.SearchUtility;
 
 public class SearchResultsActivity extends Activity {
@@ -35,7 +44,8 @@ public class SearchResultsActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_results);
 
-        final ListView resultsList = (ListView) findViewById(R.id.resultsListView);
+        //Get the vertical layout
+        final LinearLayout resultsLayout = (LinearLayout) findViewById(R.id.resultsLayout);
 
         //Hide no flights message
         findViewById(R.id.noFlightsTextView).setVisibility(View.INVISIBLE);
@@ -54,6 +64,7 @@ public class SearchResultsActivity extends Activity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 if(flightList != null && flightList.size() > 0){
+                    resultsLayout.removeAllViews();
                     //Sort the flights by category
                     //By price
                     if (sortSpinner.getSelectedItemPosition() == 0) {
@@ -75,13 +86,50 @@ public class SearchResultsActivity extends Activity {
 
                     }
 
-                    List<String> flightListStr = new ArrayList<>();
-                    for(Flight aF : flightList)
-                        flightListStr.add(aF.toString());
+                    for(Flight aF : flightList){
+                        LinearLayout individualResult = new LinearLayout(getApplicationContext());
+                        individualResult.setOrientation(LinearLayout.HORIZONTAL);
 
-                    ArrayAdapter<String> resultsAdapter = new ArrayAdapter<String>(getApplicationContext(),
-                            android.R.layout.simple_list_item_1, flightListStr);
-                    resultsList.setAdapter(resultsAdapter);
+                        //FlightInfo
+                        TextView flightInfo = new TextView(getApplicationContext());
+                        String info = "FLIGHT: " + aF.getFlightNumber() +
+                                        "\nFROM: " + SearchUtility.getAirportNameByPK(db, aF.getOriginAirportId_FK()).getAirportName() +
+                                        "\nTO:" +  SearchUtility.getAirportNameByPK(db, aF.getDestAirportId_FK()).getAirportName() +
+                                        "\nDeparture: " + aF.getDepartureDateTime() +
+                                        "\t\tArrival: " + aF.getArrivalDateTime() +
+                                        "\nDuration: " + HelperUtility.doubleToHours(aF.getTravelTime()) +
+                                        "\n\nOperated By: " + SearchUtility.getAirlineByFlight(db, aF).getAirlineName() + "\n\n\n";
+                        flightInfo.setText(info);
+                        flightInfo.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 2f));
+
+                        //FlightCost
+                        TextView flightCost = new TextView(getApplicationContext());
+                        DecimalFormat df = new DecimalFormat("###.00");
+                        flightCost.setText("$" + df.format(aF.getCost()));
+                        flightCost.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1f));
+
+                        individualResult.addView(flightInfo);
+                        individualResult.addView(flightCost);
+                        individualResult.setWeightSum(3f);
+
+                        //Set background color of the result
+                        individualResult.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.colorGray));
+                        individualResult.setPadding(15, 5, 5, 5);
+
+                        final String flightId = Integer.toString(aF.getFlightId());
+                        individualResult.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                Intent intent = new Intent(getApplicationContext(), FlightDetailsActivity.class);
+                                intent.putExtra("flightId", flightId);
+                                startActivity(intent);
+                            }
+                        });
+
+                        resultsLayout.addView(individualResult);
+                        resultsLayout.addView(new Space(getApplicationContext()));
+
+                    }
                 }
             }
 
@@ -107,22 +155,11 @@ public class SearchResultsActivity extends Activity {
             if(flightList.size() == 0){
                 findViewById(R.id.noFlightsTextView).setVisibility(View.VISIBLE);
             }
-            //Flights found
-            else {
-                List<String> flightListStr = new ArrayList<>();
-                for(Flight aF : flightList) {
-                    flightListStr.add(aF.toString());
-                    System.out.println("FOUND: " + aF.toString());
-                }
-                resultsAdapter = new ArrayAdapter<String>(this,
-                        android.R.layout.simple_list_item_1, flightListStr);
-                resultsList.setAdapter(resultsAdapter);
-            }
-
         } catch (ParseException e) {
             e.printStackTrace();
         }
 
 
     }
+
 }

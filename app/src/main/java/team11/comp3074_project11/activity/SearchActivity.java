@@ -36,17 +36,13 @@ public class SearchActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
-
         //Hide error message
         findViewById(R.id.dateErrorTextView).setVisibility(View.INVISIBLE);
 
         final FlightAppDatabaseHelper db = new FlightAppDatabaseHelper(getApplicationContext());
 
-
         List<Flight> allFlights = SearchUtility.getAllFlights(db, db.getReadableDatabase());
         List<Airport> allAirports = SearchUtility.getAirports(db, db.getReadableDatabase());
-        System.out.println("FLIGHTS SIZE: " + allFlights.size());
-        System.out.println("AIRPORTS SIZE: " + allAirports.size());
 
         //Get airports
         airports = SearchUtility.getAirports(db, db.getReadableDatabase());

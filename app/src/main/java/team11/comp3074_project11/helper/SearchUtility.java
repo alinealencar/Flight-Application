@@ -198,6 +198,13 @@ public class SearchUtility {
         return airline;
     }
 
+    /**
+     * Get the Primary Key of an Airport by its name
+     *
+     * @param flightDb
+     * @param airportName
+     * @return
+     */
     public static Airport getAirportPKByName(FlightAppDatabaseHelper flightDb, String airportName){
         Airport airport = null;
 
@@ -213,6 +220,13 @@ public class SearchUtility {
         return airport;
     }
 
+    /**
+     * Get all flights that are in itineraries of a certain client
+     *
+     * @param flightDb
+     * @param clientId
+     * @return
+     */
     public static List<Flight> getFlightByClient(FlightAppDatabaseHelper flightDb, int clientId) {
         List<Flight> flights = new ArrayList<Flight>();
 
@@ -240,5 +254,21 @@ public class SearchUtility {
         db.close();
 
         return flights;
-        }
     }
+
+
+    public static Airport getAirportNameByPK(FlightAppDatabaseHelper flightDb, int airportId){
+        Airport airport = new Airport();
+
+        //Select query
+        SQLiteDatabase db = flightDb.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM tbl_airport WHERE airportId_PK = " + airportId, null);
+
+        if(cursor.moveToFirst()){
+            airport.setAirportId(cursor.getInt(0));
+            airport.setAirportName(cursor.getString(1));
+        }
+
+        return airport;
+    }
+}
