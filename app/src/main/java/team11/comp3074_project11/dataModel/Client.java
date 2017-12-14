@@ -14,6 +14,8 @@ public class Client{
     private String firstName, lastName, email, password;
     private String creditCardNo;
 
+    public Client(){}
+
     public Client(String firstName, String lastName, String email, String password, String creditCardNo) {
         this.firstName = firstName;
         this.lastName = lastName;

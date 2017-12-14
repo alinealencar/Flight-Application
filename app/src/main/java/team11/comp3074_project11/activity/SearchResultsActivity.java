@@ -114,7 +114,7 @@ public class SearchResultsActivity extends Activity {
 
                         //Set background color of the result
                         individualResult.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.colorGray));
-                        individualResult.setPadding(15, 5, 5, 5);
+                        individualResult.setPadding(25, 15, 5, 5);
 
                         final String flightId = Integer.toString(aF.getFlightId());
                         individualResult.setOnClickListener(new View.OnClickListener() {

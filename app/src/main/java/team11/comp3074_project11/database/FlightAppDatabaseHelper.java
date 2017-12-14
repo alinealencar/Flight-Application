@@ -99,14 +99,6 @@ public class FlightAppDatabaseHelper extends SQLiteOpenHelper {
         insertAirline(db, new Airline("Delta", "DT"));
         insertAirline(db, new Airline("American Airlines", "AA"));
 
-//        Flight example = new Flight();
-//        example.setCost(1.0);
-//        example.setTravelTime(300);
-//        example.setOriginAirportId_FK(1);
-//        example.setDestAirportId_FK(2);
-//        example.setDepartureDateTime("02-26-2018");
-//        insertFlight(db, new Flight());
-
         List<Flight> flights = generateFlights(db);
         for (Flight flight : flights){
             insertFlight(db, flight);

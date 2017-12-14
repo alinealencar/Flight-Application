@@ -49,72 +49,6 @@ public class SearchUtility {
     }
 
     /**
-     * Get all itineraries that belong to a certain client.
-     *
-     * @param   flightDb         A FlightAppDatabaseHelper object.
-     * @param   client           A Client object.
-     * @return  List<Itinerary>     A list of Itinerary objects.
-     */
-    public static List<Itinerary> getItineraries(FlightAppDatabaseHelper flightDb, Client client){
-        List<Itinerary> itineraries = new ArrayList<Itinerary>();
-
-        //Select query
-        String selectItineraries = "SELECT * FROM tbl_itinerary WHERE clientId_FK IS '" + client.getClientId() + "'";
-        SQLiteDatabase db = flightDb.getReadableDatabase();
-        Cursor cursor = db.rawQuery(selectItineraries, null);
-
-        if(cursor.moveToFirst()){
-            do {
-                Itinerary itinerary = new Itinerary(cursor.getInt(0), cursor.getInt(1), cursor.getInt(2));
-            } while (cursor.moveToNext());
-        }
-
-        cursor.close();
-
-        return itineraries;
-    }
-
-    /**
-     * Get all flights based on origin,  destination and departure date.
-     *
-     * @param flightDb          A FlightAppDatabaseHelper object.
-     * @param origin            Airport object that represents the flight origin.
-     * @param destination       Airport object that represents the flight destination.
-     * @param departureDate     Date object that represents the flight's departure date.
-     * @return List<Flight>     List of Flight objects that match the search criteria
-     * @throws ParseException   Can be thrown during the conversion from the database (it's going to be read as a String)
-     *                          to the Date object format. Exception is escalated to the next level.
-     */
-    public static List<Flight> getFlights(FlightAppDatabaseHelper flightDb, Airport origin, Airport destination, String departureDate)
-            throws ParseException {
-        List<Flight> flights = new ArrayList<Flight>();
-
-        //Select query
-        String selectFlights = "SELECT * FROM tbl_flight WHERE originAirportId_FK IS '" + origin.getAirportId() +
-                "' AND destAirportId_FK IS '" + destination.getAirportId() + "' AND departureDateTime IS '" + departureDate + "'";
-        SQLiteDatabase db = flightDb.getReadableDatabase();
-        Cursor cursor = db.rawQuery(selectFlights, null);
-
-        if(cursor.moveToFirst()){
-            do {
-                Flight flight = new Flight();
-                flight.setFlightId(cursor.getInt(0));
-                flight.setFlightNumber(cursor.getString(1));
-                flight.setDepartureDateTime(cursor.getString(2));
-                flight.setArrivalDateTime(cursor.getString(3));
-                flight.setCost(cursor.getDouble(4));
-                flight.setTravelTime(cursor.getDouble(5));
-                flight.setAirlineId_FK(cursor.getInt(6));
-                flight.setOriginAirportId_FK(cursor.getInt(7));
-                flight.setDestAirportId_FK(cursor.getInt(8));
-                flights.add(flight);
-            } while (cursor.moveToNext());
-        }
-
-        return flights;
-    }
-
-    /**
      * Get all airlines stored in the database.
      *
      * @param flightDb
@@ -220,6 +154,107 @@ public class SearchUtility {
         return airport;
     }
 
+    public static Airport getAirportNameByPK(FlightAppDatabaseHelper flightDb, int airportId){
+        Airport airport = new Airport();
+
+        //Select query
+        SQLiteDatabase db = flightDb.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM tbl_airport WHERE airportId_PK = " + airportId, null);
+
+        if(cursor.moveToFirst()){
+            airport.setAirportId(cursor.getInt(0));
+            airport.setAirportName(cursor.getString(1));
+        }
+
+        return airport;
+    }
+
+    public static Client getClientByPK(FlightAppDatabaseHelper flightDb, int clientId){
+        Client client = new Client();
+
+        //Select query
+        //Select query
+        SQLiteDatabase db = flightDb.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM tbl_client WHERE clientId_PK = " + clientId, null);
+
+        if(cursor.moveToFirst()){
+            client.setClientId(cursor.getInt(0));
+            client.setFirstName(cursor.getString(1));
+            client.setLastName(cursor.getString(2));
+            client.setEmail(cursor.getString(3));
+            //Do not store the password in the object, therefore, skip 4
+            client.setCreditCardNo(cursor.getString(5));
+        }
+
+        return client;
+    }
+
+    /**
+     * Get all flights based on origin,  destination and departure date.
+     *
+     * @param flightDb          A FlightAppDatabaseHelper object.
+     * @param origin            Airport object that represents the flight origin.
+     * @param destination       Airport object that represents the flight destination.
+     * @param departureDate     Date object that represents the flight's departure date.
+     * @return List<Flight>     List of Flight objects that match the search criteria
+     * @throws ParseException   Can be thrown during the conversion from the database (it's going to be read as a String)
+     *                          to the Date object format. Exception is escalated to the next level.
+     */
+    public static List<Flight> getFlights(FlightAppDatabaseHelper flightDb, Airport origin, Airport destination, String departureDate)
+            throws ParseException {
+        List<Flight> flights = new ArrayList<Flight>();
+
+        //Select query
+        String selectFlights = "SELECT * FROM tbl_flight WHERE originAirportId_FK IS '" + origin.getAirportId() +
+                "' AND destAirportId_FK IS '" + destination.getAirportId() + "' AND departureDateTime IS '" + departureDate + "'";
+        SQLiteDatabase db = flightDb.getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectFlights, null);
+
+        if(cursor.moveToFirst()){
+            do {
+                Flight flight = new Flight();
+                flight.setFlightId(cursor.getInt(0));
+                flight.setFlightNumber(cursor.getString(1));
+                flight.setDepartureDateTime(cursor.getString(2));
+                flight.setArrivalDateTime(cursor.getString(3));
+                flight.setCost(cursor.getDouble(4));
+                flight.setTravelTime(cursor.getDouble(5));
+                flight.setAirlineId_FK(cursor.getInt(6));
+                flight.setOriginAirportId_FK(cursor.getInt(7));
+                flight.setDestAirportId_FK(cursor.getInt(8));
+                flights.add(flight);
+            } while (cursor.moveToNext());
+        }
+
+        return flights;
+    }
+
+    public static Flight getFlightByPK(FlightAppDatabaseHelper flightDb, int flightId){
+        Flight flight = new Flight();
+
+        //Select query
+        SQLiteDatabase db = flightDb.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM tbl_flight WHERE flightId_PK = " + flightId, null);
+
+        if(cursor.moveToFirst()){
+            do {
+                flight.setFlightId(cursor.getInt(0));
+                flight.setFlightNumber(cursor.getString(1));
+                flight.setDepartureDateTime(cursor.getString(2));
+                flight.setArrivalDateTime(cursor.getString(3));
+                flight.setCost(cursor.getDouble(4));
+                flight.setTravelTime(cursor.getDouble(5));
+                flight.setAirlineId_FK(cursor.getInt(6));
+                flight.setOriginAirportId_FK(cursor.getInt(7));
+                flight.setDestAirportId_FK(cursor.getInt(8));
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+
+        return flight;
+    }
+
     /**
      * Get all flights that are in itineraries of a certain client
      *
@@ -257,18 +292,29 @@ public class SearchUtility {
     }
 
 
-    public static Airport getAirportNameByPK(FlightAppDatabaseHelper flightDb, int airportId){
-        Airport airport = new Airport();
+    /**
+     * Get all itineraries that belong to a certain client.
+     *
+     * @param   flightDb         A FlightAppDatabaseHelper object.
+     * @param   client           A Client object.
+     * @return  List<Itinerary>     A list of Itinerary objects.
+     */
+    public static List<Itinerary> getItineraries(FlightAppDatabaseHelper flightDb, Client client){
+        List<Itinerary> itineraries = new ArrayList<Itinerary>();
 
         //Select query
+        String selectItineraries = "SELECT * FROM tbl_itinerary WHERE clientId_FK IS '" + client.getClientId() + "'";
         SQLiteDatabase db = flightDb.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM tbl_airport WHERE airportId_PK = " + airportId, null);
+        Cursor cursor = db.rawQuery(selectItineraries, null);
 
         if(cursor.moveToFirst()){
-            airport.setAirportId(cursor.getInt(0));
-            airport.setAirportName(cursor.getString(1));
+            do {
+                Itinerary itinerary = new Itinerary(cursor.getInt(0), cursor.getInt(1), cursor.getInt(2));
+            } while (cursor.moveToNext());
         }
 
-        return airport;
+        cursor.close();
+
+        return itineraries;
     }
 }
