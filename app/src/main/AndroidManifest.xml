@@ -21,7 +21,8 @@
         <activity android:name=".activity.ItinerariesActivity" />
         <activity android:name=".activity.ConfirmationActivity" />
         <activity android:name=".activity.SearchActivity" />
-        <activity android:name=".activity.SearchResultsActivity"></activity>
+        <activity android:name=".activity.SearchResultsActivity" />
+        <activity android:name=".activity.ProfileActivity"></activity>
     </application>
 
 </manifest>

@@ -1,41 +1,20 @@
 package team11.comp3074_project11.dataModel;
 
+import android.support.annotation.IntDef;
+import android.support.annotation.NonNull;
+
 import java.util.Date;
 
 /**
  * Created by aline on 2017-12-07.
  */
 
-public class Flight {
+public class Flight implements Comparable<Flight> {
     private int flightId, originAirportId_FK, destAirportId_FK, airlineId_FK;
-    private String flightNumber;
-    private Date departureDateTime, arrivalDateTime;
+    private String flightNumber, departureDateTime, arrivalDateTime;
     private double cost, travelTime;
 
-    public Flight(int originAirportId_FK, int destAirportId_FK, int airlineId_FK, String flightNumber,
-                  Date departureDateTime, Date arrivalDateTime, double cost, double travelTime) {
-        this.originAirportId_FK = originAirportId_FK;
-        this.destAirportId_FK = destAirportId_FK;
-        this.airlineId_FK = airlineId_FK;
-        this.flightNumber = flightNumber;
-        this.departureDateTime = departureDateTime;
-        this.arrivalDateTime = arrivalDateTime;
-        this.cost = cost;
-        this.travelTime = travelTime;
-    }
-
-    public Flight(int flightId, String flightNumber, int originAirportId_FK,
-                  int destAirportId_FK, int airlineId_FK, Date departureDateTime,
-                  Date arrivalDateTime, double cost, double travelTime) {
-        this.flightId = flightId;
-        this.flightNumber = flightNumber;
-        this.originAirportId_FK = originAirportId_FK;
-        this.destAirportId_FK = destAirportId_FK;
-        this.airlineId_FK = airlineId_FK;
-        this.departureDateTime = departureDateTime;
-        this.arrivalDateTime = arrivalDateTime;
-        this.cost = cost;
-        this.travelTime = travelTime;
+    public Flight() {
     }
 
     public int getFlightId() {
@@ -44,14 +23,6 @@ public class Flight {
 
     public void setFlightId(int flightId) {
         this.flightId = flightId;
-    }
-
-    public String getFlightNumber() {
-        return flightNumber;
-    }
-
-    public void setFlightNumber(String flightNumber) {
-        this.flightNumber = flightNumber;
     }
 
     public int getOriginAirportId_FK() {
@@ -78,19 +49,27 @@ public class Flight {
         this.airlineId_FK = airlineId_FK;
     }
 
-    public Date getDepartureDateTime() {
+    public String getFlightNumber() {
+        return flightNumber;
+    }
+
+    public void setFlightNumber(String flightNumber) {
+        this.flightNumber = flightNumber;
+    }
+
+    public String getDepartureDateTime() {
         return departureDateTime;
     }
 
-    public void setDepartureDateTime(Date departureDateTime) {
+    public void setDepartureDateTime(String departureDateTime) {
         this.departureDateTime = departureDateTime;
     }
 
-    public Date getArrivalDateTime() {
+    public String getArrivalDateTime() {
         return arrivalDateTime;
     }
 
-    public void setArrivalDateTime(Date arrivalDateTime) {
+    public void setArrivalDateTime(String arrivalDateTime) {
         this.arrivalDateTime = arrivalDateTime;
     }
 
@@ -113,15 +92,20 @@ public class Flight {
     @Override
     public String toString() {
         return "Flight{" +
-                "flightId='" + flightId + '\'' +
+                "flightId=" + flightId +
+                ", originAirportId_FK=" + originAirportId_FK +
+                ", destAirportId_FK=" + destAirportId_FK +
+                ", airlineId_FK=" + airlineId_FK +
                 ", flightNumber='" + flightNumber + '\'' +
-                ", originAirportId_FK='" + originAirportId_FK + '\'' +
-                ", destAirportId_FK='" + destAirportId_FK + '\'' +
-                ", airlineId_FK='" + airlineId_FK + '\'' +
-                ", departureDateTime=" + departureDateTime +
-                ", arrivalDateTime=" + arrivalDateTime +
+                ", departureDateTime='" + departureDateTime + '\'' +
+                ", arrivalDateTime='" + arrivalDateTime + '\'' +
                 ", cost=" + cost +
                 ", travelTime=" + travelTime +
                 '}';
+    }
+
+    @Override
+    public int compareTo(@NonNull Flight flight) {
+        return Double.compare(this.getCost(), flight.getCost());
     }
 }

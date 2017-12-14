@@ -44,7 +44,6 @@ public class SearchUtility {
         }
 
         cursor.close();
-        db.close();
 
         return airports;
     }
@@ -71,7 +70,6 @@ public class SearchUtility {
         }
 
         cursor.close();
-        db.close();
 
         return itineraries;
     }
@@ -87,7 +85,7 @@ public class SearchUtility {
      * @throws ParseException   Can be thrown during the conversion from the database (it's going to be read as a String)
      *                          to the Date object format. Exception is escalated to the next level.
      */
-    public static List<Flight> getFlights(FlightAppDatabaseHelper flightDb, Airport origin, Airport destination, Date departureDate)
+    public static List<Flight> getFlights(FlightAppDatabaseHelper flightDb, Airport origin, Airport destination, String departureDate)
             throws ParseException {
         List<Flight> flights = new ArrayList<Flight>();
 
@@ -98,14 +96,17 @@ public class SearchUtility {
         Cursor cursor = db.rawQuery(selectFlights, null);
 
         if(cursor.moveToFirst()){
-            //The data from the database can only be read as a string.
-            // Convert it to Date format so it can be stored in the Flight object.
-            DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
-
             do {
-                Flight flight = new Flight(cursor.getInt(0), cursor.getString(1), cursor.getInt(2),
-                        cursor.getInt(3), cursor.getInt(4), df.parse(cursor.getString(5)), df.parse(cursor.getString(6)),
-                        cursor.getDouble(7), cursor.getDouble(8));
+                Flight flight = new Flight();
+                flight.setFlightId(cursor.getInt(0));
+                flight.setFlightNumber(cursor.getString(1));
+                flight.setDepartureDateTime(cursor.getString(2));
+                flight.setArrivalDateTime(cursor.getString(3));
+                flight.setCost(cursor.getDouble(4));
+                flight.setTravelTime(cursor.getDouble(5));
+                flight.setAirlineId_FK(cursor.getInt(6));
+                flight.setOriginAirportId_FK(cursor.getInt(7));
+                flight.setDestAirportId_FK(cursor.getInt(8));
                 flights.add(flight);
             } while (cursor.moveToNext());
         }
@@ -113,12 +114,18 @@ public class SearchUtility {
         return flights;
     }
 
-    public static List<Airline> getAirlines(FlightAppDatabaseHelper flightDb){
+    /**
+     * Get all airlines stored in the database.
+     *
+     * @param flightDb
+     * @return
+     */
+    public static List<Airline> getAirlines(FlightAppDatabaseHelper flightDb, SQLiteDatabase db){
         List<Airline> airlines = new ArrayList<Airline>();
 
         //Select query
         String selectAirlines = "SELECT * FROM tbl_airline";
-        SQLiteDatabase db = flightDb.getReadableDatabase();
+        //SQLiteDatabase db = flightDb.getReadableDatabase();
         Cursor cursor = db.rawQuery(selectAirlines, null);
 
         if(cursor.moveToFirst()){
@@ -129,35 +136,53 @@ public class SearchUtility {
         }
 
         cursor.close();
-        db.close();
 
         return airlines;
     }
 
-    public static List<Flight> getAllFlights(FlightAppDatabaseHelper flightDb) throws ParseException {
+    /**
+     * Get all flights stored in the database.
+     *
+     * @param flightDb
+     * @return
+     * @throws ParseException
+     */
+    public static List<Flight> getAllFlights(FlightAppDatabaseHelper flightDb, SQLiteDatabase db) {
         List<Flight> flights = new ArrayList<Flight>();
 
-        DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
         //Select query
         String selectAirlines = "SELECT * FROM tbl_flight";
-        SQLiteDatabase db = flightDb.getReadableDatabase();
+        //SQLiteDatabase db = flightDb.getReadableDatabase();
         Cursor cursor = db.rawQuery(selectAirlines, null);
 
         if(cursor.moveToFirst()){
             do {
-                Flight flight = new Flight(cursor.getInt(0), cursor.getString(1), cursor.getInt(2),
-                        cursor.getInt(3), cursor.getInt(4), df.parse(cursor.getString(5)), df.parse(cursor.getString(6)),
-                        cursor.getDouble(7), cursor.getDouble(8));
+                Flight flight = new Flight();
+                flight.setFlightId(cursor.getInt(0));
+                flight.setFlightNumber(cursor.getString(1));
+                flight.setDepartureDateTime(cursor.getString(2));
+                flight.setArrivalDateTime(cursor.getString(3));
+                flight.setCost(cursor.getDouble(4));
+                flight.setTravelTime(cursor.getDouble(5));
+                flight.setAirlineId_FK(cursor.getInt(6));
+                flight.setOriginAirportId_FK(cursor.getInt(7));
+                flight.setDestAirportId_FK(cursor.getInt(8));
                 flights.add(flight);
             } while (cursor.moveToNext());
         }
 
         cursor.close();
-        db.close();
 
         return flights;
     }
 
+    /**
+     * Get the airline of a specific flight.
+     *
+     * @param flightDb
+     * @param flight
+     * @return
+     */
     public static Airline getAirlineByFlight(FlightAppDatabaseHelper flightDb, Flight flight){
         Airline airline = null;
 
@@ -173,28 +198,47 @@ public class SearchUtility {
         return airline;
     }
 
-    public static List<Flight> getFlightByClient(FlightAppDatabaseHelper flightDb, Client client) throws ParseException {
+    public static Airport getAirportPKByName(FlightAppDatabaseHelper flightDb, String airportName){
+        Airport airport = null;
+
+        //Select query
+        String selectAirline = "SELECT * FROM tbl_airport WHERE airportName IS '" +
+                airportName + "'";
+        SQLiteDatabase db = flightDb.getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectAirline, null);
+
+        if(cursor.moveToFirst())
+            airport = new Airport(cursor.getInt(0), cursor.getString(1));
+
+        return airport;
+    }
+
+    public static List<Flight> getFlightByClient(FlightAppDatabaseHelper flightDb, int clientId) {
         List<Flight> flights = new ArrayList<Flight>();
 
-        DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
         //Select query
-        String selectAirlines = "SELECT * FROM tbl_flight INNER JOIN tbl_itinerary WHERE clientId_FK IS '" + client.getClientId() + "'";
         SQLiteDatabase db = flightDb.getReadableDatabase();
-        Cursor cursor = db.rawQuery(selectAirlines, null);
+        Cursor cursor = db.rawQuery("SELECT * FROM tbl_flight INNER JOIN tbl_itinerary " +
+                "ON tbl_flight.flightId_PK = tbl_itinerary.flightId_FK WHERE tbl_itinerary.clientId_FK = " + clientId, null);
 
         if(cursor.moveToFirst()){
             do {
-                Flight flight = new Flight(cursor.getInt(0), cursor.getString(1), cursor.getInt(2),
-                        cursor.getInt(3), cursor.getInt(4), df.parse(cursor.getString(5)), df.parse(cursor.getString(6)),
-                        cursor.getDouble(7), cursor.getDouble(8));
+                Flight flight = new Flight();
+                flight.setFlightId(cursor.getInt(0));
+                flight.setFlightNumber(cursor.getString(1));
+                flight.setDepartureDateTime(cursor.getString(2));
+                flight.setArrivalDateTime(cursor.getString(3));
+                flight.setCost(cursor.getDouble(4));
+                flight.setTravelTime(cursor.getDouble(5));
+                flight.setAirlineId_FK(cursor.getInt(6));
+                flight.setOriginAirportId_FK(cursor.getInt(7));
+                flight.setDestAirportId_FK(cursor.getInt(8));
                 flights.add(flight);
             } while (cursor.moveToNext());
         }
-
         cursor.close();
         db.close();
 
         return flights;
+        }
     }
-
-}
