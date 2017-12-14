@@ -5,6 +5,7 @@
     <string name="btnSignUp">SIGN UP</string>
 
     <string name="titleDashboard">Dashboard</string>
+    <string name="lblSignAs">Sign in as:</string>
     <string name="btnSearch">Search</string>
     <string name="btnItineraries">Itineraries</string>
     <string name="btnProfile">My Profile</string>
