@@ -47,7 +47,7 @@ public class LoginActivity extends AppCompatActivity{
     public void onClickLogIn(View v){
         /************************************************************
          * comment out for Developing purpose
-*/
+         *
         //read from input field
         String inputtedEmail = emailEditText.getText().toString().trim();
         String inputtedPassword = passwordEditText.getText().toString().trim();
@@ -67,8 +67,8 @@ public class LoginActivity extends AppCompatActivity{
         }
         /*******************************************************************/
         // following should be deleted after work has done
- /*       Intent intent = new Intent(LoginActivity.this, DashboardActivity.class);
-        startActivity(intent);*/
+       Intent intent = new Intent(LoginActivity.this, DashboardActivity.class);
+        startActivity(intent);
     }
 
     //when click SignUp button, the page change to SignUpActivity
