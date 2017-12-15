@@ -15,6 +15,9 @@ public class ConfirmationActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_confirmation);
 
+        //Get the id of the flight booked by the client
+        String flightId = getIntent().getStringExtra("flightId");
+
         Button btnItineraries = (Button) findViewById(R.id.btnItineraries);
         btnItineraries.setOnClickListener(new View.OnClickListener() {
 

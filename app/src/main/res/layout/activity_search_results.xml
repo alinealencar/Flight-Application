@@ -5,12 +5,22 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="team11.comp3074_project11.activity.SearchResultsActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:gravity="center">
+
+    <TextView
+        android:id="@+id/textView10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
+        android:text="@string/titleSearchResults"
+        android:textColor="@color/colorPrimary"
+        android:textSize="20dp" />
 
     <Spinner
         android:id="@+id/sortSpinner"
-        android:layout_width="match_parent"
-        android:layout_height="94dp" />
+        android:layout_width="220dp"
+        android:layout_height="48dp" />
 
     <TextView
         android:id="@+id/noFlightsTextView"

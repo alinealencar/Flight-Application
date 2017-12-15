@@ -3,11 +3,8 @@ package team11.comp3074_project11.helper;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import team11.comp3074_project11.dataModel.Airline;
@@ -94,13 +91,14 @@ public class SearchUtility {
                 Flight flight = new Flight();
                 flight.setFlightId(cursor.getInt(0));
                 flight.setFlightNumber(cursor.getString(1));
-                flight.setDepartureDateTime(cursor.getString(2));
-                flight.setArrivalDateTime(cursor.getString(3));
+                flight.setDepartureDate(cursor.getString(2));
+                flight.setArrivalDate(cursor.getString(3));
                 flight.setCost(cursor.getDouble(4));
                 flight.setTravelTime(cursor.getDouble(5));
-                flight.setAirlineId_FK(cursor.getInt(6));
-                flight.setOriginAirportId_FK(cursor.getInt(7));
-                flight.setDestAirportId_FK(cursor.getInt(8));
+                flight.setDepartureTime(cursor.getDouble(6));
+                flight.setAirlineId_FK(cursor.getInt(7));
+                flight.setOriginAirportId_FK(cursor.getInt(8));
+                flight.setDestAirportId_FK(cursor.getInt(9));
                 flights.add(flight);
             } while (cursor.moveToNext());
         }
@@ -206,7 +204,7 @@ public class SearchUtility {
 
         //Select query
         String selectFlights = "SELECT * FROM tbl_flight WHERE originAirportId_FK IS '" + origin.getAirportId() +
-                "' AND destAirportId_FK IS '" + destination.getAirportId() + "' AND departureDateTime IS '" + departureDate + "'";
+                "' AND destAirportId_FK IS '" + destination.getAirportId() + "' AND departureDate IS '" + departureDate + "'";
         SQLiteDatabase db = flightDb.getReadableDatabase();
         Cursor cursor = db.rawQuery(selectFlights, null);
 
@@ -215,13 +213,14 @@ public class SearchUtility {
                 Flight flight = new Flight();
                 flight.setFlightId(cursor.getInt(0));
                 flight.setFlightNumber(cursor.getString(1));
-                flight.setDepartureDateTime(cursor.getString(2));
-                flight.setArrivalDateTime(cursor.getString(3));
+                flight.setDepartureDate(cursor.getString(2));
+                flight.setArrivalDate(cursor.getString(3));
                 flight.setCost(cursor.getDouble(4));
                 flight.setTravelTime(cursor.getDouble(5));
-                flight.setAirlineId_FK(cursor.getInt(6));
-                flight.setOriginAirportId_FK(cursor.getInt(7));
-                flight.setDestAirportId_FK(cursor.getInt(8));
+                flight.setDepartureTime(cursor.getDouble(6));
+                flight.setAirlineId_FK(cursor.getInt(7));
+                flight.setOriginAirportId_FK(cursor.getInt(8));
+                flight.setDestAirportId_FK(cursor.getInt(9));
                 flights.add(flight);
             } while (cursor.moveToNext());
         }
@@ -240,13 +239,14 @@ public class SearchUtility {
             do {
                 flight.setFlightId(cursor.getInt(0));
                 flight.setFlightNumber(cursor.getString(1));
-                flight.setDepartureDateTime(cursor.getString(2));
-                flight.setArrivalDateTime(cursor.getString(3));
+                flight.setDepartureDate(cursor.getString(2));
+                flight.setArrivalDate(cursor.getString(3));
                 flight.setCost(cursor.getDouble(4));
                 flight.setTravelTime(cursor.getDouble(5));
-                flight.setAirlineId_FK(cursor.getInt(6));
-                flight.setOriginAirportId_FK(cursor.getInt(7));
-                flight.setDestAirportId_FK(cursor.getInt(8));
+                flight.setDepartureTime(cursor.getDouble(6));
+                flight.setAirlineId_FK(cursor.getInt(7));
+                flight.setOriginAirportId_FK(cursor.getInt(8));
+                flight.setDestAirportId_FK(cursor.getInt(9));
             } while (cursor.moveToNext());
         }
 
@@ -275,13 +275,14 @@ public class SearchUtility {
                 Flight flight = new Flight();
                 flight.setFlightId(cursor.getInt(0));
                 flight.setFlightNumber(cursor.getString(1));
-                flight.setDepartureDateTime(cursor.getString(2));
-                flight.setArrivalDateTime(cursor.getString(3));
+                flight.setDepartureDate(cursor.getString(2));
+                flight.setArrivalDate(cursor.getString(3));
                 flight.setCost(cursor.getDouble(4));
                 flight.setTravelTime(cursor.getDouble(5));
-                flight.setAirlineId_FK(cursor.getInt(6));
-                flight.setOriginAirportId_FK(cursor.getInt(7));
-                flight.setDestAirportId_FK(cursor.getInt(8));
+                flight.setDepartureTime(cursor.getDouble(6));
+                flight.setAirlineId_FK(cursor.getInt(7));
+                flight.setOriginAirportId_FK(cursor.getInt(8));
+                flight.setDestAirportId_FK(cursor.getInt(9));
                 flights.add(flight);
             } while (cursor.moveToNext());
         }

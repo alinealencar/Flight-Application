@@ -5,7 +5,7 @@
     <string name="btnSignUp">SIGN UP</string>
 
     <string name="titleDashboard">Dashboard</string>
-    <string name="lblSignAs">Sign in as:</string>
+    <string name="lblSignAs">Signed in as:</string>
     <string name="btnSearch">Search</string>
     <string name="btnItineraries">Itineraries</string>
     <string name="btnProfile">My Profile</string>
@@ -28,6 +28,12 @@
 
     <string name="titleItineraries">Itineraries</string>
     <string name="btnBackToHome">BACK TO HOME</string>
+
+    <string name="titleSearchResults">Search Results</string>
+
+    <string name="titleSearch">Search</string>
+    <string name="btnFlightSearch">SEARCH</string>
+
 
 
 </resources>

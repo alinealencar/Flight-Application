@@ -2,33 +2,26 @@ package team11.comp3074_project11.activity;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.text.Html;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.GridView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.ScrollView;
 import android.widget.Space;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.text.DecimalFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.Date;
 import java.util.List;
-import java.util.ServiceConfigurationError;
 
 import team11.comp3074_project11.R;
-import team11.comp3074_project11.dataModel.Airport;
 import team11.comp3074_project11.dataModel.Flight;
 import team11.comp3074_project11.database.FlightAppDatabaseHelper;
 import team11.comp3074_project11.helper.HelperUtility;
@@ -51,6 +44,11 @@ public class SearchResultsActivity extends Activity {
         findViewById(R.id.noFlightsTextView).setVisibility(View.INVISIBLE);
 
         final FlightAppDatabaseHelper db = new FlightAppDatabaseHelper(getApplicationContext());
+
+        //Print all flights
+        List<Flight> allFlights = SearchUtility.getAllFlights(db, db.getReadableDatabase());
+        for(Flight f : allFlights)
+            System.out.println(f.toString());
 
         //Populate sortSpinner
         String[] categories = {"Price", "Travel Time"};
@@ -89,17 +87,18 @@ public class SearchResultsActivity extends Activity {
                     for(Flight aF : flightList){
                         LinearLayout individualResult = new LinearLayout(getApplicationContext());
                         individualResult.setOrientation(LinearLayout.HORIZONTAL);
+                        individualResult.setGravity(Gravity.CENTER);
 
                         //FlightInfo
                         TextView flightInfo = new TextView(getApplicationContext());
-                        String info = "FLIGHT: " + aF.getFlightNumber() +
-                                        "\nFROM: " + SearchUtility.getAirportNameByPK(db, aF.getOriginAirportId_FK()).getAirportName() +
-                                        "\nTO:" +  SearchUtility.getAirportNameByPK(db, aF.getDestAirportId_FK()).getAirportName() +
-                                        "\nDeparture: " + aF.getDepartureDateTime() +
-                                        "\t\tArrival: " + aF.getArrivalDateTime() +
-                                        "\nDuration: " + HelperUtility.doubleToHours(aF.getTravelTime()) +
-                                        "\n\nOperated By: " + SearchUtility.getAirlineByFlight(db, aF).getAirlineName() + "\n\n\n";
-                        flightInfo.setText(info);
+                        String info = "<b>" + aF.getFlightNumber() +
+                                        "</b><br>From: " + SearchUtility.getAirportNameByPK(db, aF.getOriginAirportId_FK()).getAirportName() +
+                                        "<br>To:" +  SearchUtility.getAirportNameByPK(db, aF.getDestAirportId_FK()).getAirportName() +
+                                        "<br>Departure: " + aF.getDepartureDate() + " at " + HelperUtility.doubleToHours(aF.getDepartureTime()) +
+                                        "<br>Arrival: " + aF.getArrivalDate() + " at " + HelperUtility.sumHours(aF.getDepartureTime(), aF.getTravelTime()) +
+                                        "<b><br>Duration: " + HelperUtility.doubleToHours(aF.getTravelTime()) +
+                                        "</b><br><br><i>Operated By: " + SearchUtility.getAirlineByFlight(db, aF).getAirlineName() + "</i><br><br>";
+                        flightInfo.setText(Html.fromHtml(info));
                         flightInfo.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 2f));
 
                         //FlightCost
@@ -107,6 +106,8 @@ public class SearchResultsActivity extends Activity {
                         DecimalFormat df = new DecimalFormat("###.00");
                         flightCost.setText("$" + df.format(aF.getCost()));
                         flightCost.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1f));
+                        flightCost.setTypeface(null, Typeface.BOLD);
+                        flightCost.setTextSize(20);
 
                         individualResult.addView(flightInfo);
                         individualResult.addView(flightCost);
@@ -126,8 +127,12 @@ public class SearchResultsActivity extends Activity {
                             }
                         });
 
+                        //Create division
+                        Space division = new Space(getApplicationContext());
+                        division.setMinimumHeight(45);
+
                         resultsLayout.addView(individualResult);
-                        resultsLayout.addView(new Space(getApplicationContext()));
+                        resultsLayout.addView(division);
 
                     }
                 }
