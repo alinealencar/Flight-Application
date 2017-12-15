@@ -204,7 +204,7 @@ public class SearchUtility {
 
         //Select query
         String selectFlights = "SELECT * FROM tbl_flight WHERE originAirportId_FK IS '" + origin.getAirportId() +
-                "' AND destAirportId_FK IS '" + destination.getAirportId() + "' AND departureDateTime IS '" + departureDate + "'";
+                "' AND destAirportId_FK IS '" + destination.getAirportId() + "' AND departureDate IS '" + departureDate + "'";
         SQLiteDatabase db = flightDb.getReadableDatabase();
         Cursor cursor = db.rawQuery(selectFlights, null);
 

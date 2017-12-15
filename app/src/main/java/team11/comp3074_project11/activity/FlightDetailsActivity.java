@@ -40,8 +40,8 @@ public class FlightDetailsActivity extends AppCompatActivity {
         ((TextView) findViewById(R.id.txtFlightNumber)).setText(flight.getFlightNumber());
         ((TextView) findViewById(R.id.txtOrigin)).setText(SearchUtility.getAirportNameByPK(db, flight.getOriginAirportId_FK()).getAirportName());
         ((TextView) findViewById(R.id.txtDestination)).setText(SearchUtility.getAirportNameByPK(db, flight.getDestAirportId_FK()).getAirportName());
-        ((TextView) findViewById(R.id.txtDeparture)).setText(flight.getDepartureDate());
-        ((TextView) findViewById(R.id.txtArrival)).setText(flight.getArrivalDate());
+        ((TextView) findViewById(R.id.txtDeparture)).setText(flight.getDepartureDate() + " at " + HelperUtility.doubleToHours(flight.getDepartureTime()));
+        ((TextView) findViewById(R.id.txtArrival)).setText(flight.getArrivalDate() + " at " + HelperUtility.sumHours(flight.getDepartureTime(), flight.getTravelTime()));
         ((TextView) findViewById(R.id.txtAirline)).setText(SearchUtility.getAirlineByFlight(db, flight).getAirlineName());
         ((TextView) findViewById(R.id.txtTravelTime)).setText(HelperUtility.doubleToHours(flight.getTravelTime()));
         ((TextView) findViewById(R.id.txtCost)).setText("$" + df.format(flight.getCost()));

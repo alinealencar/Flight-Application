@@ -34,7 +34,7 @@ public class FlightAppDatabaseHelper extends SQLiteOpenHelper {
             "arrivalDate TEXT," +
             "cost REAL," +
             "travelTime REAL," +
-             "departureTime REAL" +
+             "departureTime REAL," +
             "airlineId_FK INTEGER," +
             "originAirportId_FK INTEGER," +
             "destAirportId_FK INTEGER);";
@@ -124,8 +124,8 @@ public class FlightAppDatabaseHelper extends SQLiteOpenHelper {
     public static void insertFlight(SQLiteDatabase db, Flight flight){
         ContentValues flightValues = new ContentValues();
         flightValues.put("flightNumber", flight.getFlightNumber());
-        flightValues.put("departureDateTime", flight.getDepartureDate());
-        flightValues.put("arrivalDateTime", flight.getArrivalDate());
+        flightValues.put("departureDate", flight.getDepartureDate());
+        flightValues.put("arrivalDate", flight.getArrivalDate());
         flightValues.put("cost", flight.getCost());
         flightValues.put("travelTime", flight.getTravelTime());
         flightValues.put("departureTime", flight.getDepartureTime());
@@ -255,7 +255,7 @@ public class FlightAppDatabaseHelper extends SQLiteOpenHelper {
                 //Origin airport must be different from destination airport
                 if(i != j) {
                     //Loop twice for each origin/destination pair
-                    for (int k = 0; k < 2; k++) {
+                    for (int k = 0; k < 3; k++) {
                         //Get random airline
                         Airline anAirline = airlines.get(new Random().nextInt(numOfAirlines));
                         String randomFlightNumber = anAirline.getAirlineInitials() + (new Random().nextInt(999 - 100) + 100);
