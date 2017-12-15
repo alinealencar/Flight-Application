@@ -78,6 +78,10 @@ public class ItinerariesActivity extends Activity {
                 perItinerary.setPadding(25, 15, 5, 5);
 
                 itineraryLayout.addView(perItinerary);
+
+                if(itinerariesList.size() == 0){
+                    findViewById(R.id.noItinerariesTextView).setVisibility(View.VISIBLE);
+                }
             }
 
         } catch (SQLException e) {
