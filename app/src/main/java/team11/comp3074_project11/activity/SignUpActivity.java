@@ -63,7 +63,6 @@ public class SignUpActivity extends AppCompatActivity {
         String password = passwordEditText.getText().toString().trim();
         String creditcardNo = creditCardNoEditText.getText().toString().trim();
 
-
         /***************************
         //validate user input
         ***************************/
@@ -72,31 +71,42 @@ public class SignUpActivity extends AppCompatActivity {
         FlightAppDatabaseHelper helper = new FlightAppDatabaseHelper(this);
 
         //get the database in write mode
-        SQLiteDatabase db =  helper.getWritableDatabase();
+        SQLiteDatabase dbWrite =  helper.getWritableDatabase();
+        //get the database in reading mode
+        SQLiteDatabase dbRead =  helper.getReadableDatabase();
 
         /*
-        insert values to database
+        check if there is not an account using same email
          */
-        //create client object
-        Client client = new Client(firstName, lastName, email, password, creditcardNo);
-
-        //insert a new row for client in the database
-        //returning the ID for that new row
-        long newRowId = FlightAppDatabaseHelper.insertClient(db, client);
-
-        //show a toast message depend on insertion result
-        if (newRowId == -1) {
-            //if the row ID is -1, then there was an error with insertion.
-            Toast.makeText(this, "Error with saving new profile", Toast.LENGTH_SHORT).show();
-        } else {
-            //otherwise, the insertion was successful
-            Toast.makeText(this, "Your account is created successfully.", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(SignUpActivity.this, DashboardActivity.class);
-            intent.putExtra("userId", firstName);
-            intent.putExtra("userFullName", lastName);
-            startActivity(intent);
+        if(FlightAppDatabaseHelper.isNewClient(dbRead, email)==false){
+            //the imputed email is already used
+            Toast.makeText(this, "The email address is already used. \n Please use another email address.", Toast.LENGTH_SHORT).show();
         }
+        else{
+            //the inputed email is new
+            /*
+            insert values to database
+             */
+            //create client object
+            Client client = new Client(firstName, lastName, email, password, creditcardNo);
 
+            //insert a new row for client in the database
+            //returning the ID for that new row
+            long newRowId = FlightAppDatabaseHelper.insertClient(dbWrite, client);
+
+            //show a toast message depend on insertion result
+            if (newRowId == -1) {
+                //if the row ID is -1, then there was an error with insertion.
+                Toast.makeText(this, "Error with saving new profile", Toast.LENGTH_SHORT).show();
+            } else {
+                //otherwise, the insertion was successful
+                Toast.makeText(this, "Your account is created successfully.", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(SignUpActivity.this, DashboardActivity.class);
+                intent.putExtra("firstName", firstName);
+                intent.putExtra("lastName", lastName);
+                startActivity(intent);
+            }
+        }
 
     }
 

@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -55,7 +56,7 @@ public class FlightAppDatabaseHelper extends SQLiteOpenHelper {
 
     private static final String CREATE_CLIENT_TABLE = "CREATE TABLE tbl_client (" +
             "clientId_PK INTEGER PRIMARY KEY AUTOINCREMENT," +
-            "firstName TEXT," +
+            "firstName TEXT ," +
             "lastName TEXT," +
             "email TEXT UNIQUE," +
             "password TEXT," +
@@ -164,7 +165,45 @@ public class FlightAppDatabaseHelper extends SQLiteOpenHelper {
         return newRowId;
     }
 
+    //check if the new Client account doesn't exist in DB
+    public static boolean isNewClient(SQLiteDatabase dbRead, String email){
+        boolean status = true;
 
+        // Define a projection that specifies which columns from the database
+        String[] projection = {
+                FlightAppContract.ClientEntry.COLUMN_CLIENT_EMAIL
+        };
+
+        Cursor cursor = dbRead.query(
+                FlightAppContract.ClientEntry.TABLE_NAME,                     // The table to query
+                projection,                               // The columns to return
+                null,                                // The columns for the WHERE clause
+                null,                            // The values for the WHERE clause
+                null,                                     // don't group the rows
+                null,                                     // don't filter by row groups
+                null                                 // The sort order
+        );
+
+        try{
+            // Figure out the index of each column
+            int emailColumnIndex = cursor.getColumnIndex(FlightAppContract.ClientEntry.COLUMN_CLIENT_EMAIL);
+
+            // Iterate through all the returned rows in the cursor
+            while(cursor.moveToNext()){
+                // Use that index to extract the email in DB
+                // at the current row the cursor is on.
+                String currentEmail = cursor.getString(emailColumnIndex);
+
+                if(currentEmail.equals(email)){
+                    status = false; //there is a same email in existing accounts
+                    break;
+                }
+            }
+        }finally {
+            cursor.close();
+        }
+        return status;
+    }
 
     //Overloaded method
     public void insertClient(Client client){
