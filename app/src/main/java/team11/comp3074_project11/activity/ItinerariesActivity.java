@@ -6,10 +6,15 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
+import android.text.Html;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -20,6 +25,7 @@ import team11.comp3074_project11.R;
 import team11.comp3074_project11.dataModel.Flight;
 import team11.comp3074_project11.dataModel.Itinerary;
 import team11.comp3074_project11.database.FlightAppDatabaseHelper;
+import team11.comp3074_project11.helper.HelperUtility;
 import team11.comp3074_project11.helper.SearchUtility;
 
 public class ItinerariesActivity extends Activity {
@@ -30,33 +36,49 @@ public class ItinerariesActivity extends Activity {
         setContentView(R.layout.activity_itineraries);
 
         List<Flight> itinerariesList = new ArrayList<>();
-
         final FlightAppDatabaseHelper db = new FlightAppDatabaseHelper(getApplicationContext());
 
+        LinearLayout itineraryLayout = (LinearLayout) findViewById(R.id.itineraryLayout);
+
+        //Hide no itineraries message
+        findViewById(R.id.noItinerariesTextView).setVisibility(View.INVISIBLE);
+
+        //Get the id of the client
+        //Bundle extras = getIntent().getExtras();
+        //int clientId = extras.getInt("clientId");
 
         try {
             //store selected flights by clientId to list
-            //itinerariesList = SearchUtility.getFlightByClient(db, aClient.getClientId());
+            //itinerariesList = SearchUtility.getFlightByClient(db, clientId);
 
             ArrayAdapter<String> adapter;
             List<String> itinerariesListStr = new ArrayList<>();
 
-            //check if there are booked itineraries
-            if (itinerariesList.size() == 0) {
-                List<String> noItineraries = new ArrayList<>();
-                noItineraries.add("No itineraries booked.");
-                adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, noItineraries);
-            }
-            else {
-                for (Flight anI : itinerariesList)
-                    itinerariesListStr.add(anI.toString());
+            for(Flight aF : itinerariesList) {
+                LinearLayout perItinerary = new LinearLayout(getApplicationContext());
+                perItinerary.setOrientation(LinearLayout.HORIZONTAL);
+                perItinerary.setGravity(Gravity.CENTER);
 
-                adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, itinerariesListStr);
-            }
+                //FlightInfo
+                TextView flightInfo = new TextView(getApplicationContext());
+                String info = "<b>" + aF.getFlightNumber() +
+                        "</b><br>From: " + SearchUtility.getAirportNameByPK(db, aF.getOriginAirportId_FK()).getAirportName() +
+                        "<br>To:" + SearchUtility.getAirportNameByPK(db, aF.getDestAirportId_FK()).getAirportName() +
+                        "<br>Departure: " + aF.getDepartureDate() + " at " + HelperUtility.doubleToHours(aF.getDepartureTime()) +
+                        "<br>Arrival: " + aF.getArrivalDate() + " at " + HelperUtility.sumHours(aF.getDepartureTime(), aF.getTravelTime()) +
+                        "<b><br>Duration: " + HelperUtility.doubleToHours(aF.getTravelTime()) +
+                        "</b><br><br><i>Operated By: " + SearchUtility.getAirlineByFlight(db, aF).getAirlineName() + "</i><br><br>";
+                flightInfo.setText(Html.fromHtml(info));
+                flightInfo.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 2f));
 
-            //populate listview
-            ListView lv = (ListView) findViewById(R.id.listItineraries);
-            lv.setAdapter(adapter);
+                perItinerary.addView(flightInfo);
+
+                //Set background color of the result
+                perItinerary.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.colorGray));
+                perItinerary.setPadding(25, 15, 5, 5);
+
+                itineraryLayout.addView(perItinerary);
+            }
 
         } catch (SQLException e) {
             Toast.makeText(getApplicationContext(), "Database error. " + e + "Please try again.", Toast.LENGTH_SHORT).show();

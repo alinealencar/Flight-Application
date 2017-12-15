@@ -99,7 +99,7 @@ public class Flight implements Comparable<Flight> {
 
     @Override
     public String toString() {
-        return "Flight{" +
+        return"Flight{" +
                 "flightId=" + flightId +
                 ", originAirportId_FK=" + originAirportId_FK +
                 ", destAirportId_FK=" + destAirportId_FK +

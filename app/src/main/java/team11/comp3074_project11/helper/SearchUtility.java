@@ -268,7 +268,8 @@ public class SearchUtility {
         //Select query
         SQLiteDatabase db = flightDb.getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT * FROM tbl_flight INNER JOIN tbl_itinerary " +
-                "ON tbl_flight.flightId_PK = tbl_itinerary.flightId_FK WHERE tbl_itinerary.clientId_FK = " + clientId, null);
+                "ON tbl_flight.flightId_PK = tbl_itinerary.flightId_FK WHERE tbl_itinerary.clientId_FK = " + clientId +
+                " ORDER BY tbl_flight.departureDate", null);
 
         if(cursor.moveToFirst()){
             do {
