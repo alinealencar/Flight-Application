@@ -49,7 +49,7 @@ public class ItinerariesActivity extends Activity {
 
         try {
             //store selected flights by clientId to list
-            //itinerariesList = SearchUtility.getFlightByClient(db, clientId);
+            itinerariesList = SearchUtility.getFlightByClient(db, 1);
 
             ArrayAdapter<String> adapter;
             List<String> itinerariesListStr = new ArrayList<>();

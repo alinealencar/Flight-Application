@@ -1,31 +1,117 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="16dp"
+    android:weightSum="1"
     tools:context="team11.comp3074_project11.activity.ConfirmationActivity">
 
-    <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_marginTop="30dp"
-        android:src="@drawable/success"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="102dp">
 
-    <TextView
-        android:id="@+id/lblSuccess"
-        android:layout_width="250dp"
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="100dp"
+            android:layout_height="88dp"
+            android:layout_marginTop="30dp"
+            android:layout_weight="0.37"
+            android:src="@drawable/success" />
+
+        <TextView
+            android:id="@+id/lblSuccess"
+            android:layout_width="197dp"
+            android:layout_height="100dp"
+            android:layout_marginBottom="25dp"
+            android:layout_marginTop="50dp"
+            android:text="@string/confirmationMessage"
+            android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+    </TableRow>
+
+    <TableLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="19dp"
-        android:text="@string/confirmationMessage"
-        android:textAppearance="@style/TextAppearance.AppCompat.Title"
-        android:layout_alignBottom="@+id/imageView3"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_marginTop="30dp">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal" >
+
+            <TextView
+                android:id="@+id/txtAirline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="TextView"
+                android:textAppearance="@android:style/TextAppearance.DeviceDefault.Medium" />
+
+            <TextView
+                android:id="@+id/txtFlightNumber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_marginLeft="5dp"
+                android:text="TextView"
+                android:textAppearance="@android:style/TextAppearance.DeviceDefault.Medium" />
+        </TableRow>
+        </TableLayout>
+
+            <TextView
+                android:id="@+id/txtOrigin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="2"
+                android:layout_marginTop="20dp"
+                android:layout_gravity="center_horizontal"
+                android:text="TextView"
+                android:textAppearance="@android:style/TextAppearance.DeviceDefault.Medium" />
+
+            <TextView
+                android:id="@+id/txtDeparture"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="10dp"
+                android:text="TextView" />
+
+
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginLeft="150dp"
+                android:layout_marginTop="30dp"
+                android:src="@drawable/airplane" />
+
+
+            <TextView
+                android:id="@+id/txtDestination"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_gravity="center_horizontal"
+                android:text="TextView"
+                android:textAppearance="@android:style/TextAppearance.DeviceDefault.Medium" />
+
+            <TextView
+                android:id="@+id/txtArrival"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="10dp"
+                android:text="TextView" />
+
+
+    <Button
+        android:id="@+id/btnItineraries"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="@string/btnGoToItineraries" />
 
     <!--<TextView
         android:id="@+id/textView7"
@@ -145,98 +231,4 @@
         android:layout_alignStart="@+id/txtArrival" /> -->
 
 
-    <Button
-        android:id="@+id/btnItineraries"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/btnGoToItineraries"
-        android:layout_marginBottom="37dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
-
-    <TextView
-        android:id="@+id/textView20"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/flightNo"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        android:layout_marginBottom="23dp"
-        android:layout_above="@+id/txtOrigin"
-        android:layout_toLeftOf="@+id/txtAirline"
-        android:layout_toStartOf="@+id/txtAirline" />
-
-    <TextView
-        android:id="@+id/txtFlightNumber"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:text=""
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        android:layout_below="@+id/txtAirline"
-        android:layout_toRightOf="@+id/txtOrigin"
-        android:layout_toEndOf="@+id/txtOrigin" />
-
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:src="@drawable/airplane"
-        android:layout_alignTop="@+id/txtOrigin"
-        android:layout_centerHorizontal="true" />
-
-    <TextView
-        android:id="@+id/txtOrigin"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:text=""
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        android:layout_alignBaseline="@+id/txtDestination"
-        android:layout_alignBottom="@+id/txtDestination"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
-    <TextView
-        android:id="@+id/txtDestination"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="17dp"
-        android:layout_marginStart="17dp"
-        android:text=""
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        android:layout_centerVertical="true"
-        android:layout_toRightOf="@+id/imageView2"
-        android:layout_toEndOf="@+id/imageView2" />
-
-    <TextView
-        android:id="@+id/txtDeparture"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:text=""
-        android:layout_marginRight="3dp"
-        android:layout_alignBottom="@+id/imageView2"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_toLeftOf="@+id/imageView2"
-        android:layout_toStartOf="@+id/imageView2" />
-
-    <TextView
-        android:id="@+id/txtArrival"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="3dp"
-        android:layout_alignLeft="@+id/txtDestination"
-        android:layout_alignStart="@+id/txtDestination"
-        android:layout_alignTop="@+id/txtDeparture"
-        android:text="" />
-
-    <TextView
-        android:id="@+id/txtAirline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text=""
-        android:textColor="@color/colorPrimary"
-        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Medium"
-        android:layout_above="@+id/textView20"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="12dp" />
-
-</RelativeLayout>
+</LinearLayout>
