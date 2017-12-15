@@ -29,7 +29,11 @@
     <string name="titleItineraries">Itineraries</string>
     <string name="btnBackToHome">BACK TO HOME</string>
 
-    <string name="titleSearch">Search Results</string>
+    <string name="titleSearchResults">Search Results</string>
+
+    <string name="titleSearch">Search</string>
+    <string name="btnFlightSearch">SEARCH</string>
+
 
 
 </resources>
