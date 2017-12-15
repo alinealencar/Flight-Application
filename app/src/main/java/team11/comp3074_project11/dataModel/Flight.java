@@ -11,8 +11,8 @@ import java.util.Date;
 
 public class Flight implements Comparable<Flight> {
     private int flightId, originAirportId_FK, destAirportId_FK, airlineId_FK;
-    private String flightNumber, departureDateTime, arrivalDateTime;
-    private double cost, travelTime;
+    private String flightNumber, departureDate, arrivalDate;
+    private double cost, travelTime, departureTime;
 
     public Flight() {
     }
@@ -57,20 +57,20 @@ public class Flight implements Comparable<Flight> {
         this.flightNumber = flightNumber;
     }
 
-    public String getDepartureDateTime() {
-        return departureDateTime;
+    public String getDepartureDate() {
+        return departureDate;
     }
 
-    public void setDepartureDateTime(String departureDateTime) {
-        this.departureDateTime = departureDateTime;
+    public void setDepartureDate(String departureDateTime) {
+        this.departureDate = departureDateTime;
     }
 
-    public String getArrivalDateTime() {
-        return arrivalDateTime;
+    public String getArrivalDate() {
+        return arrivalDate;
     }
 
-    public void setArrivalDateTime(String arrivalDateTime) {
-        this.arrivalDateTime = arrivalDateTime;
+    public void setArrivalDate(String arrivalDateTime) {
+        this.arrivalDate = arrivalDateTime;
     }
 
     public double getCost() {
@@ -89,6 +89,14 @@ public class Flight implements Comparable<Flight> {
         this.travelTime = travelTime;
     }
 
+    public double getDepartureTime() {
+        return departureTime;
+    }
+
+    public void setDepartureTime(double departureTime) {
+        this.departureTime = departureTime;
+    }
+
     @Override
     public String toString() {
         return "Flight{" +
@@ -97,10 +105,11 @@ public class Flight implements Comparable<Flight> {
                 ", destAirportId_FK=" + destAirportId_FK +
                 ", airlineId_FK=" + airlineId_FK +
                 ", flightNumber='" + flightNumber + '\'' +
-                ", departureDateTime='" + departureDateTime + '\'' +
-                ", arrivalDateTime='" + arrivalDateTime + '\'' +
+                ", departureDate='" + departureDate + '\'' +
+                ", arrivalDate='" + arrivalDate + '\'' +
                 ", cost=" + cost +
                 ", travelTime=" + travelTime +
+                ", departureTime=" + departureTime +
                 '}';
     }
 

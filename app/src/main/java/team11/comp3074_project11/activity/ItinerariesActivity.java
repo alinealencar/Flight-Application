@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ServiceConfigurationError;
 
 import team11.comp3074_project11.R;
 import team11.comp3074_project11.dataModel.Flight;
@@ -29,7 +30,9 @@ public class ItinerariesActivity extends Activity {
         setContentView(R.layout.activity_itineraries);
 
         List<Flight> itinerariesList = new ArrayList<>();
+
         final FlightAppDatabaseHelper db = new FlightAppDatabaseHelper(getApplicationContext());
+
 
         try {
             //store selected flights by clientId to list

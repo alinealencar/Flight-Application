@@ -2,33 +2,23 @@ package team11.comp3074_project11.activity;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.GridView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.ScrollView;
 import android.widget.Space;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.text.DecimalFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.Date;
 import java.util.List;
-import java.util.ServiceConfigurationError;
 
 import team11.comp3074_project11.R;
-import team11.comp3074_project11.dataModel.Airport;
 import team11.comp3074_project11.dataModel.Flight;
 import team11.comp3074_project11.database.FlightAppDatabaseHelper;
 import team11.comp3074_project11.helper.HelperUtility;
@@ -95,8 +85,8 @@ public class SearchResultsActivity extends Activity {
                         String info = "FLIGHT: " + aF.getFlightNumber() +
                                         "\nFROM: " + SearchUtility.getAirportNameByPK(db, aF.getOriginAirportId_FK()).getAirportName() +
                                         "\nTO:" +  SearchUtility.getAirportNameByPK(db, aF.getDestAirportId_FK()).getAirportName() +
-                                        "\nDeparture: " + aF.getDepartureDateTime() +
-                                        "\t\tArrival: " + aF.getArrivalDateTime() +
+                                        "\nDeparture: " + aF.getDepartureDate() +
+                                        "\t\tArrival: " + aF.getArrivalDate() +
                                         "\nDuration: " + HelperUtility.doubleToHours(aF.getTravelTime()) +
                                         "\n\nOperated By: " + SearchUtility.getAirlineByFlight(db, aF).getAirlineName() + "\n\n\n";
                         flightInfo.setText(info);

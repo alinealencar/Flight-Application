@@ -132,4 +132,18 @@
         android:id="@+id/txtCreditCard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+
+    <Button
+        android:id="@+id/btnBackToResults"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="onClickBackToResults"
+        android:text="BACK" />
+
+    <Button
+        android:id="@+id/btnBook"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="onClickBook"
+        android:text="BOOK" />
 </LinearLayout>

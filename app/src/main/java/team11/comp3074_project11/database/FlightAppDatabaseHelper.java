@@ -6,16 +6,10 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.widget.Toast;
 
-import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Random;
-import java.util.concurrent.ThreadLocalRandom;
 
 import team11.comp3074_project11.dataModel.Airline;
 import team11.comp3074_project11.dataModel.Airport;
@@ -23,13 +17,6 @@ import team11.comp3074_project11.dataModel.Client;
 import team11.comp3074_project11.dataModel.Flight;
 import team11.comp3074_project11.dataModel.Itinerary;
 import team11.comp3074_project11.helper.SearchUtility;
-
-import static team11.comp3074_project11.database.FlightAppContract.ClientEntry.COLUMN_CLIENT_CREDITCARDNO;
-import static team11.comp3074_project11.database.FlightAppContract.ClientEntry.COLUMN_CLIENT_EMAIL;
-import static team11.comp3074_project11.database.FlightAppContract.ClientEntry.COLUMN_CLIENT_FIRSTNAME;
-import static team11.comp3074_project11.database.FlightAppContract.ClientEntry.COLUMN_CLIENT_LASTNAME;
-import static team11.comp3074_project11.database.FlightAppContract.ClientEntry.COLUMN_CLIENT_PASSWORD;
-import static team11.comp3074_project11.database.FlightAppContract.ClientEntry.TABLE_NAME;
 
 /**
  * Created by aline on 2017-12-07.
@@ -43,10 +30,11 @@ public class FlightAppDatabaseHelper extends SQLiteOpenHelper {
     private static final String CREATE_FLIGHT_TABLE = "CREATE TABLE tbl_flight (" +
             "flightId_PK INTEGER PRIMARY KEY AUTOINCREMENT," +
             "flightNumber TEXT," +
-            "departureDateTime TEXT," +
-            "arrivalDateTime TEXT," +
+            "departureDate TEXT," +
+            "arrivalDate TEXT," +
             "cost REAL," +
             "travelTime REAL," +
+             "departureTime REAL" +
             "airlineId_FK INTEGER," +
             "originAirportId_FK INTEGER," +
             "destAirportId_FK INTEGER);";
@@ -136,10 +124,11 @@ public class FlightAppDatabaseHelper extends SQLiteOpenHelper {
     public static void insertFlight(SQLiteDatabase db, Flight flight){
         ContentValues flightValues = new ContentValues();
         flightValues.put("flightNumber", flight.getFlightNumber());
-        flightValues.put("departureDateTime", flight.getDepartureDateTime());
-        flightValues.put("arrivalDateTime", flight.getArrivalDateTime());
+        flightValues.put("departureDateTime", flight.getDepartureDate());
+        flightValues.put("arrivalDateTime", flight.getArrivalDate());
         flightValues.put("cost", flight.getCost());
         flightValues.put("travelTime", flight.getTravelTime());
+        flightValues.put("departureTime", flight.getDepartureTime());
         flightValues.put("airlineId_FK", flight.getAirlineId_FK());
         flightValues.put("originAirportId_FK", flight.getOriginAirportId_FK());
         flightValues.put("destAirportId_FK", flight.getDestAirportId_FK());
@@ -233,6 +222,13 @@ public class FlightAppDatabaseHelper extends SQLiteOpenHelper {
         db.update("tbl_client", clientValues, "clientId_PK = " + clientId, null);
     }
 
+    /**
+     * This method generate flights with random parameters.
+     * Not to be used in production environment.
+     *
+     * @param db
+     * @return
+     */
     public List<Flight> generateFlights(SQLiteDatabase db) {
         List<Flight> randomFlights = new ArrayList<Flight>();
 
@@ -273,15 +269,19 @@ public class FlightAppDatabaseHelper extends SQLiteOpenHelper {
                         //Get random date
                         int d = new Random().nextInt(numOfDates);
 
+                        //Get random time - 0 -> 00:00; 23.99 -> 23:59
+                        double time = (23.99) * new Random().nextDouble();
+
                         Flight aFlight = new Flight();
                         aFlight.setOriginAirportId_FK(airports.get(i).getAirportId());
                         aFlight.setDestAirportId_FK(airports.get(j).getAirportId());
                         aFlight.setAirlineId_FK(anAirline.getAirlineId());
                         aFlight.setFlightNumber(randomFlightNumber);
-                        aFlight.setDepartureDateTime(randomDates.get(0));
-                        aFlight.setArrivalDateTime(randomDates.get(0));
+                        aFlight.setDepartureDate(randomDates.get(0));
+                        aFlight.setArrivalDate(randomDates.get(0));
                         aFlight.setCost(cost);
                         aFlight.setTravelTime(travelTime);
+                        aFlight.setDepartureTime(time);
 
                         randomFlights.add(aFlight);
                     }
