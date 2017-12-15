@@ -23,8 +23,11 @@
     <string name="btnCancel">Cancel</string>
 
     <string name="titleConfirmation">Success!</string>
-    <string name="confirmationMessage">You have successfully booked your flight.</string>
+    <string name="confirmationMessage">Your flight has been successfully booked!</string>
     <string name="btnGoToItineraries">GO TO MY ITINERARIES</string>
+    <string name="flightNo">Flight</string>
+    <string name="to">To:</string>
+    <string name="from">From:</string>
 
     <string name="titleItineraries">Itineraries</string>
     <string name="btnBackToHome">BACK TO HOME</string>

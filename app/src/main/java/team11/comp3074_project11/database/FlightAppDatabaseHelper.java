@@ -85,7 +85,7 @@ public class FlightAppDatabaseHelper extends SQLiteOpenHelper {
         //Insert airlines
         insertAirline(db, new Airline("Air Canada", "AC"));
         insertAirline(db, new Airline("WestJet", "WJ"));
-        insertAirline(db, new Airline("Delta", "DT"));
+        insertAirline(db, new Airline("Delta Airways", "DT"));
         insertAirline(db, new Airline("American Airlines", "AA"));
 
         List<Flight> flights = generateFlights(db);

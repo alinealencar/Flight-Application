@@ -54,33 +54,36 @@ public class ItinerariesActivity extends Activity {
             ArrayAdapter<String> adapter;
             List<String> itinerariesListStr = new ArrayList<>();
 
-            for(Flight aF : itinerariesList) {
-                LinearLayout perItinerary = new LinearLayout(getApplicationContext());
-                perItinerary.setOrientation(LinearLayout.HORIZONTAL);
-                perItinerary.setGravity(Gravity.CENTER);
+            //check if there are itineraries to show
+            if(itinerariesList.size() == 0){
+                findViewById(R.id.noItinerariesTextView).setVisibility(View.VISIBLE);
+            }
 
-                //FlightInfo
-                TextView flightInfo = new TextView(getApplicationContext());
-                String info = "<b>" + aF.getFlightNumber() +
-                        "</b><br>From: " + SearchUtility.getAirportNameByPK(db, aF.getOriginAirportId_FK()).getAirportName() +
-                        "<br>To:" + SearchUtility.getAirportNameByPK(db, aF.getDestAirportId_FK()).getAirportName() +
-                        "<br>Departure: " + aF.getDepartureDate() + " at " + HelperUtility.doubleToHours(aF.getDepartureTime()) +
-                        "<br>Arrival: " + aF.getArrivalDate() + " at " + HelperUtility.sumHours(aF.getDepartureTime(), aF.getTravelTime()) +
-                        "<b><br>Duration: " + HelperUtility.doubleToHours(aF.getTravelTime()) +
-                        "</b><br><br><i>Operated By: " + SearchUtility.getAirlineByFlight(db, aF).getAirlineName() + "</i><br><br>";
-                flightInfo.setText(Html.fromHtml(info));
-                flightInfo.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 2f));
+            else {
+                for (Flight aF : itinerariesList) {
+                    LinearLayout perItinerary = new LinearLayout(getApplicationContext());
+                    perItinerary.setOrientation(LinearLayout.HORIZONTAL);
+                    perItinerary.setGravity(Gravity.CENTER);
 
-                perItinerary.addView(flightInfo);
+                    //FlightInfo
+                    TextView flightInfo = new TextView(getApplicationContext());
+                    String info = "<b>" + aF.getFlightNumber() +
+                            "</b><br>From: " + SearchUtility.getAirportNameByPK(db, aF.getOriginAirportId_FK()).getAirportName() +
+                            "<br>To:" + SearchUtility.getAirportNameByPK(db, aF.getDestAirportId_FK()).getAirportName() +
+                            "<br>Departure: " + aF.getDepartureDate() + " at " + HelperUtility.doubleToHours(aF.getDepartureTime()) +
+                            "<br>Arrival: " + aF.getArrivalDate() + " at " + HelperUtility.sumHours(aF.getDepartureTime(), aF.getTravelTime()) +
+                            "<b><br>Duration: " + HelperUtility.doubleToHours(aF.getTravelTime()) +
+                            "</b><br><br><i>Operated By: " + SearchUtility.getAirlineByFlight(db, aF).getAirlineName() + "</i><br><br>";
+                    flightInfo.setText(Html.fromHtml(info));
+                    flightInfo.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 2f));
 
-                //Set background color of the result
-                perItinerary.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.colorGray));
-                perItinerary.setPadding(25, 15, 5, 5);
+                    perItinerary.addView(flightInfo);
 
-                itineraryLayout.addView(perItinerary);
+                    //Set background color of the result
+                    perItinerary.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.colorGray));
+                    perItinerary.setPadding(25, 15, 5, 5);
 
-                if(itinerariesList.size() == 0){
-                    findViewById(R.id.noItinerariesTextView).setVisibility(View.VISIBLE);
+                    itineraryLayout.addView(perItinerary);
                 }
             }
 
