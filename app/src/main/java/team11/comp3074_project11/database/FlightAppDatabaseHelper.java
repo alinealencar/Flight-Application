@@ -56,11 +56,11 @@ public class FlightAppDatabaseHelper extends SQLiteOpenHelper {
 
     private static final String CREATE_CLIENT_TABLE = "CREATE TABLE tbl_client (" +
             "clientId_PK INTEGER PRIMARY KEY AUTOINCREMENT," +
-            "firstName TEXT ," +
-            "lastName TEXT," +
-            "email TEXT UNIQUE," +
-            "password TEXT," +
-            "creditCardNo TEXT);";
+            "firstName TEXT NOT NULL," +
+            "lastName TEXT NOT NULL," +
+            "email TEXT UNIQUE NOT NULL," +
+            "password TEXT NOT NULL," +
+            "creditCardNo TEXT NOT NULL);";
 
     public FlightAppDatabaseHelper(Context context){super(context, DB_NAME, null, DB_VERSION);}
 
@@ -150,7 +150,6 @@ public class FlightAppDatabaseHelper extends SQLiteOpenHelper {
     }
 
     //Insert Client into the database
-
     public static long insertClient(SQLiteDatabase db, Client client){
         //create a ContentValue object column
         ContentValues clientValues = new ContentValues();
@@ -184,26 +183,52 @@ public class FlightAppDatabaseHelper extends SQLiteOpenHelper {
                 null                                 // The sort order
         );
 
-        try{
+        try {
             // Figure out the index of each column
             int emailColumnIndex = cursor.getColumnIndex(FlightAppContract.ClientEntry.COLUMN_CLIENT_EMAIL);
 
             // Iterate through all the returned rows in the cursor
-            while(cursor.moveToNext()){
+            while (cursor.moveToNext()) {
                 // Use that index to extract the email in DB
                 // at the current row the cursor is on.
                 String currentEmail = cursor.getString(emailColumnIndex);
 
-                if(currentEmail.equals(email)){
+                if (currentEmail.equals(email)) {
                     status = false; //there is a same email in existing accounts
                     break;
                 }
             }
+        }catch (SQLiteException e){
+            status = false;
+
         }finally {
             cursor.close();
         }
         return status;
     }
+
+    //get freshly created client ID
+    public static int getNewClientId(SQLiteDatabase dbRead, String email){
+        int clientId = 0;
+
+        String selectClient = "SELECT * FROM tbl_client WHERE email =  '" + email +"'";
+
+        Cursor cursor = dbRead.rawQuery(selectClient, null);
+
+        try{
+            if (cursor.moveToFirst()) {
+                clientId = cursor.getInt(0);
+            }
+        }catch(SQLiteException e){
+           clientId = 0;
+        }finally {
+            cursor.close();
+        }
+
+        return clientId;
+    }
+
+
 
     //Overloaded method
     public void insertClient(Client client){
