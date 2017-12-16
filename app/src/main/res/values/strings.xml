@@ -34,6 +34,9 @@
     <string name="titleSearch">Search</string>
     <string name="btnFlightSearch">SEARCH</string>
 
+    <string name="titleFlightDetails">Flight Details</string>
+    <string name="titlePaymentInfo">Payment Information</string>
+
 
 
 </resources>

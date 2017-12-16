@@ -37,17 +37,15 @@ public class FlightDetailsActivity extends AppCompatActivity {
         Client client = SearchUtility.getClientByPK(db, CLIENTID);
 
         //Set all TextViews with the data stored in the client and flight objects
-        ((TextView) findViewById(R.id.txtFlightNumber)).setText(flight.getFlightNumber());
-        ((TextView) findViewById(R.id.txtOrigin)).setText(SearchUtility.getAirportNameByPK(db, flight.getOriginAirportId_FK()).getAirportName());
-        ((TextView) findViewById(R.id.txtDestination)).setText(SearchUtility.getAirportNameByPK(db, flight.getDestAirportId_FK()).getAirportName());
-        ((TextView) findViewById(R.id.txtDeparture)).setText(flight.getDepartureDate() + " at " + HelperUtility.doubleToHours(flight.getDepartureTime()));
-        ((TextView) findViewById(R.id.txtArrival)).setText(flight.getArrivalDate() + " at " + HelperUtility.sumHours(flight.getDepartureTime(), flight.getTravelTime()));
-        ((TextView) findViewById(R.id.txtAirline)).setText(SearchUtility.getAirlineByFlight(db, flight).getAirlineName());
-        ((TextView) findViewById(R.id.txtTravelTime)).setText(HelperUtility.doubleToHours(flight.getTravelTime()));
-        ((TextView) findViewById(R.id.txtCost)).setText("$" + df.format(flight.getCost()));
-
-        ((TextView) findViewById(R.id.txtClientName)).setText(client.getFirstName() + " " + client.getLastName());
-        ((TextView) findViewById(R.id.txtCreditCard)).setText(client.getCreditCardNo());
+        ((TextView) findViewById(R.id.txtFlightNumber)).setText(flight.getFlightNumber() + " - $" + df.format(flight.getCost()));
+        ((TextView) findViewById(R.id.txtOriginDestination)).setText(SearchUtility.getAirportNameByPK(db, flight.getOriginAirportId_FK()).getAirportName()
+                    + " to " + SearchUtility.getAirportNameByPK(db, flight.getDestAirportId_FK()).getAirportName());
+        ((TextView) findViewById(R.id.txtDeparture)).setText("Departure: " + flight.getDepartureDate() + " at " + HelperUtility.doubleToHours(flight.getDepartureTime()));
+        ((TextView) findViewById(R.id.txtArrival)).setText("Arrival: " + flight.getArrivalDate() + " at " + HelperUtility.sumHours(flight.getDepartureTime(), flight.getTravelTime()));
+        ((TextView) findViewById(R.id.txtAirline)).setText("Operated By: " + SearchUtility.getAirlineByFlight(db, flight).getAirlineName());
+        ((TextView) findViewById(R.id.txtTravelTime)).setText("This flight is " + HelperUtility.doubleToHours(flight.getTravelTime()) + " hours long.");
+        ((TextView) findViewById(R.id.txtClientName)).setText("Name: " + client.getFirstName() + " " + client.getLastName());
+        ((TextView) findViewById(R.id.txtCreditCard)).setText("Credit Card: " + client.getCreditCardNo());
     }
 
     public void onClickBackToResults(View v){
