@@ -57,6 +57,7 @@ public class SignUpActivity extends AppCompatActivity {
 
     //when click Create Account button, the page change to Dashboard Activity
     public void onClickCreateAccount(View v){
+
         //read from input field
         String firstName = fNameEditText.getText().toString().trim();
         String lastName = lNameEditText.getText().toString().trim();
@@ -67,18 +68,33 @@ public class SignUpActivity extends AppCompatActivity {
         /***************************
         //validate user input
         ***************************/
-        //check all fields in the form filled
-        if(ValidationUtility.isMissing(firstName) || ValidationUtility.isMissing(lastName) || ValidationUtility.isMissing(email) || ValidationUtility.isMissing(password) || ValidationUtility.isMissing(creditcardNo)){
-            Toast.makeText(this, "Please fill out all fields in the form.", Toast.LENGTH_SHORT).show();
+         //check first name in the form filled
+        if(ValidationUtility.isMissing(firstName)){
+            fNameEditText.setError("First name is required.");
+        }//check first name is all alphabet
+        else if(!ValidationUtility.isAlphabet(firstName)){
+            fNameEditText.setError("First name must be alphabet only.");
+        } //check last name in the form filled
+        else if(ValidationUtility.isMissing(lastName)){
+            lNameEditText.setError("Last name is required.");
         }//check first name and last name are all alphabet
-        else if(!ValidationUtility.isAlphabet(firstName) || !ValidationUtility.isAlphabet(lastName)){
-            Toast.makeText(this, "First name and Last name must be alphabet only.", Toast.LENGTH_SHORT).show();
+        else if(!ValidationUtility.isAlphabet(lastName)){
+            lNameEditText.setError("Last name must be alphabet only.");;
+        }//check email in the form filled
+        else if(ValidationUtility.isMissing(email)){
+            emailEditText.setError("Email is required");
         }//check if email is following email format
         else if(!ValidationUtility.isEmail(email)){
-            Toast.makeText(this, "Invalid email.", Toast.LENGTH_SHORT).show();
+            emailEditText.setError("Invalid email.");
+        }//check all fields in the form filled
+        else if(ValidationUtility.isMissing(password)){
+            passwordEditText.setError("Password is required.");
+        }//check all fields in the form filled
+        else if(ValidationUtility.isMissing(creditcardNo)){
+            creditCardNoEditText.setError("Credit Card Number is required.");
         }//check if valid credit card number
         else if(!ValidationUtility.isCreditCardValid(creditcardNo)){
-            Toast.makeText(this, "Credit card number must be 16 digits ", Toast.LENGTH_SHORT).show();
+            creditCardNoEditText.setError("Credit card number must be 16 digits.");
         }//when valid user input
         else {
 
@@ -95,7 +111,7 @@ public class SignUpActivity extends AppCompatActivity {
              */
             if (FlightAppDatabaseHelper.isNewClient(dbRead, email) == false) {
                 //the imputed email is already used
-                Toast.makeText(this, "The email address is already used. \n Please use another email address.", Toast.LENGTH_SHORT).show();
+                emailEditText.setError("The email address is already used. \n Please use another email address.");
             } else {
                 //when the inputed email is new
                 /*************************
