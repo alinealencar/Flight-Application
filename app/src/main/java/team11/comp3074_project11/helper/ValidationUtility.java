@@ -113,6 +113,14 @@ public class ValidationUtility {
         return false;
     }
 
+    /**
+     * Validates whether the date passed is after the current date.
+     *
+     * @param dayStr        String that represents a day
+     * @param monthStr      String that represents a month
+     * @param yearStr       String that represents a year
+     * @return              returns true the inputted date is after the current date, false otherwises
+     */
     public static boolean isValidDate(String dayStr, String monthStr, String yearStr){
         //No selected day, month and/or year
         if(dayStr.trim().equals("") || monthStr.trim().equals("") || yearStr.trim().equals(""))
@@ -134,8 +142,6 @@ public class ValidationUtility {
         }
 
         return true;
-
-
     }
 
 

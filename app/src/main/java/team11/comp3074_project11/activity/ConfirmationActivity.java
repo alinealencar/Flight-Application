@@ -48,4 +48,10 @@ public class ConfirmationActivity extends Activity {
             }
         });
     }
+
+    // Block the user from going to the previous activity
+    @Override
+    public void onBackPressed() {
+
+    }
 }

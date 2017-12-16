@@ -137,6 +137,11 @@ public class SearchActivity extends Activity {
                         String year = spinnerYear.getSelectedItem().toString();
 
                         //Validate data entered by the user by reading the UI objects' values
+                        if((originTextView.getText().toString().equals(destTextView.getText().toString()))){
+                            destTextView.setError("Origin airport cannot be the same and destination airport");
+                            validEntries = false;
+                        }
+
                         if(!ValidationUtility.isValidAirport(db, originTextView.getText().toString())) {
                             originTextView.setError("Please enter a valid airport");
                             validEntries = false;
