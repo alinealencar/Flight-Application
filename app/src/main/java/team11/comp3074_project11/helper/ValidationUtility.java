@@ -8,6 +8,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import team11.comp3074_project11.dataModel.Airport;
 import team11.comp3074_project11.database.FlightAppDatabaseHelper;
@@ -68,6 +70,25 @@ public class ValidationUtility {
         return true;
     }
 
+    /**Validates if the inputted value is valid email
+     *
+     *       @param email a string value that user inputted in edit text
+     *       @return true if the email is valid email pattern, false if invalid email pattern
+     */
+    public static boolean isEmail(String email){
+        Pattern pattern;
+        Matcher matcher;
+        final String  emailPattern = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
+                + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
+
+        pattern = Pattern.compile(emailPattern);
+
+        matcher = pattern.matcher(email);
+        return matcher.matches();
+
+    }
+
+
     /**
      * Validates whether the string passed as airport is a valid airport in the database.
      *
@@ -116,5 +137,16 @@ public class ValidationUtility {
 
 
     }
+
+
+//    public static boolean signUpInputValidation(String firstName, String lastName, String email, String password, String creditcardNo){
+//        if(HelperUtility.isMissing(firstName) || HelperUtility.isMissing(lastName) || HelperUtility.isMissing(email) || HelperUtility.isMissing(password) || HelperUtility.isMissing(creditcardNo)){
+//            return false;
+//        }else if(!HelperUtility.isAlphabet(firstName) || !HelperUtility.isAlphabet()){
+//            return false
+//        }
+//    }
+
+
 
 }
