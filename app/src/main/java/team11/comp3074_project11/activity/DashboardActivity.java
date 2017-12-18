@@ -14,19 +14,20 @@ import team11.comp3074_project11.R;
  */
 
 public class DashboardActivity extends AppCompatActivity{
-    String intentClientId;
+    int intentClientId;
     String intentClientFirstName;
     String intentClientLastName;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
 
-        Intent intent = getIntent();
+        Bundle extras = getIntent().getExtras();
         //Get Client id and name from the intent
-        intentClientId = intent.getStringExtra("clientId");//client id
-        intentClientFirstName = intent.getStringExtra("firstName");//client first name
-        intentClientLastName = intent.getStringExtra("lastName");//client last name
+        intentClientId = extras.getInt("clientId"); //client id
+        intentClientFirstName = extras.getString("firstName"); //client first name
+        intentClientLastName = extras.getString("lastName"); //client last name
 
         String clientFullName = " " + intentClientFirstName + " " + intentClientLastName;
 
@@ -44,6 +45,7 @@ public class DashboardActivity extends AppCompatActivity{
     //when click Itineraries button, the page change to ItinerariesActivity
     public void onClickItineraries(View v){
         Intent intent = new Intent(DashboardActivity.this, ItinerariesActivity.class);
+        intent.putExtra("clientId", intentClientId);
         startActivity(intent);
     }
 

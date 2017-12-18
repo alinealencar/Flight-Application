@@ -9,27 +9,30 @@
     android:weightSum="1"
     tools:context="team11.comp3074_project11.activity.ConfirmationActivity">
 
-    <TableRow
+    <TableLayout
         android:layout_width="match_parent"
-        android:layout_height="102dp">
+        android:layout_height="wrap_content"
+        android:gravity="center">
 
-        <ImageView
-            android:id="@+id/imageView3"
-            android:layout_width="100dp"
-            android:layout_height="88dp"
-            android:layout_marginTop="30dp"
-            android:layout_weight="0.37"
-            android:src="@drawable/success" />
+        <TableRow>
 
-        <TextView
-            android:id="@+id/lblSuccess"
-            android:layout_width="197dp"
-            android:layout_height="100dp"
-            android:layout_marginBottom="25dp"
-            android:layout_marginTop="50dp"
-            android:text="@string/confirmationMessage"
-            android:textAppearance="@style/TextAppearance.AppCompat.Title" />
-    </TableRow>
+            <ImageView
+                android:id="@+id/imageView3"
+                android:layout_width="100dp"
+                android:layout_height="88dp"
+                android:layout_gravity="center"
+                android:src="@drawable/success" />
+
+            <TextView
+                android:id="@+id/lblSuccess"
+                android:layout_width="197dp"
+                android:layout_height="100dp"
+                android:layout_marginTop="20dp"
+                android:layout_gravity="center"
+                android:text="@string/confirmationMessage"
+                android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+        </TableRow>
+    </TableLayout>
 
     <TableLayout
         android:layout_width="match_parent"
@@ -79,156 +82,44 @@
                 android:text="TextView" />
 
 
-            <ImageView
-                android:id="@+id/imageView2"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginLeft="150dp"
-                android:layout_marginTop="30dp"
-                android:src="@drawable/airplane" />
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="30dp"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/airplane" />
 
 
-            <TextView
-                android:id="@+id/txtDestination"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:layout_gravity="center_horizontal"
-                android:text="TextView"
-                android:textAppearance="@android:style/TextAppearance.DeviceDefault.Medium" />
+        <TextView
+             android:id="@+id/txtDestination"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_marginTop="20dp"
+             android:layout_gravity="center_horizontal"
+             android:text="TextView"
+             android:textAppearance="@android:style/TextAppearance.DeviceDefault.Medium" />
 
-            <TextView
-                android:id="@+id/txtArrival"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="10dp"
-                android:text="TextView" />
+        <TextView
+            android:id="@+id/txtArrival"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:text="TextView" />
 
-
-    <Button
-        android:id="@+id/btnItineraries"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="@string/btnGoToItineraries" />
-
-    <!--<TextView
-        android:id="@+id/textView7"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/flightNo"
-        android:layout_marginTop="49dp"
-        android:layout_below="@+id/imageView3"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginLeft="24dp"
-        android:layout_marginStart="24dp" />
-
-    <TextView
-        android:id="@+id/txtFlightNumber"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/textView7"
-        android:layout_alignBottom="@+id/textView7"
-        android:layout_alignLeft="@+id/lblSuccess"
-        android:layout_alignStart="@+id/lblSuccess"
-        android:layout_marginLeft="21dp"
-        android:layout_marginStart="21dp" />
-
-    <TextView
-        android:id="@+id/textView8"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/from"
-        android:layout_marginBottom="14dp"
-        android:layout_above="@+id/textView12"
-        android:layout_alignLeft="@+id/textView7"
-        android:layout_alignStart="@+id/textView7" />
-
-    <TextView
-        android:id="@+id/txtOrigin"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/textView8"
-        android:layout_alignBottom="@+id/textView8"
-        android:layout_alignLeft="@+id/txtFlightNumber"
-        android:layout_alignStart="@+id/txtFlightNumber" />
-
-    <TextView
-        android:id="@+id/textView12"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/to"
-        android:layout_centerVertical="true"
-        android:layout_alignLeft="@+id/textView8"
-        android:layout_alignStart="@+id/textView8" />
-
-    <TextView
-        android:id="@+id/txtDestination"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/textView12"
-        android:layout_alignBottom="@+id/textView12"
-        android:layout_alignLeft="@+id/txtOrigin"
-        android:layout_alignStart="@+id/txtOrigin" />
-
-    <TextView
-        android:id="@+id/textView9"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Departure: "
-        android:layout_below="@+id/textView12"
-        android:layout_alignLeft="@+id/textView12"
-        android:layout_alignStart="@+id/textView12"
-        android:layout_marginTop="14dp" />
-
-    <TextView
-        android:id="@+id/txtDeparture"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/textView9"
-        android:layout_alignBottom="@+id/textView9"
-        android:layout_alignLeft="@+id/txtDestination"
-        android:layout_alignStart="@+id/txtDestination" />
-
-    <TextView
-        android:id="@+id/textView11"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Arrival:"
-        android:layout_alignBaseline="@+id/txtArrival"
-        android:layout_alignBottom="@+id/txtArrival"
-        android:layout_alignLeft="@+id/textView9"
-        android:layout_alignStart="@+id/textView9" />
-
-    <TextView
-        android:id="@+id/txtArrival"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="22dp"
-        android:layout_below="@+id/textView9"
-        android:layout_alignLeft="@+id/txtDeparture"
-        android:layout_alignStart="@+id/txtDeparture" />
-
-    <TextView
-        android:id="@+id/textView13"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Airline:"
-        android:layout_alignBaseline="@+id/txtAirline"
-        android:layout_alignBottom="@+id/txtAirline"
-        android:layout_alignLeft="@+id/textView11"
-        android:layout_alignStart="@+id/textView11" />
-
-    <TextView
-        android:id="@+id/txtAirline"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="18dp"
-        android:layout_below="@+id/textView11"
-        android:layout_alignLeft="@+id/txtArrival"
-        android:layout_alignStart="@+id/txtArrival" /> -->
-
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center|bottom">
+         <Button
+            android:id="@+id/btnItineraries"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_gravity="bottom"
+            android:text="@string/btnGoToItineraries" />
+    </LinearLayout>
 
 </LinearLayout>

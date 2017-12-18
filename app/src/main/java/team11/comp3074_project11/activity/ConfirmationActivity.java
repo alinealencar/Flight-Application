@@ -27,6 +27,7 @@ public class ConfirmationActivity extends Activity {
         //Get the id of the flight booked by the client
         Bundle extras = getIntent().getExtras();
         int flightId = extras.getInt("flightId");
+        final int clientId = extras.getInt("clientId");
 
         //select flight from db
         Flight flight = SearchUtility.getFlightByPK(db, flightId);
@@ -44,6 +45,7 @@ public class ConfirmationActivity extends Activity {
             public void onClick(View v) {
                 //take user to their itineraries page
                 Intent intent = new Intent(ConfirmationActivity.this, ItinerariesActivity.class);
+                intent.putExtra("clientId", clientId);
                 startActivity(intent);
             }
         });

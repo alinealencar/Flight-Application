@@ -65,6 +65,7 @@ public class FlightDetailsActivity extends AppCompatActivity {
         //Send the client to the confirmation page
         Intent intent = new Intent(FlightDetailsActivity.this, ConfirmationActivity.class);
         intent.putExtra("flightId", FLIGHTID);
+        intent.putExtra("clientId", CLIENTID);
         startActivity(intent);
     }
 }

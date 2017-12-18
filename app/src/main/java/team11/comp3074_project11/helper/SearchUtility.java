@@ -180,7 +180,7 @@ public class SearchUtility {
             client.setFirstName(cursor.getString(1));
             client.setLastName(cursor.getString(2));
             client.setEmail(cursor.getString(3));
-            //Do not store the password in the object, therefore, skip 4
+            client.setPassword(cursor.getString(4));
             client.setCreditCardNo(cursor.getString(5));
         }
 
@@ -269,7 +269,7 @@ public class SearchUtility {
         SQLiteDatabase db = flightDb.getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT * FROM tbl_flight INNER JOIN tbl_itinerary " +
                 "ON tbl_flight.flightId_PK = tbl_itinerary.flightId_FK WHERE tbl_itinerary.clientId_FK = " + clientId +
-                " ORDER BY tbl_flight.departureDate", null);
+                " ORDER BY tbl_flight.departureDate, tbl_flight.departureTime", null);
 
         if(cursor.moveToFirst()){
             do {

@@ -14,6 +14,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.Space;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,6 +31,8 @@ import team11.comp3074_project11.helper.SearchUtility;
 
 public class ItinerariesActivity extends Activity {
 
+    int clientId;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,12 +47,12 @@ public class ItinerariesActivity extends Activity {
         findViewById(R.id.noItinerariesTextView).setVisibility(View.INVISIBLE);
 
         //Get the id of the client
-        //Bundle extras = getIntent().getExtras();
-        //int clientId = extras.getInt("clientId");
+        Bundle extras = getIntent().getExtras();
+        clientId = extras.getInt("clientId");
 
         try {
-            //store selected flights by clientId to list
-            itinerariesList = SearchUtility.getFlightByClient(db, 1);
+            //store selected flights by clientId to listif (clientId != 0)
+            itinerariesList = SearchUtility.getFlightByClient(db, clientId);
 
             ArrayAdapter<String> adapter;
             List<String> itinerariesListStr = new ArrayList<>();
@@ -67,13 +70,12 @@ public class ItinerariesActivity extends Activity {
 
                     //FlightInfo
                     TextView flightInfo = new TextView(getApplicationContext());
-                    String info = "<b>" + aF.getFlightNumber() +
+                    String info = "<b>" + SearchUtility.getAirlineByFlight(db, aF).getAirlineName() + " " + aF.getFlightNumber() +
                             "</b><br>From: " + SearchUtility.getAirportNameByPK(db, aF.getOriginAirportId_FK()).getAirportName() +
                             "<br>To:" + SearchUtility.getAirportNameByPK(db, aF.getDestAirportId_FK()).getAirportName() +
                             "<br>Departure: " + aF.getDepartureDate() + " at " + HelperUtility.doubleToHours(aF.getDepartureTime()) +
                             "<br>Arrival: " + aF.getArrivalDate() + " at " + HelperUtility.sumHours(aF.getDepartureTime(), aF.getTravelTime()) +
-                            "<b><br>Duration: " + HelperUtility.doubleToHours(aF.getTravelTime()) +
-                            "</b><br><br><i>Operated By: " + SearchUtility.getAirlineByFlight(db, aF).getAirlineName() + "</i><br><br>";
+                            "<br>Duration: " + HelperUtility.doubleToHours(aF.getTravelTime());
                     flightInfo.setText(Html.fromHtml(info));
                     flightInfo.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 2f));
 
@@ -83,7 +85,11 @@ public class ItinerariesActivity extends Activity {
                     perItinerary.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.colorGray));
                     perItinerary.setPadding(25, 15, 5, 5);
 
+                    Space division = new Space(getApplicationContext());
+                    division.setMinimumHeight(45);
+
                     itineraryLayout.addView(perItinerary);
+                    itineraryLayout.addView(division);
                 }
             }
 
@@ -97,6 +103,7 @@ public class ItinerariesActivity extends Activity {
             public void onClick(View v) {
 
                 Intent intent = new Intent(ItinerariesActivity.this, DashboardActivity.class);
+                intent.putExtra("clientId", clientId);
                 startActivity(intent);
             }
         });

@@ -41,13 +41,11 @@
                 android:layout_height="wrap_content"
                 android:text="@string/lblFirstName" />
 
-            <EditText
-                android:id="@+id/editFirstName"
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/txtFirstName"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="textPersonName"
-                android:text="" />
+                android:text="TextView" />
 
         </TableRow>
 
@@ -61,13 +59,12 @@
                 android:layout_height="wrap_content"
                 android:text="@string/lblLastName" />
 
-            <EditText
-                android:id="@+id/editLastName"
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/txtLastName"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="textPersonName"
-                android:text="" />
+                android:text="TextView" />
+
         </TableRow>
 
         <TableRow
@@ -80,12 +77,11 @@
                 android:layout_height="wrap_content"
                 android:text="@string/lblEmail" />
 
-            <EditText
-                android:id="@+id/editEmail"
+            <TextView
+                android:id="@+id/txtEmail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="textEmailAddress" />
+                android:text="TextView" />
 
         </TableRow>
 
@@ -99,12 +95,11 @@
                 android:layout_height="wrap_content"
                 android:text="@string/lblPassword" />
 
-            <EditText
-                android:id="@+id/editPassword"
+            <TextView
+                android:id="@+id/txtPassword"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="textPassword" />
+                android:text="TextView" />
 
         </TableRow>
 
@@ -118,12 +113,11 @@
                 android:layout_height="wrap_content"
                 android:text="@string/lblCreditCardNo" />
 
-            <EditText
-                android:id="@+id/editCreditCardNo"
+            <TextView
+                android:id="@+id/txtccNo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="number" />
+                android:text="TextView" />
 
         </TableRow>
     </TableLayout>
