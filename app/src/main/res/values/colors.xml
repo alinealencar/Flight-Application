@@ -4,6 +4,7 @@
     <color name="colorAccent">#FF4081</color>
     <color name="colorPrimaryDark">#212b63</color>
     <color name="colorGray">#F5F5F5</color>
+    <color name="colorBlack">#000000</color>
 
     <color name="colorLogin">#FFFFFF</color>
     <color name="colorBtnLogIn">#80FFFFFF</color>
