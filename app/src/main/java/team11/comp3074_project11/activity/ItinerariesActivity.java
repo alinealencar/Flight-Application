@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.text.Html;
@@ -78,6 +79,7 @@ public class ItinerariesActivity extends Activity {
                             "<br>Duration: " + HelperUtility.doubleToHours(aF.getTravelTime());
                     flightInfo.setText(Html.fromHtml(info));
                     flightInfo.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 2f));
+                    flightInfo.setTextColor(Color.parseColor("#5b5b5b"));
 
                     perItinerary.addView(flightInfo);
 
