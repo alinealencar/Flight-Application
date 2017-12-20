@@ -137,16 +137,19 @@
 
     <Button
         android:id="@+id/btnEditProfile"
-        android:layout_width="357dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
+        android:background="@color/colorPrimary"
+        android:textColor="@color/colorLogin"
         android:layout_weight="0.02"
         android:text="@string/btnEditProfile" />
 
     <Button
         android:id="@+id/btnDashboard"
-        android:layout_width="357dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:layout_weight="0.02"
         android:text="@string/btnDashboard" />
 

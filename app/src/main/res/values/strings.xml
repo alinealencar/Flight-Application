@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">COMP3074_Project11</string>
+    <string name="app_name">FLIBO</string>
     <string name="lblPassword">Password:</string>
     <string name="btnLogIn">LOG IN</string>
     <string name="btnSignUp">SIGN UP</string>

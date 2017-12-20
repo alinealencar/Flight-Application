@@ -57,6 +57,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            android:background="@color/colorPrimary"
+            android:textColor="@color/colorLogin"
             android:onClick="onClickSearch"
             android:text="@string/btnSearch" />
 
@@ -65,6 +67,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
+            android:background="@color/colorPrimary"
+            android:textColor="@color/colorLogin"
             android:onClick="onClickItineraries"
             android:text="@string/btnItineraries" />
 
@@ -73,6 +77,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
+            android:background="@color/colorPrimary"
+            android:textColor="@color/colorLogin"
             android:onClick="onClickProfile"
             android:text="@string/btnProfile" />
 
@@ -82,10 +88,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="20dp"
-            android:background="@color/colorPrimary"
             android:onClick="onClickLogOut"
             android:text="@string/btnLogOut"
-            android:textColor="@color/colorLogin" />
+            android:textColor="@color/colorBlack" />
 
     </LinearLayout>
 

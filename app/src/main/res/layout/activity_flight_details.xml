@@ -18,8 +18,8 @@
 
             <ImageView
                 android:id="@+id/imageView2"
-                android:layout_width="match_parent"
-                android:layout_height="203dp"
+                android:layout_width="wrap_content"
+                android:layout_height="192dp"
                 app:srcCompat="@drawable/flight_details" />
 
             <TextView
@@ -112,9 +112,10 @@
                 android:id="@+id/btnBook"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
                 android:layout_marginTop="15dp"
+                android:layout_marginBottom="20dp"
                 android:background="@color/colorPrimary"
                 android:onClick="onClickBook"
                 android:text="BOOK"

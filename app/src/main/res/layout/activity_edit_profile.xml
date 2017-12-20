@@ -121,12 +121,16 @@
         android:id="@+id/btnSave"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="@color/colorPrimary"
+        android:textColor="@color/colorLogin"
         android:text="@string/btnSave" />
 
     <Button
         android:id="@+id/btnCancelEdit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:text="@string/btnCancel" />
 
 </LinearLayout>
