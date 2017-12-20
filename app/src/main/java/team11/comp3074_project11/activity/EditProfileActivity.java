@@ -29,7 +29,12 @@ public class EditProfileActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
 
+        //final FlightAppDatabaseHelper dbHelper = new FlightAppDatabaseHelper(getApplicationContext());
+
+        //create database helper
         final FlightAppDatabaseHelper db = new FlightAppDatabaseHelper(getApplicationContext());
+        final SQLiteDatabase dbWrite = db.getWritableDatabase();
+        final SQLiteDatabase dbRead = db.getReadableDatabase();
 
         final EditText etfirstName = (EditText) findViewById(R.id.editFirstName);
         final EditText etlastName = (EditText) findViewById(R.id.editLastName);
@@ -93,26 +98,29 @@ public class EditProfileActivity extends Activity {
                 }//when valid user input
                 else {
 
-                    //create client object
-                    Client client = new Client(firstName, lastName, email, password, creditCardNo);
+                    if (FlightAppDatabaseHelper.isNewClient(dbRead, email) == false) {
+                        //the imputed email is already used
+                        etemail.setError("The email address is already used. \n Please use another email address.");
+                    } else {
 
-                    //create database helper
-                    FlightAppDatabaseHelper helper = new FlightAppDatabaseHelper(getApplicationContext());
-                    SQLiteDatabase db = helper.getWritableDatabase();
-                    SQLiteDatabase dbB = helper.getReadableDatabase();
-                    helper.updateClient(db, client, clientId);
+                        //create client object
+                        Client client = new Client(firstName, lastName, email, password, creditCardNo);
 
 
-                    //get client ID from DB
-                    int newClientId = FlightAppDatabaseHelper.getNewClientId(dbB, email);
-                    System.out.println(email);
-                    System.out.println(newClientId);
+                        db.updateClient(dbWrite, client, clientId);
 
-                    Intent intent = new Intent(EditProfileActivity.this, ProfileActivity.class);
-                    intent.putExtra("clientId", newClientId);
-                    intent.putExtra("firstName", firstName);
-                    intent.putExtra("lastName", lastName);
-                    startActivity(intent);
+
+                        //get client ID from DB
+                        int newClientId = FlightAppDatabaseHelper.getNewClientId(dbRead, email);
+                        System.out.println(email);
+                        System.out.println(newClientId);
+
+                        Intent intent = new Intent(EditProfileActivity.this, ProfileActivity.class);
+                        intent.putExtra("clientId", newClientId);
+                        intent.putExtra("firstName", firstName);
+                        intent.putExtra("lastName", lastName);
+                        startActivity(intent);
+                    }
                 }
             }
         });
