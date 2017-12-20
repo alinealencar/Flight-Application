@@ -10,6 +10,7 @@ import android.widget.TextView;
 import team11.comp3074_project11.R;
 import team11.comp3074_project11.dataModel.Client;
 import team11.comp3074_project11.database.FlightAppDatabaseHelper;
+import team11.comp3074_project11.helper.HelperUtility;
 import team11.comp3074_project11.helper.SearchUtility;
 
 public class ProfileActivity extends Activity {
@@ -34,11 +35,14 @@ public class ProfileActivity extends Activity {
         Bundle data = getIntent().getExtras();
         clientId = data.getInt("clientId");
 
-        etfirstName.setText(SearchUtility.getClientByPK(db,clientId).getFirstName());
-        etlastName.setText(SearchUtility.getClientByPK(db,clientId).getLastName());
-        etemail.setText(SearchUtility.getClientByPK(db,clientId).getEmail());
-        etpassword.setText(SearchUtility.getClientByPK(db,clientId).getPassword());
-        etCcno.setText(SearchUtility.getClientByPK(db,clientId).getCreditCardNo());
+        //Get client
+        Client client = SearchUtility.getClientByPK(db,clientId);
+
+        etfirstName.setText(client.getFirstName());
+        etlastName.setText(client.getLastName());
+        etemail.setText(client.getEmail());
+        etpassword.setText(HelperUtility.stringToStars(client.getPassword()));
+        etCcno.setText(client.getCreditCardNo());
 
         btnEdit = (Button) findViewById(R.id.btnEditProfile);
         btnEdit.setOnClickListener(new View.OnClickListener() {

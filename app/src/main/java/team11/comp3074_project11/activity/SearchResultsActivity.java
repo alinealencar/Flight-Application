@@ -73,7 +73,6 @@ public class SearchResultsActivity extends Activity {
                                 if(f1.getCost() < f2.getCost()) return -1;
                                 if(f1.getCost() > f2.getCost()) return 1;
                                 return 0;
-                                //return (int) (f1.getCost() - f2.getCost());
                             }
                         });
                     }

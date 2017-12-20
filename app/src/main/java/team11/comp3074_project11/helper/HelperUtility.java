@@ -42,5 +42,15 @@ public class HelperUtility {
         return time3;
     }
 
+    static public String stringToStars(String data){
+        int numOfCharacters = data.length();
+        String result = "";
+
+        for(int i = 0; i < data.length(); i++)
+            result += "*";
+
+        return result;
+    }
+
 
 }

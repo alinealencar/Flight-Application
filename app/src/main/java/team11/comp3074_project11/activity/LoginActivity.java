@@ -59,16 +59,6 @@ public class LoginActivity extends AppCompatActivity{
             FlightDetailsActivity.CLIENTID = existClient.getClientId();
             intent.putExtra("clientId", existClient.getClientId());
 
-            intent.putExtra("firstName", existClient.getFirstName());
-            intent.putExtra("lastName", existClient.getLastName());
-
-            //intent.putExtra("email", existClient.getEmail());
-            //intent.putExtra("password", existClient.getPassword());
-            //intent.putExtra("creditcardNo", existClient.getCreditCardNo());
-
-//            intent.putExtra("firstName", existClient.getFirstName());
-//            intent.putExtra("lastName", existClient.getLastName());
-
             startActivity(intent);
         } else {
             Toast.makeText(this, "Invalid email and/or password.", Toast.LENGTH_LONG).show();
