@@ -54,9 +54,7 @@ public class ItinerariesActivity extends Activity {
         try {
             //store selected flights by clientId to listif (clientId != 0)
             itinerariesList = SearchUtility.getFlightByClient(db, clientId);
-
-            ArrayAdapter<String> adapter;
-            List<String> itinerariesListStr = new ArrayList<>();
+            
 
             //check if there are itineraries to show
             if(itinerariesList.size() == 0){

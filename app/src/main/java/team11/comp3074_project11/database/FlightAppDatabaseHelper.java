@@ -287,17 +287,6 @@ public class FlightAppDatabaseHelper extends SQLiteOpenHelper {
         db.update("tbl_client", clientValues, "clientId_PK = " + clientId, null);
     }
 
-    /*public void updateClient (int clientId, String firstName, String lastName, String email, String password, String ccNo){
-        SQLiteDatabase database = getWritableDatabase();
-        ContentValues clientValues = new ContentValues();
-        clientValues.put("clientId", clientId);
-        clientValues.put("firstName", firstName);
-        clientValues.put("lastName", lastName);
-        clientValues.put("email", email);
-        clientValues.put("password", password);
-        clientValues.put("creditCardNo", ccNo);
-        database.update("tbl_client", clientValues, "clientId_PK = " + clientId, null);
-    }*/
     /**
      * This method generate flights with random parameters.
      * Not to be used in production environment.
