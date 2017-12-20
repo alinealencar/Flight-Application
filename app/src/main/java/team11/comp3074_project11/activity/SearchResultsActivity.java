@@ -53,7 +53,7 @@ public class SearchResultsActivity extends Activity {
 
         //Populate sortSpinner
         String[] categories = {"Price", "Travel Time"};
-        final Spinner sortSpinner = (Spinner) findViewById(R.id.sortSpinner);
+        final Spinner sortSpinner = findViewById(R.id.sortSpinner);
         ArrayAdapter<String> categoriesAdapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_dropdown_item_1line, categories);
         sortSpinner.setAdapter(categoriesAdapter);
@@ -73,6 +73,8 @@ public class SearchResultsActivity extends Activity {
                                         return (int) (f1.getCost() - f2.getCost());
                                     }
                         });
+                        System.out.println("SORT BY PRICE");
+
                     }
                     //By travel time
                     else if(sortSpinner.getSelectedItemPosition() == 1){
@@ -82,7 +84,7 @@ public class SearchResultsActivity extends Activity {
                                 return (int) (f1.getTravelTime() - f2.getTravelTime());
                             }
                         });
-
+                        System.out.println("SORT BY TRAVEL TIME");
                     }
 
                     for(Flight aF : flightList){
