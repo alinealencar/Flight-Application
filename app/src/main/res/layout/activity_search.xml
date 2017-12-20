@@ -58,7 +58,6 @@
         android:orientation="horizontal"
         android:weightSum="4">
 
-
         <Spinner
             android:id="@+id/spinnerMonth"
             android:layout_width="wrap_content"

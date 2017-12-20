@@ -2,6 +2,7 @@ package team11.comp3074_project11.activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
@@ -85,12 +86,12 @@ public class SearchResultsActivity extends Activity {
                     }
 
                     for(Flight aF : flightList){
-                        LinearLayout individualResult = new LinearLayout(getApplicationContext());
+                        LinearLayout individualResult = new LinearLayout(getBaseContext());
                         individualResult.setOrientation(LinearLayout.HORIZONTAL);
                         individualResult.setGravity(Gravity.CENTER);
 
                         //FlightInfo
-                        TextView flightInfo = new TextView(getApplicationContext());
+                        TextView flightInfo = new TextView(getBaseContext());
                         String info = "<b>" + aF.getFlightNumber() +
                                         "</b><br>From: " + SearchUtility.getAirportNameByPK(db, aF.getOriginAirportId_FK()).getAirportName() +
                                         "<br>To:" +  SearchUtility.getAirportNameByPK(db, aF.getDestAirportId_FK()).getAirportName() +
@@ -100,21 +101,23 @@ public class SearchResultsActivity extends Activity {
                                         "</b><br><br><i>Operated By: " + SearchUtility.getAirlineByFlight(db, aF).getAirlineName() + "</i><br><br>";
                         flightInfo.setText(Html.fromHtml(info));
                         flightInfo.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 2f));
+                        flightInfo.setTextColor(Color.parseColor("#5b5b5b"));
 
                         //FlightCost
-                        TextView flightCost = new TextView(getApplicationContext());
+                        TextView flightCost = new TextView(getBaseContext());
                         DecimalFormat df = new DecimalFormat("###.00");
                         flightCost.setText("$" + df.format(aF.getCost()));
                         flightCost.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1f));
                         flightCost.setTypeface(null, Typeface.BOLD);
                         flightCost.setTextSize(20);
+                        flightCost.setTextColor(Color.parseColor("#5b5b5b"));
 
                         individualResult.addView(flightInfo);
                         individualResult.addView(flightCost);
                         individualResult.setWeightSum(3f);
 
                         //Set background color of the result
-                        individualResult.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.colorGray));
+                        individualResult.setBackgroundColor(ContextCompat.getColor(getBaseContext(), R.color.colorGray));
                         individualResult.setPadding(25, 15, 5, 5);
 
                         final String flightId = Integer.toString(aF.getFlightId());

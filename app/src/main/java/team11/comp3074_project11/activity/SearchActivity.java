@@ -97,7 +97,7 @@ public class SearchActivity extends Activity {
                     numOfDays = 31;
 
                 //Adapter for the spinner according to the month selected
-                ArrayAdapter<String> dayAdapter = new ArrayAdapter<String>(getApplicationContext(),
+                ArrayAdapter<String> dayAdapter = new ArrayAdapter<String>(getBaseContext(),
                         android.R.layout.simple_spinner_item, days.subList(0, numOfDays));
 
                 spinnerDay.setAdapter(dayAdapter);
