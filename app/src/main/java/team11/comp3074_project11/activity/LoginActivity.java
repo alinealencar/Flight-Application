@@ -44,7 +44,7 @@ public class LoginActivity extends AppCompatActivity{
     }
 
     //when click Login button, the page change to DashboardActivity
-    public void onClickLogIn(View v){
+    public void onClickLogIn(View v) {
 
         //read from input field
         String inputtedEmail = emailEditText.getText().toString().trim();
@@ -54,7 +54,7 @@ public class LoginActivity extends AppCompatActivity{
         //get client information from database
         Client existClient = dbHelper.authenticateClient(inputtedEmail, inputtedPassword);
 
-        if(existClient !=  null){
+        if (existClient != null) {
             Intent intent = new Intent(LoginActivity.this, DashboardActivity.class);
             FlightDetailsActivity.CLIENTID = existClient.getClientId();
             intent.putExtra("clientId", existClient.getClientId());
@@ -62,22 +62,19 @@ public class LoginActivity extends AppCompatActivity{
             intent.putExtra("firstName", existClient.getFirstName());
             intent.putExtra("lastName", existClient.getLastName());
 
-            intent.putExtra("email", existClient.getEmail());
-            intent.putExtra("password", existClient.getPassword());
-            intent.putExtra("creditcardNo", existClient.getCreditCardNo());
+            //intent.putExtra("email", existClient.getEmail());
+            //intent.putExtra("password", existClient.getPassword());
+            //intent.putExtra("creditcardNo", existClient.getCreditCardNo());
 
 //            intent.putExtra("firstName", existClient.getFirstName());
 //            intent.putExtra("lastName", existClient.getLastName());
 
             startActivity(intent);
-        }else{
+        } else {
             Toast.makeText(this, "Invalid email and/or password.", Toast.LENGTH_LONG).show();
         }
-
-//        // following should be deleted after work has done
-//       Intent intent = new Intent(LoginActivity.this, DashboardActivity.class);
-//        startActivity(intent);
     }
+
 
     //when click SignUp button, the page change to SignUpActivity
     public void onClickSignUp(View v){

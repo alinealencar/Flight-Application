@@ -29,35 +29,39 @@
                 android:id="@+id/lblFirstName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/lblFirstName" />
+                android:layout_marginBottom="10dp"
+                android:text="@string/lblFirstName"
+                android:textColor="@color/colorBlack" />
 
             <TextView
                 android:id="@+id/txtFirstName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:text="TextView" />
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="20dp" />
 
         </TableRow>
 
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+            android:layout_height="match_parent">
 
             <TextView
                 android:id="@+id/lblLastName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="@string/lblLastName" />
+                android:layout_marginBottom="10dp"
+                android:text="@string/lblLastName"
+                android:textColor="@color/colorBlack" />
 
             <TextView
                 android:id="@+id/txtLastName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="10dp"
-                android:text="TextView" />
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp" />
 
         </TableRow>
 
@@ -70,15 +74,17 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="@string/lblEmail" />
+                android:layout_marginBottom="10dp"
+                android:text="@string/lblEmail"
+                android:textColor="@color/colorBlack" />
 
             <TextView
                 android:id="@+id/txtEmail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="10dp"
-                android:text="TextView" />
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp" />
 
         </TableRow>
 
@@ -91,15 +97,17 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="@string/lblPassword" />
+                android:layout_marginBottom="10dp"
+                android:text="@string/lblPassword"
+                android:textColor="@color/colorBlack" />
 
             <TextView
                 android:id="@+id/txtPassword"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="10dp"
-                android:text="TextView" />
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp" />
 
         </TableRow>
 
@@ -112,15 +120,17 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="@string/lblCreditCardNo" />
+                android:layout_marginBottom="10dp"
+                android:text="@string/lblCreditCardNo"
+                android:textColor="@color/colorBlack" />
 
             <TextView
                 android:id="@+id/txtccNo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="10dp"
-                android:text="TextView" />
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp" />
 
         </TableRow>
     </TableLayout>
@@ -135,8 +145,9 @@
 
     <Button
         android:id="@+id/btnDashboard"
-        android:layout_width="match_parent"
+        android:layout_width="357dp"
         android:layout_height="wrap_content"
+        android:layout_weight="0.02"
         android:text="@string/btnDashboard" />
 
 </LinearLayout>

@@ -19,9 +19,6 @@ import team11.comp3074_project11.helper.SearchUtility;
 public class DashboardActivity extends AppCompatActivity{
     static int intentClientId;
 
-    int clientId;
-    String fName, lName, email, password, ccNo;
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,7 +41,6 @@ public class DashboardActivity extends AppCompatActivity{
         //display signed in user
         TextView clientView = (TextView)findViewById(R.id.txtClientName);
         clientView.setText(clientFullName);
-
 
     }
 
