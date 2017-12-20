@@ -50,7 +50,6 @@ public class ProfileActivity extends Activity {
             }
         });
 
-
         btnDashboard = (Button) findViewById(R.id.btnDashboard);
         btnDashboard.setOnClickListener(new View.OnClickListener() {
             @Override

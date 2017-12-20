@@ -29,8 +29,6 @@ public class EditProfileActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
 
-        //final FlightAppDatabaseHelper dbHelper = new FlightAppDatabaseHelper(getApplicationContext());
-
         //create database helper
         final FlightAppDatabaseHelper db = new FlightAppDatabaseHelper(getApplicationContext());
         final SQLiteDatabase dbWrite = db.getWritableDatabase();
@@ -98,10 +96,14 @@ public class EditProfileActivity extends Activity {
                 }//when valid user input
                 else {
 
-                    if (FlightAppDatabaseHelper.isNewClient(dbRead, email) == false) {
-                        //the imputed email is already used
-                        etemail.setError("The email address is already used. \n Please use another email address.");
-                    } else {
+                    //check if email already exists
+                    if (!email.equals(SearchUtility.getClientByPK(db,clientId).getEmail())) {
+                        if (FlightAppDatabaseHelper.isNewClient(dbRead, email) == false) {
+                            //the imputed email is already used
+                            etemail.setError("The email address is already used. \n Please use another email address.");
+                        }
+                    }
+                    else {
 
                         //create client object
                         Client client = new Client(firstName, lastName, email, password, creditCardNo);
