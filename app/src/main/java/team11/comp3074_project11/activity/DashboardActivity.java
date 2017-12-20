@@ -31,6 +31,9 @@ public class DashboardActivity extends AppCompatActivity{
             intentClientId = extras.getInt("clientId");
         }
 
+        //Set the clientId in the FlightDetails Activity
+        FlightDetailsActivity.CLIENTID = intentClientId;
+
         //Create client object
         FlightAppDatabaseHelper db = new FlightAppDatabaseHelper(getApplicationContext());
         Client client = SearchUtility.getClientByPK(db, intentClientId);
