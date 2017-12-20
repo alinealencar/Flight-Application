@@ -18,6 +18,9 @@ public class DashboardActivity extends AppCompatActivity{
     String intentClientFirstName;
     String intentClientLastName;
 
+    int clientId;
+    String fName, lName, email, password, ccNo;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,6 +37,8 @@ public class DashboardActivity extends AppCompatActivity{
         //display signed in user
         TextView clientView = (TextView)findViewById(R.id.txtClientName);
         clientView.setText(clientFullName);
+
+
     }
 
     //when click Search button, the page change to SearchActivity
@@ -52,6 +57,7 @@ public class DashboardActivity extends AppCompatActivity{
     //when click My Profile button, the page change to ProfileActivity
     public void onClickProfile(View v){
         Intent intent = new Intent(DashboardActivity.this, ProfileActivity.class);
+        intent.putExtra("clientId", intentClientId);
         startActivity(intent);
     }
 

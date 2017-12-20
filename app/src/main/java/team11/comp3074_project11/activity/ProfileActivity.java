@@ -1,7 +1,10 @@
 package team11.comp3074_project11.activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import team11.comp3074_project11.R;
@@ -11,32 +14,51 @@ import team11.comp3074_project11.helper.SearchUtility;
 
 public class ProfileActivity extends Activity {
 
-    String firstName, lastName, email, password, creditcardNo;
-    int clientId=1;
-    TextView etfirstName, etlastName, etemail, etpassword, etCcno;
+    int clientId;
+    Button btnEdit, btnDashboard;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-        /*FlightAppDatabaseHelper db = new FlightAppDatabaseHelper(getApplicationContext());
+        FlightAppDatabaseHelper db = new FlightAppDatabaseHelper(getApplicationContext());
 
-        etfirstName = (TextView)findViewById(R.id.txtFirstName);
-        etlastName = (TextView) findViewById(R.id.txtLastName);
-        etemail = (TextView) findViewById(R.id.txtEmail);
-        etpassword = (TextView) findViewById(R.id.txtPassword);
-        etCcno = (TextView) findViewById(R.id.txtccNo);
+        final TextView etfirstName = (TextView)findViewById(R.id.txtFirstName);
+        TextView etlastName = (TextView) findViewById(R.id.txtLastName);
+        TextView etemail = (TextView) findViewById(R.id.txtEmail);
+        TextView etpassword = (TextView) findViewById(R.id.txtPassword);
+        TextView etCcno = (TextView) findViewById(R.id.txtccNo);
 
-        // getting data
+        //get the id of the client
         Bundle data = getIntent().getExtras();
-        //clientId = data.getInt("clientId");
+        clientId = data.getInt("clientId");
 
-        //((TextView) findViewById(R.id.txtFlightNumber)).setText(flight.getFlightNumber());
         etfirstName.setText(SearchUtility.getClientByPK(db,clientId).getFirstName());
         etlastName.setText(SearchUtility.getClientByPK(db,clientId).getLastName());
         etemail.setText(SearchUtility.getClientByPK(db,clientId).getEmail());
         etpassword.setText(SearchUtility.getClientByPK(db,clientId).getPassword());
-        etCcno.setText(SearchUtility.getClientByPK(db,clientId).getCreditCardNo());*/
+        etCcno.setText(SearchUtility.getClientByPK(db,clientId).getCreditCardNo());
+
+        btnEdit = (Button) findViewById(R.id.btnEditProfile);
+        btnEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ProfileActivity.this, EditProfileActivity.class);
+                intent.putExtra("clientId", clientId);
+                startActivity(intent);
+            }
+        });
+
+
+        btnDashboard = (Button) findViewById(R.id.btnDashboard);
+        btnDashboard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ProfileActivity.this, DashboardActivity.class);
+                intent.putExtra("clientId", clientId);
+                startActivity(intent);
+            }
+        });
     }
 }

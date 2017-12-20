@@ -13,7 +13,10 @@
 
     <string name="lblMyProfile">My Profile</string>
     <string name="btnEdit">Edit</string>
-    
+    <string name="btnEditProfile">Edit Profile</string>
+    <string name="btnSave">Save</string>
+    <string name="btnDashboard">Dashboard</string>
+
     <string name="titleSignUp">Create Profile</string>
     <string name="lblFirstName">First Name:</string>
     <string name="lblLastName">Last Name:</string>
@@ -40,7 +43,6 @@
 
     <string name="titleFlightDetails">Flight Details</string>
     <string name="titlePaymentInfo">Payment Information</string>
-
 
 
 </resources>

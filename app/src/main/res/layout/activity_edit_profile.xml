@@ -1,10 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
-    android:weightSum="1">
+    android:padding="16dp">
 
     <TextView
         android:id="@+id/textView2"
@@ -12,14 +11,14 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="20dp"
-        android:text="@string/lblMyProfile"
+        android:text="@string/btnEditProfile"
         android:textColor="@color/colorPrimary"
         android:textSize="20dp" />
 
     <TableLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp">
+        android:layout_marginTop="35dp">
 
         <TableRow
             android:layout_width="match_parent"
@@ -31,75 +30,70 @@
                 android:layout_height="wrap_content"
                 android:text="@string/lblFirstName" />
 
-            <TextView
-                android:id="@+id/txtFirstName"
-                android:layout_width="wrap_content"
+            <EditText
+                android:id="@+id/editFirstName"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:text="TextView" />
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:text="" />
 
         </TableRow>
 
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+            android:layout_height="match_parent">
 
             <TextView
                 android:id="@+id/lblLastName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
                 android:text="@string/lblLastName" />
 
-            <TextView
-                android:id="@+id/txtLastName"
-                android:layout_width="wrap_content"
+            <EditText
+                android:id="@+id/editLastName"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="10dp"
-                android:text="TextView" />
-
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:text="" />
         </TableRow>
 
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+            android:layout_height="match_parent">
 
             <TextView
                 android:id="@+id/lblEmail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
                 android:text="@string/lblEmail" />
 
-            <TextView
-                android:id="@+id/txtEmail"
+            <EditText
+                android:id="@+id/editEmail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="10dp"
-                android:text="TextView" />
+                android:ems="10"
+                android:inputType="textEmailAddress" />
 
         </TableRow>
 
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+            android:layout_height="match_parent">
 
             <TextView
                 android:id="@+id/lblPassword"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
                 android:text="@string/lblPassword" />
 
-            <TextView
-                android:id="@+id/txtPassword"
+            <EditText
+                android:id="@+id/editPassword"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="10dp"
-                android:text="TextView" />
+                android:ems="10"
+                android:inputType="textPassword" />
 
         </TableRow>
 
@@ -111,32 +105,28 @@
                 android:id="@+id/lblCreditCardNo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
                 android:text="@string/lblCreditCardNo" />
 
-            <TextView
-                android:id="@+id/txtccNo"
+            <EditText
+                android:id="@+id/editCreditCardNo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="10dp"
-                android:text="TextView" />
+                android:ems="10"
+                android:inputType="number" />
 
         </TableRow>
     </TableLayout>
 
     <Button
-        android:id="@+id/btnEditProfile"
-        android:layout_width="357dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_weight="0.02"
-        android:text="@string/btnEditProfile" />
-
-    <Button
-        android:id="@+id/btnDashboard"
+        android:id="@+id/btnSave"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/btnDashboard" />
+        android:text="@string/btnSave" />
+
+    <Button
+        android:id="@+id/btnCancelEdit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/btnCancel" />
 
 </LinearLayout>

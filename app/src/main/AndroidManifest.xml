@@ -23,7 +23,8 @@
         <activity android:name=".activity.SearchActivity" />
         <activity android:name=".activity.SearchResultsActivity" />
         <activity android:name=".activity.FlightDetailsActivity" />
-        <activity android:name=".activity.ProfileActivity"></activity>
+        <activity android:name=".activity.ProfileActivity" />
+        <activity android:name=".activity.EditProfileActivity"></activity>
     </application>
 
 </manifest>

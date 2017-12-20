@@ -12,12 +12,8 @@ import android.widget.Toast;
 
 import team11.comp3074_project11.R;
 import team11.comp3074_project11.dataModel.Client;
-import team11.comp3074_project11.database.FlightAppContract;
 import team11.comp3074_project11.database.FlightAppDatabaseHelper;
-import team11.comp3074_project11.helper.HelperUtility;
 import team11.comp3074_project11.helper.ValidationUtility;
-
-import static team11.comp3074_project11.database.FlightAppContract.ClientEntry.*;
 
 /**
  * Created by Owner on 12/10/2017.
@@ -113,7 +109,7 @@ public class SignUpActivity extends AppCompatActivity {
                 //the imputed email is already used
                 emailEditText.setError("The email address is already used. \n Please use another email address.");
             } else {
-                //when the inputed email is new
+                //when the inputted email is new
                 /*************************
                 insert values to database
                  *************************/
@@ -142,6 +138,7 @@ public class SignUpActivity extends AppCompatActivity {
                     intent.putExtra("clientId", newClientId);
                     intent.putExtra("firstName", firstName);
                     intent.putExtra("lastName", lastName);
+
                     startActivity(intent);
                 }
             }
