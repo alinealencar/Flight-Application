@@ -70,7 +70,10 @@ public class SearchResultsActivity extends Activity {
                         //Use the comparable interface to sort by price
                         Collections.sort(flightList, new Comparator<Flight>() {
                             @Override public int compare(Flight f1, Flight f2) {
-                                return (int) (f1.getCost() - f2.getCost());
+                                if(f1.getCost() < f2.getCost()) return -1;
+                                if(f1.getCost() > f2.getCost()) return 1;
+                                return 0;
+                                //return (int) (f1.getCost() - f2.getCost());
                             }
                         });
                     }
