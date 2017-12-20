@@ -122,6 +122,7 @@ public class EditProfileActivity extends Activity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(EditProfileActivity.this, ProfileActivity.class);
+                intent.putExtra("clientId", clientId);
                 startActivity(intent);
             }
         });
