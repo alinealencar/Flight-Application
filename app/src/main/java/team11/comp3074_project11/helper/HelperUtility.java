@@ -11,8 +11,8 @@ import java.util.TimeZone;
 
 public class HelperUtility {
     static public String doubleToHours(Double d){
-        int hours = 0;
-        int minutes = 0;
+        int hours;
+        int minutes;
 
         hours = (int) Math.floor(d);
         minutes = (int) ((d - hours)*60);

@@ -69,28 +69,29 @@ public class SearchResultsActivity extends Activity {
                     if (sortSpinner.getSelectedItemPosition() == 0) {
                         //Use the comparable interface to sort by price
                         Collections.sort(flightList, new Comparator<Flight>() {
-                                    @Override public int compare(Flight f1, Flight f2) {
-                                        return (int) (f1.getCost() - f2.getCost());
-                                    }
+                            @Override public int compare(Flight f1, Flight f2) {
+                                return (int) (f1.getCost() - f2.getCost());
+                            }
                         });
-                        System.out.println("SORT BY PRICE");
-
                     }
                     //By travel time
                     else if(sortSpinner.getSelectedItemPosition() == 1){
                         //Use the comparable interface to sort by travel time
                         Collections.sort(flightList, new Comparator<Flight>() {
                             @Override public int compare(Flight f1, Flight f2) {
-                                return (int) (f1.getTravelTime() - f2.getTravelTime());
+                                if(f1.getTravelTime() < f2.getTravelTime()) return -1;
+                                if(f1.getTravelTime() > f2.getTravelTime()) return 1;
+                                return 0;
                             }
                         });
-                        System.out.println("SORT BY TRAVEL TIME");
                     }
 
                     for(Flight aF : flightList){
                         LinearLayout individualResult = new LinearLayout(getBaseContext());
                         individualResult.setOrientation(LinearLayout.HORIZONTAL);
                         individualResult.setGravity(Gravity.CENTER);
+
+                        System.out.println("FLIGHT: " + aF.getFlightNumber() + " - " + aF.getTravelTime());
 
                         //FlightInfo
                         TextView flightInfo = new TextView(getBaseContext());
